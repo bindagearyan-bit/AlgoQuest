@@ -1,0 +1,301 @@
+ROLE:
+Act as a Senior DSA Instructor with 10+ years of teaching experience AND a Senior Full-Stack Developer with 10+ years of experience building scalable ed-tech platforms. You will design and build a complete, production-ready web application from scratch.
+
+PROJECT:
+Build "AlgoQuest" (or similar name) — a gamified, Duolingo-style Data Structures & Algorithms learning platform for beginners and intermediate learners. The platform must teach DSA through structured theory, visual animations, dry runs, multi-language code, and interactive practice — all wrapped in a game-like progression system that NEVER jumps difficulty suddenly.
+
+====================================================
+1. TECH STACK (use this exact stack unless a better alternative exists)
+====================================================
+- Frontend: React.js (Next.js 14, App Router) + TypeScript + TailwindCSS + Framer Motion (animations) + Zustand/Redux (state management)
+- Code Editor: Monaco Editor (VS Code's editor) embedded in-browser, themed dark/light
+- Code Execution Engine: Judge0 API (self-hosted via Docker or RapidAPI) supporting C, C++, Java, Python
+- Visualization Engine: D3.js / Framer Motion / Canvas API for algorithm animations (sorting bars, tree traversal, pointer movement, recursion tree, graph traversal)
+- Backend: Node.js + Express.js (or NestJS for better structure) with REST + WebSocket (for real-time leaderboard/streak updates)
+- Database: PostgreSQL (relational data: users, progress, problems) + Redis (caching, leaderboard, session, streak tracking)
+- ORM: Prisma
+- Authentication: JWT + OAuth (Google/GitHub login) via NextAuth.js
+- File/Media Storage: Cloudinary or AWS S3 (for diagrams, badge icons)
+- Hosting: Frontend on Vercel, Backend on Render/Railway, DB on Supabase/Neon
+- CI/CD: GitHub Actions
+- Testing: Jest + React Testing Library (frontend), Supertest (backend)
+
+====================================================
+2. FULL BACKEND ARCHITECTURE
+====================================================
+Design RESTful APIs grouped into these modules:
+
+A. AUTH SERVICE
+- POST /auth/signup, /auth/login, /auth/logout, /auth/refresh-token
+- OAuth callback routes (Google, GitHub)
+- Password reset flow with email (use Nodemailer/Resend)
+- Signup flow MUST include a "Select Your Level" step: Beginner / Intermediate / Advanced (see Section 3 onboarding logic)
+
+B. USER SERVICE
+- GET/PUT /user/profile
+- GET /user/progress (level, sublevel, stage-wise completion %)
+- GET /user/stats (XP, streak, hearts, league, badges, confidence scores per topic)
+- POST /user/avatar
+
+C. CONTENT SERVICE (Topics & Lessons)
+- GET /levels (full level → sublevel → stage tree with lock/unlock status per user)
+- GET /sublevels/:id (theory, diagrams, examples, current stage)
+- GET /sublevels/:id/stages/:stageNumber (returns content for that specific stage: theory/visualization/dry-run/code/problem/quiz/boss)
+- GET /lessons/:id (theory content, dry-run steps, visualization config, code templates in C/C++/Java/Python)
+
+D. PROBLEM SERVICE
+- GET /problems?sublevel=&difficulty=
+- GET /problems/:id (description, constraints, test cases, starter code per language)
+- POST /problems/:id/run (send code + language + custom input to Judge0, return output)
+- POST /problems/:id/submit (validate against hidden test cases, calculate pass/fail, award XP, update stage progress)
+
+E. GAMIFICATION SERVICE
+- POST /xp/add
+- GET /streak (current streak, freeze status)
+- POST /streak/freeze
+- GET /leaderboard?scope=global|friends|league
+- GET /badges, POST /badges/unlock
+- GET /hearts, POST /hearts/consume, POST /hearts/refill (timer-based or gem-based)
+- GET /gems, POST /gems/spend (on hints/streak freeze/themes/sublevel test-out)
+- GET /crowns (crown level per sublevel for replay/mastery tracking)
+
+F. QUIZ/ASSESSMENT SERVICE
+- GET /quiz/:sublevelId
+- POST /quiz/:id/submit (auto-grade MCQs, dry-run prediction questions)
+- Spaced repetition logic: GET /review/due (resurface wrongly answered problems after N days using SM-2 algorithm)
+
+F2. ONBOARDING & ADAPTIVE PLACEMENT SERVICE
+- POST /onboarding/select-level (user selects: Beginner / Intermediate / Advanced)
+- GET /onboarding/placement-quiz (ONLY shown if user selects Intermediate/Advanced — short 8-10 question diagnostic covering concepts across Level 1-4)
+- POST /onboarding/placement-quiz/submit (calculates placement using weighted scoring, suggests a starting sublevel — but NEVER skips the stage-wise difficulty curve within that sublevel)
+
+CRITICAL PLACEMENT/PROGRESSION LOGIC RULES (must be enforced in backend, not just UI):
+1. If user selects "Beginner" at signup → ALWAYS start at Level 1, Sublevel 1.1, Stage 1. No placement quiz, no skipping. Beginners must build confidence with simple wins first.
+2. If user selects "Intermediate" → show placement quiz. Based on score, unlock Levels up to where they tested well, BUT user must still start at Stage 1 (Theory) of whatever sublevel they land on — cannot jump directly into Medium/Hard/Boss stages. They CAN "test out" of a sublevel entirely via an optional challenge exam.
+3. If user selects "Advanced" → harder placement quiz, can unlock up to Level 5. Same rule: must start each sublevel at Stage 1, but can move fast since stages are quick for them.
+4. WITHIN every sublevel, regardless of user's overall level, difficulty MUST progress: Theory → Visualization → Dry Run → Guided Example → Easy → Medium → Quiz → Boss. Never show Medium/Hard as a user's first interaction with a new concept. This is a hard rule for the recommendation engine — no exceptions.
+5. "Test Out" feature: at the start of any locked-but-reachable sublevel, show an optional "Skip Test" (3 hard questions). Passing all 3 skips the sublevel and awards XP; failing even one keeps them in normal Stage 1-8 progression — no penalty.
+6. Track per-user "confidence score" per topic (0-100, calculated from quiz/problem accuracy + time taken). If confidence score < 60% after completing a sublevel, auto-generate an extra practice stage before allowing progress to next sublevel.
+
+G. DISCUSSION/SOCIAL SERVICE
+- GET/POST /problems/:id/discussion
+- GET/POST /friends
+- GET /friends/leaderboard
+- WebSocket channel for real-time streak/XP updates among friends
+
+H. ADMIN SERVICE (content management)
+- CRUD APIs for levels, sublevels, stages, problems, test cases, quizzes (protected, admin-role only)
+
+DATABASE SCHEMA (core tables):
+- users(id, name, email, password_hash, oauth_provider, avatar, xp, gems, hearts, streak_count, last_active, league, selected_level [beginner/intermediate/advanced], created_at)
+- levels(id, name, order_index, icon)
+- sublevels(id, level_id, name, order_index, prerequisite_sublevel_id)
+- stages(id, sublevel_id, stage_number[1-8], stage_type[theory/visualization/dryrun/guided/easy/medium/quiz/boss], content_id)
+- lessons(id, sublevel_id, title, theory_content(markdown/html), visualization_type)
+- code_templates(id, lesson_id/problem_id, language, starter_code, solution_code)
+- problems(id, sublevel_id, title, description, difficulty, constraints, xp_reward)
+- test_cases(id, problem_id, input, expected_output, is_hidden)
+- submissions(id, user_id, problem_id, language, code, status, runtime, created_at)
+- user_progress(id, user_id, level_id, sublevel_id, current_stage, confidence_score, status, completed_at)
+- badges(id, name, description, icon, criteria)
+- user_badges(user_id, badge_id, earned_at)
+- quizzes(id, sublevel_id, question, options, correct_answer, type[mcq/dry-run])
+- quiz_attempts(user_id, quiz_id, selected_answer, is_correct, attempted_at)
+- streaks(user_id, current_streak, longest_streak, freeze_count, last_completed_date)
+- discussions(id, problem_id, user_id, comment, created_at, parent_id)
+- friends(user_id, friend_id, status)
+- placement_quiz_results(user_id, score, recommended_level, recommended_sublevel, taken_at)
+- sublevel_test_out_attempts(user_id, sublevel_id, passed, attempted_at)
+- crowns(user_id, sublevel_id, crown_level, earned_at)
+
+====================================================
+3. FULL DSA CURRICULUM — STRUCTURED AS LEVELS → SUBLEVELS → STAGES
+====================================================
+Structure: MAIN LEVEL (big topic group) → SUBLEVEL (one specific concept) → STAGES (micro-progression: Learn → Easy → Medium → Hard → Boss)
+
+Every SUBLEVEL must follow this exact internal stage order (unlocked sequentially, cannot skip):
+  Stage 1: THEORY (concept explained with analogy + diagram, no code yet)
+  Stage 2: VISUALIZATION (watch animated demo, click "Got it" to proceed)
+  Stage 3: DRY RUN PRACTICE (predict variable states/output — 2-3 questions, builds intuition before coding)
+  Stage 4: GUIDED CODE EXAMPLE (starter code mostly filled, user fills 1-2 blanks — confidence builder)
+  Stage 5: EASY PROBLEM (1 problem, basic application of concept)
+  Stage 6: MEDIUM PROBLEM (1 problem, slight twist/combination with previous concept)
+  Stage 7: QUIZ (3-5 MCQs on theory/complexity)
+  Stage 8: BOSS CHALLENGE (1 harder problem combining 2+ concepts learned so far — unlocks next sublevel + bonus XP + badge)
+
+A user CANNOT jump to Stage 5 without completing Stages 1-4. A user CANNOT access Medium problems without clearing Easy first. This mimics Duolingo's progression — repetition with increasing difficulty, never a sudden jump.
+
+---
+
+LEVEL 1 — FOUNDATIONS (🔥 Starter World)
+  1.1 What is an Algorithm? Time & Space Complexity (Big O via real-life analogies)
+  1.2 Arrays Basics (declaration, traversal, insertion, deletion)
+  1.3 Array Two-Pointer Technique
+  1.4 Sliding Window Technique
+  1.5 Prefix Sum
+  1.6 Strings Basics (traversal, immutability, basic operations)
+  1.7 Basic Math for DSA (GCD/LCM, primes, sieve)
+  1.8 Recursion Basics (factorial, fibonacci — visualize call stack)
+  1.9 Bit Manipulation Basics
+  🏆 Final Boss: Mixed problem combining arrays + recursion
+
+LEVEL 2 — LINEAR STRUCTURES
+  2.1 Singly Linked List (create, traverse, insert, delete)
+  2.2 Doubly & Circular Linked List
+  2.3 Linked List Advanced (reverse, cycle detection - Floyd's)
+  2.4 Stack Basics (array & linked list implementation)
+  2.5 Stack Applications (balanced parentheses, monotonic stack)
+  2.6 Queue Basics (simple, circular)
+  2.7 Deque & Priority Queue
+  2.8 Hashing Basics (hash map/set, collision handling)
+  🏆 Final Boss: Stack + queue combo problem (e.g., LRU cache intro)
+
+LEVEL 3 — NON-LINEAR STRUCTURES
+  3.1 Binary Trees Basics (structure, terminology)
+  3.2 Tree Traversals (inorder, preorder, postorder, level order) — heavy visualization
+  3.3 Binary Search Tree (insert, delete, search)
+  3.4 Balanced Trees Intro (AVL rotations concept)
+  3.5 Heaps (min-heap, max-heap, heapify)
+  3.6 Priority Queue using Heap
+  3.7 Tries (prefix tree, word search applications)
+  3.8 Union-Find / Disjoint Set
+  3.9 Segment Tree & Fenwick Tree (BIT) basics
+  🏆 Final Boss: Tree + Heap combined problem
+
+LEVEL 4 — GRAPHS
+  4.1 Graph Representation (adjacency list/matrix)
+  4.2 BFS
+  4.3 DFS
+  4.4 Topological Sort
+  4.5 Shortest Path — Dijkstra
+  4.6 Shortest Path — Bellman-Ford & Floyd-Warshall
+  4.7 Minimum Spanning Tree (Prim's & Kruskal's)
+  4.8 Strongly Connected Components (Kosaraju/Tarjan)
+  🏆 Final Boss: Real-world pathfinding problem (e.g., network delay time)
+
+LEVEL 5 — ALGORITHMIC PARADIGMS
+  5.1 Sorting Basics (bubble, selection, insertion) — animated comparisons
+  5.2 Efficient Sorting (merge sort, quick sort) — animated divide & conquer
+  5.3 Non-comparison Sorting (counting, radix sort)
+  5.4 Binary Search + Variations
+  5.5 Binary Search on Answer
+  5.6 Greedy Algorithms
+  5.7 Divide & Conquer
+  5.8 Backtracking Basics (permutations, combinations, subsets)
+  5.9 Backtracking Advanced (N-Queens, Sudoku Solver)
+  5.10 Dynamic Programming — 1D (Fibonacci, climbing stairs)
+  5.11 Dynamic Programming — 2D (grid problems, LCS)
+  5.12 Knapsack Patterns (0/1, unbounded)
+  5.13 DP on Strings (LIS, edit distance)
+  5.14 DP on Trees/Graphs/Bitmask DP (intermediate-advanced)
+  🏆 Final Boss: Classic interview DP problem (e.g., word break, coin change)
+
+LEVEL 6 — ADVANCED/INTERMEDIATE (unlocks after Level 5 fully cleared)
+  6.1 Advanced Graphs (bipartite check, A* intro)
+  6.2 Network Flow Basics
+  6.3 String Algorithms — KMP & Z-Algorithm
+  6.4 String Algorithms — Rabin-Karp & Manacher's
+  6.5 Advanced DP Optimizations
+  6.6 System Design Basics for Coding Interviews
+  🏆 Final Boss: Mixed mock-interview style problem set (timed contest mode)
+
+Each Sublevel's theory/code/examples must include:
+1. Beginner-friendly theory (simple analogies, real-world examples)
+2. Step-by-step animated visualization
+3. Dry run/trace table (variable states at each step)
+4. Code implementation in C, C++, Java, and Python (tabbed view)
+5. Time & Space Complexity analysis with explanation
+6. Common mistakes & edge cases
+7. Practice problems (easy → medium → boss, per stage structure above)
+8. Quiz (3-5 MCQs + dry-run prediction questions)
+
+====================================================
+4. CORE GAMIFICATION FEATURES (DUOLINGO-STYLE)
+====================================================
+- Visual skill tree/roadmap with locked/unlocked levels & sublevels (prerequisites must be completed to unlock next)
+- Sublevel progress bar (Duolingo-style dots: ○○○●●●●● filled as stages complete)
+- XP system — earn XP for lessons, quizzes, problems; level up profile
+- Hearts/Lives system — lose heart on wrong quiz/dry-run answer, regenerate over time or via gems
+- Daily streak tracker with streak freeze (purchasable with gems)
+- Leagues/Leaderboard — Bronze to Diamond leagues, weekly reset, promote/demote top & bottom users
+- Badges & achievements for milestones (e.g., "7-day streak", "Sorting Master", "100 Problems Solved")
+- Gems/currency — earned through streaks/challenges, spendable on hints, streak freeze, cosmetic themes, sublevel test-out
+- "Crown levels" per sublevel — after Boss Challenge, optionally redo sublevel at harder tier for extra crowns/XP (keeps advanced learners engaged without forcing beginners to repeat)
+- Visual lock icons (🔒) on levels/sublevels not yet unlocked, with tooltip "Complete [Sublevel X] to unlock"
+- Gentle difficulty-increase animation/message moving Easy → Medium → Boss (e.g., "Nice! Let's level it up a bit 💪") — tone stays encouraging, never intimidating
+- If user fails Medium/Boss 2x in a row, auto-offer "Review Theory" shortcut + simplified hint before next retry
+- Daily goal setter with progress ring
+- "Continue Learning" smart resume feature (remembers exact level/sublevel/stage)
+- Spaced repetition review queue for previously wrong answers (SM-2 algorithm)
+
+====================================================
+5. CODE EDITOR & EXECUTION REQUIREMENTS
+====================================================
+- Embed Monaco Editor styled exactly like VS Code (dark theme "Dracula"/"One Dark Pro" option)
+- Language selector tabs: C, C++, Java, Python
+- "Run Code" button — executes in sandbox via Judge0, shows output in a terminal-style console component (blinking cursor, monospace font, green/white text on black background)
+- "Custom Input" panel
+- "Submit" button — runs against hidden test cases, shows pass/fail with runtime & memory stats
+- Syntax highlighting, auto-indent, bracket matching, line numbers
+- Split-pane layout: Problem description (left) | Code editor (right) | Console (bottom) — resizable panels
+
+====================================================
+6. ANIMATION & VISUALIZATION REQUIREMENTS (CRITICAL — must be best-in-class)
+====================================================
+Use Framer Motion + D3.js/Canvas for:
+- Sorting visualizer: animated bars with color-coded comparisons/swaps, adjustable speed slider, pause/step controls
+- Linked List visualizer: animated node creation, pointer arrows redrawing on insert/delete
+- Tree/BST visualizer: animated node insertion, traversal highlighting (color nodes as visited in sequence)
+- Graph visualizer: animated BFS/DFS with queue/stack shown alongside graph, edge highlighting
+- Recursion visualizer: animated call stack tree showing function calls/returns in real time
+- Two-pointer/sliding window visualizer: animated pointers moving across array with highlighted window
+- DP visualizer: animated grid/table filling for problems like LCS, Knapsack
+- Smooth page transitions, hover micro-interactions, confetti animation on lesson/problem/boss completion
+- Progress bar animations, XP gain pop-up animations, streak flame animation
+- Skeleton loaders for async content, not blank screens
+
+====================================================
+7. UI/UX REQUIREMENTS
+====================================================
+- Clean, colorful, friendly UI similar to Duolingo (rounded cards, mascot character guiding user)
+- Fully responsive (mobile-first, PWA-enabled)
+- Dark/light mode toggle
+- Accessible (ARIA labels, keyboard navigation, good color contrast)
+- Onboarding flow: "Select Your Level" screen (Beginner/Intermediate/Advanced) → placement quiz if not Beginner → personalized starting point
+- Dashboard: progress rings per level, streak counter, XP, league rank, "continue learning" card showing exact sublevel/stage
+- Mascot/character animations for encouragement (correct answer celebration, wrong answer comfort message)
+- [PLACEHOLDER: Detailed UI/UX references, color palette, and layout specs to be provided separately and integrated here]
+
+====================================================
+8. ADDITIONAL FEATURES
+====================================================
+- AI-powered hint system (progressive: nudge → pseudocode → solution) using an LLM API
+- "Explain Like I'm 5" toggle for simplified theory explanations
+- Discussion forum per problem (threaded comments, upvote)
+- Friends system with comparative progress
+- Downloadable cheat-sheet/PDF generator per topic after completion
+- Timed mock interview/contest mode (intermediate level) with real interview-style problems
+- Email/push notifications for streak reminders and daily goals
+
+====================================================
+DELIVERABLES EXPECTED
+====================================================
+1. Complete folder structure for frontend (Next.js) and backend (Node.js/Express or NestJS)
+2. Prisma schema file with all tables and relations listed above
+3. All REST API endpoints implemented with proper validation, error handling, and JWT auth middleware
+4. Reusable React components: SkillTree, SublevelPath, StageCard, LessonCard, CodeEditor, Terminal, Visualizer (per DSA concept), Leaderboard, ProfileDashboard, QuizEngine, OnboardingFlow, PlacementQuiz
+5. Seed data/script to populate database with all DSA levels/sublevels/stages and at least 3 problems per sublevel (easy/medium/boss)
+6. Judge0 integration module for running/submitting code in 4 languages
+7. Fully functioning gamification logic (XP, streaks, hearts, leagues, badges, crowns) with Redis caching
+8. Working onboarding + placement quiz logic enforcing the progression rules in Section 3/F2
+9. Responsive, animated UI matching Duolingo's playful aesthetic
+10. README with setup instructions, environment variables, and deployment steps
+
+BUILD ORDER:
+1. Database schema & backend API setup
+2. Authentication + onboarding/placement quiz logic
+3. Content/curriculum seeding (levels → sublevels → stages)
+4. Code editor + execution integration
+5. Visualizations
+6. Gamification layer (XP, hearts, streaks, leagues, crowns)
+7. Final UI polish and animations
