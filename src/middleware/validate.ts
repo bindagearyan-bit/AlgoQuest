@@ -13,8 +13,8 @@ export const validate = (schema: ZodSchema) => {
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        const formattedErrors = error.errors.map((e) => ({
-          field: e.path.slice(1).join('.'),
+        const formattedErrors = (error.issues || []).map((e: any) => ({
+          field: Array.isArray(e.path) ? e.path.slice(1).join('.') : String(e.path),
           message: e.message,
         }));
         next(new ValidationError('Validation failed', formattedErrors));

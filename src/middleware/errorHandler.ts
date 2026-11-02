@@ -27,7 +27,10 @@ export const errorHandler = (
 
   // Zod validation errors (fallback)
   if (err instanceof ZodError) {
-    const errors = err.errors.map((e) => ({ field: e.path.join('.'), message: e.message }));
+    const errors = (err.issues || []).map((e: any) => ({
+      field: Array.isArray(e.path) ? e.path.join('.') : String(e.path),
+      message: e.message,
+    }));
     res.status(400).json(errorResponse('Validation failed', errors));
     return;
   }

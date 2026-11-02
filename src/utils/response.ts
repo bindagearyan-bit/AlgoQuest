@@ -8,13 +8,13 @@ export interface ApiResponse<T = unknown> {
 export const successResponse = <T>(data: T, message?: string): ApiResponse<T> => ({
   success: true,
   data,
-  ...(message && { message }),
+  ...(message ? { message } : {}),
 });
 
 export const errorResponse = (message: string, errors?: unknown): ApiResponse => ({
   success: false,
   message,
-  ...(errors && { errors }),
+  ...(errors !== undefined ? { errors } : {}),
 });
 
 export const paginatedResponse = <T>(
@@ -34,5 +34,5 @@ export const paginatedResponse = <T>(
     hasNext: page * limit < total,
     hasPrev: page > 1,
   },
-  ...(message && { message }),
+  ...(message ? { message } : {}),
 });

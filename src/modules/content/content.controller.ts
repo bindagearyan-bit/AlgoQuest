@@ -16,7 +16,7 @@ export class ContentController {
 
   async getSublevel(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { id } = req.params;
+      const id = String(req.params.id);
       const userId = req.user?.userId;
       const sublevel = await contentService.getSublevel(id, userId);
       res.status(200).json(successResponse(sublevel));
@@ -27,7 +27,7 @@ export class ContentController {
 
   async getProblems(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { sublevelId } = req.params;
+      const sublevelId = String(req.params.sublevelId);
       const problems = await contentService.getProblems(sublevelId);
       res.status(200).json(successResponse(problems));
     } catch (error) {
@@ -37,7 +37,7 @@ export class ContentController {
 
   async getProblem(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { id } = req.params;
+      const id = String(req.params.id);
       const problem = await contentService.getProblem(id);
       res.status(200).json(successResponse(problem));
     } catch (error) {

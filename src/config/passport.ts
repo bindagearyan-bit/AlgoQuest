@@ -15,7 +15,7 @@ export const configurePassport = (): void => {
           callbackURL: env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/api/auth/google/callback',
         },
         (_accessToken, _refreshToken, profile, done) => {
-          return done(null, profile);
+          return done(null, profile as unknown as Express.User);
         }
       )
     );

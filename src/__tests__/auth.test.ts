@@ -1,5 +1,5 @@
 // Mock external dependencies before any imports
-jest.mock('../../config/database', () => ({
+jest.mock('../config/database', () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
@@ -16,7 +16,7 @@ jest.mock('../../config/database', () => ({
   connectDatabase: jest.fn(),
 }));
 
-jest.mock('../../config/redis', () => ({
+jest.mock('../config/redis', () => ({
   connectRedis: jest.fn(),
   disconnectRedis: jest.fn(),
   redisGet: jest.fn(),
@@ -27,9 +27,9 @@ jest.mock('../../config/redis', () => ({
 }));
 
 import request from 'supertest';
-import createApp from '../../app';
-import { prisma } from '../../config/database';
-import { redisSet, redisExists } from '../../config/redis';
+import createApp from '../app';
+import { prisma } from '../config/database';
+import { redisSet, redisExists } from '../config/redis';
 import bcrypt from 'bcryptjs';
 
 const app = createApp();

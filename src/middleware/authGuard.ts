@@ -3,12 +3,20 @@ import { verifyAccessToken, TokenPayload } from '../utils/jwt';
 import { UnauthorizedError } from '../utils/errors';
 import { prisma } from '../config/database';
 
+declare global {
+  namespace Express {
+    interface User extends TokenPayload {
+      id: string;
+    }
+  }
+}
+
 export interface AuthenticatedRequest extends Request {
-  user?: TokenPayload & { id: string };
+  user?: Express.User;
 }
 
 export const authGuard = async (
-  req: AuthenticatedRequest,
+  req: Request,
   _res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -40,7 +48,7 @@ export const authGuard = async (
 };
 
 export const optionalAuth = async (
-  req: AuthenticatedRequest,
+  req: Request,
   _res: Response,
   next: NextFunction
 ): Promise<void> => {

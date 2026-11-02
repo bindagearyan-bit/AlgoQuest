@@ -45,7 +45,7 @@ export class AuthController {
 
   googleCallback(req: Request, res: Response, next: NextFunction): void {
     try {
-      const profile = req.user as {
+      const profile = req.user as unknown as {
         id: string;
         emails?: Array<{ value: string }>;
         displayName: string;
@@ -72,7 +72,7 @@ export class AuthController {
 
   githubCallback(req: Request, res: Response, next: NextFunction): void {
     try {
-      const profile = req.user as {
+      const profile = req.user as unknown as {
         id: string;
         emails?: Array<{ value: string }>;
         displayName: string;
