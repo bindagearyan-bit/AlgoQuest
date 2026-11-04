@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="cursor-pointer hover:underline" lang="en" onclick="window.location.href='skill_tree_roadmap.html'"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>
+@layer base {
+  html, body { margin: 0; padding: 0; }
+  body { overscroll-behavior: none; }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
+}
+::-webkit-scrollbar { display: none; }
+@keyframes drift {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(100vw); }
+}
+.animate-drift { animation: drift 25s linear infinite; }
+
+/* Pixel perfection typography and crisp rendering rules */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0.05em;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  text-rendering: geometricPrecision;
+  image-rendering: pixelated;
+}
+.font-sans-body {
+  font-family: 'Nunito', sans-serif;
+}
+.font-code {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-secondary-container":"#6e0035","primary":"#5b4fa6","surface-bright":"#faf8ff","tertiary":"#006950","inverse-surface":"#1A2744","tertiary-fixed":"#79f9ce","inverse-on-surface":"#edf0ff","surface-container":"#e9edff","secondary-container":"#fc6d9e","secondary":"#aa2d5e","primary-container":"#7469c1","on-primary-fixed-variant":"#46398f","tertiary-fixed-dim":"#5adcb3","secondary-fixed":"#ffd9e1","on-secondary-fixed":"#3f001b","on-surface":"#0d1b37","on-tertiary":"#ffffff","outline-variant":"#c9c4d3","error":"#ba1a1a","secondary-fixed-dim":"#ffb1c6","on-error-container":"#93000a","on-background":"#0d1b37","on-tertiary-container":"#f5fff8","surface-container-highest":"#d9e2ff","on-secondary-fixed-variant":"#8a0f47","on-secondary":"#ffffff","on-primary-fixed":"#190063","surface-container-lowest":"#ffffff","surface-container-low":"#f2f3ff","primary-fixed-dim":"#c8bfff","surface-dim":"#cdd9ff","surface":"#faf8ff","surface-variant":"#d9e2ff","inverse-primary":"#c8bfff","on-tertiary-fixed-variant":"#00513d","on-primary":"#ffffff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-surface-variant":"#484551","tertiary-container":"#008466","outline":"#787582","background":"#faf8ff","surface-container-high":"#e1e8ff","on-error":"#ffffff","surface-tint":"#5e52a8","on-primary-container":"#fffbff","on-tertiary-fixed":"#002117","cyan-neon":"#00F0FF","magenta-neon":"#FF007F"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","space-lg":"1.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2rem","space-xl":"2.5rem","space-sm":"0.5rem"},"fontFamily":{"pixel":["'Press Start 2P'","monospace"],"nunito":["'Nunito'","sans-serif"],"pixelify":["'Pixelify Sans'","sans-serif"],"mono":["'JetBrains Mono'","'Fira Code'","monospace"]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Pixelify+Sans:wght@400..700&amp;family=Nunito:wght@400;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="font-sans-body text-on-surface min-h-screen flex flex-col cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'" style="background: linear-gradient(135deg, #CDE3F7 0%, #D9BEEA 50%, #F2A9C9 100%);">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-12 left-[-100px] w-32 h-12 bg-white/70 rounded-full blur-[2px] animate-drift"></div>
+<div class="absolute top-28 left-[-150px] w-48 h-16 bg-white/60 rounded-full blur-[2px] animate-drift" style="animation-delay: 8s;"></div>
+</div>
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-lg">
+<a class="font-pixel text-[15px] text-primary font-bold flex items-center gap-space-sm select-none tracking-wide" data-path="dashboard" href="main_dashboard.html">
+<span class="material-symbols-outlined text-[24px] text-secondary">terminal</span> AlgoQuest
+</a>
+<nav class="hidden lg:flex items-center gap-space-xs font-pixel text-[11px]" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="dashboard" href="main_dashboard.html">Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="skill-tree" href="skill_tree_roadmap.html">Skill Tree</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="explore" href="skill_tree_roadmap.html">Explore</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="leaderboard" href="leaderboard.html">Leaderboard</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-sm sm:gap-space-md">
+<div class="hidden sm:flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[16px]">bolt</span>
+<span class="font-pixel text-[10px] text-on-surface">1,250 XP</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">🪙</span>
+<span class="font-pixel text-[10px] text-on-surface">450</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">🔥</span>
+<span class="font-pixel text-[10px] text-on-surface">7</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">❤️</span>
+<span class="font-pixel text-[10px] text-on-surface">3</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform ml-1" onclick="window.location.href='profile_stats_dashboard.html'">
+<span class="material-symbols-outlined text-on-primary text-[20px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 flex-1 relative z-10 max-w-7xl mx-auto px-gutter my-space-lg cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'"><div class="flex flex-col w-full cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- Top Breadcrumb & Status Tracker -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm mb-space-md cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<div class="flex items-center gap-2 flex-wrap cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<span class="font-pixel text-[10px] text-primary bg-primary-fixed/60 px-3 py-1.5 rounded-full shadow-sm cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+        LEVEL 1 &gt; SUBLEVEL 1.4: ARRAYS &amp; POINTERS &gt; STAGE 4
+      </span>
+<span class="font-pixel text-[9px] text-tertiary bg-tertiary-fixed/40 px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span> GUIDED WORKBENCH
+      </span>
+</div>
+<!-- Retro Health & Blank Counter -->
+<div class="flex items-center gap-3">
+<div class="bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-2">
+<span class="font-pixel text-[9px] text-on-surface-variant">BLANKS:</span>
+<div class="flex gap-1">
+<span class="w-4 h-4 rounded bg-secondary-container text-on-secondary-container font-pixel text-[8px] flex items-center justify-center font-bold" id="blank-badge-1">1</span>
+<span class="w-4 h-4 rounded bg-surface-container-highest text-on-surface-variant font-pixel text-[8px] flex items-center justify-center font-bold" id="blank-badge-2">2</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-2">
+<span class="font-pixel text-[9px] text-on-surface-variant">SPACE REQ:</span>
+<span class="font-pixel text-[9px] text-tertiary font-bold">O(1) AUX</span>
+</div>
+</div>
+</div>
+<!-- Stage Header & Instructions Banner -->
+<div class="bg-surface-container-lowest/90 backdrop-blur-xl rounded-2xl p-space-md shadow-md mb-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-40 h-40 bg-secondary-container/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="space-y-1 relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_stories</span>
+<h1 class="font-pixel text-[13px] sm:text-[15px] text-primary tracking-wide">
+          CANONICAL IN-PLACE TWO-POINTERS
+        </h1>
+</div>
+<p class="font-sans-body text-body-md text-on-surface-variant max-w-3xl">
+        Complete the blank sections in the algorithm below to guarantee <span class="font-code text-primary font-bold">O(1)</span> auxiliary space complexity. Fill in the swap mechanics and pointer step mutations to reverse the array in place.
+      </p>
+</div>
+<!-- Quick Tip Box -->
+<div class="bg-surface-container-low px-4 py-2.5 rounded-xl flex items-center gap-3 shrink-0 self-start lg:self-center">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+</div>
+<div>
+<span class="font-pixel text-[9px] text-primary block">TARGET INVARIANT</span>
+<span class="font-sans-body text-body-sm text-on-surface">left &lt; right terminates at median</span>
+</div>
+</div>
+</div>
+<!-- Main IDE Split Layout: Editor Left/Top, Output Terminal Below -->
+<div class="grid grid-cols-1 gap-space-md">
+<!-- CODE EDITOR PANEL (Pixel Outer Frame + Realistic VS Code Inner Engine) -->
+<div class="rounded-2xl overflow-hidden shadow-xl bg-[#11111b] flex flex-col">
+<!-- Top Title Bar (Pixel Retro Frame) -->
+<div class="bg-[#181825] px-4 py-3 flex flex-wrap items-center justify-between gap-2 select-none">
+<div class="flex items-center gap-3">
+<!-- Window Dots -->
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-[#f38ba8] inline-block shadow-sm"></span>
+<span class="w-3 h-3 rounded-full bg-[#f9e2af] inline-block shadow-sm"></span>
+<span class="w-3 h-3 rounded-full bg-[#a6e3a1] inline-block shadow-sm"></span>
+</div>
+<span class="font-pixel text-[10px] text-[#cdd6f4] tracking-wider ml-1">
+            CODE_QUEST_IDE // SUBLEVEL_1.4.EXE
+          </span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-pixel text-[9px] text-[#f9e2af] bg-[#313244] px-2.5 py-1 rounded">
+            BLANKS: <span id="blank-counter-text">2 REMAINING</span>
+</span>
+<button class="font-pixel text-[9px] text-[#bac2de] hover:text-white bg-[#313244] hover:bg-[#45475a] px-2.5 py-1 rounded flex items-center gap-1 transition-all" id="reset-code-btn">
+<span class="material-symbols-outlined text-[13px]">restart_alt</span> RESET
+          </button>
+</div>
+</div>
+<!-- Language Tabs Strip (Monaco-Inspired with Pixel Labels) -->
+<div class="bg-[#1e1e2e] px-3 pt-2 flex items-center gap-1 overflow-x-auto">
+<button class="font-pixel text-[9px] text-[#6c7086] hover:text-[#cdd6f4] px-3 py-1.5 rounded-t-lg transition-colors">
+          C
+        </button>
+<button class="font-pixel text-[9px] text-[#6c7086] hover:text-[#cdd6f4] px-3 py-1.5 rounded-t-lg transition-colors">
+          C++
+        </button>
+<button class="font-pixel text-[9px] text-[#6c7086] hover:text-[#cdd6f4] px-3 py-1.5 rounded-t-lg transition-colors">
+          JAVA
+        </button>
+<button class="font-pixel text-[9px] text-[#89b4fa] bg-[#181825] px-4 py-2 rounded-t-lg flex items-center gap-1.5 shadow-inner">
+<span class="w-2 h-2 rounded-full bg-[#89b4fa]"></span>
+          PYTHON 3 (ACTIVE)
+        </button>
+</div>
+<!-- REALISTIC VS CODE INNER EDITOR -->
+<div class="bg-[#181824] p-4 text-[13px] sm:text-[14px] leading-relaxed font-code text-[#cdd6f4] overflow-x-auto select-text">
+<table class="w-full border-collapse">
+<tbody>
+<!-- Line 1 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">1</td>
+<td class="whitespace-pre"><span class="text-[#cba6f7]">def</span> <span class="text-[#89b4fa]">reverse_array_in_place</span><span class="text-[#cdd6f4]">(arr: list[int]) -&gt; None:</span></td>
+</tr>
+<!-- Line 2 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">2</td>
+<td class="whitespace-pre"><span class="text-[#6c7086] italic">    """</span></td>
+</tr>
+<!-- Line 3 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">3</td>
+<td class="whitespace-pre"><span class="text-[#6c7086] italic">    Mutates the input array into reverse order with O(1) space.</span></td>
+</tr>
+<!-- Line 4 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">4</td>
+<td class="whitespace-pre"><span class="text-[#6c7086] italic">    """</span></td>
+</tr>
+<!-- Line 5 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">5</td>
+<td class="whitespace-pre"> <span class="text-[#cdd6f4]">left = </span><span class="text-[#fab387]">0</span></td>
+</tr>
+<!-- Line 6 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">6</td>
+<td class="whitespace-pre"> <span class="text-[#cdd6f4]">right = </span><span class="text-[#89dceb]">len</span><span class="text-[#cdd6f4]">(arr) - </span><span class="text-[#fab387]">1</span></td>
+</tr>
+<!-- Line 7 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">7</td>
+<td class="whitespace-pre"> </td>
+</tr>
+<!-- Line 8 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">8</td>
+<td class="whitespace-pre"> <span class="text-[#cba6f7]">while</span> <span class="text-[#cdd6f4]">left &lt; right:</span></td>
+</tr>
+<!-- Line 9 (BLANK 1) -->
+<tr class="bg-[#2a2438]/60 transition-colors">
+<td class="w-10 text-right pr-4 text-[#fab387] select-none text-[12px] font-code align-middle">9</td>
+<td class="py-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="text-[#6c7086] whitespace-pre"> </span>
+<!-- Blank 1 input pill -->
+<div class="relative inline-flex items-center">
+<input autocomplete="off" class="bg-[#11111b] text-[#a6e3a1] font-code text-[13px] px-3 py-1.5 rounded-lg border-2 border-[#f9e2af] shadow-[0_0_12px_rgba(249,226,175,0.35)] focus:outline-none focus:border-[#7FFFD4] focus:shadow-[0_0_15px_rgba(127,255,212,0.5)] w-[360px] max-w-full transition-all" id="blank-1-input" spellcheck="false" type="text" value="arr[left], arr[right] = arr[right], arr[left]"/>
+<span class="absolute -top-3 right-2 bg-[#f9e2af] text-[#181825] font-pixel text-[7px] px-1.5 py-0.5 rounded shadow-sm">BLANK 1 // SWAP</span>
+</div>
+<span class="text-[#6c7086] text-[12px] italic hidden sm:inline">// Swap symmetric pointers</span>
+</div>
+</td>
+</tr>
+<!-- Line 10 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">10</td>
+<td class="whitespace-pre"> </td>
+</tr>
+<!-- Line 11 (BLANK 2) -->
+<tr class="bg-[#2a2438]/60 transition-colors">
+<td class="w-10 text-right pr-4 text-[#fab387] select-none text-[12px] font-code align-middle">11</td>
+<td class="py-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="text-[#6c7086] whitespace-pre"> </span>
+<!-- Blank 2 input pill -->
+<div class="relative inline-flex items-center">
+<input autocomplete="off" class="bg-[#11111b] placeholder-[#585b70] text-[#a6e3a1] font-code text-[13px] px-3 py-1.5 rounded-lg border-2 border-[#f9e2af] shadow-[0_0_12px_rgba(249,226,175,0.35)] focus:outline-none focus:border-[#7FFFD4] focus:shadow-[0_0_15px_rgba(127,255,212,0.5)] w-[360px] max-w-full transition-all" id="blank-2-input" placeholder="/* update pointers here */" spellcheck="false" type="text"/>
+<span class="absolute -top-3 right-2 bg-[#f9e2af] text-[#181825] font-pixel text-[7px] px-1.5 py-0.5 rounded shadow-sm">BLANK 2 // STEP</span>
+</div>
+<span class="text-[#6c7086] text-[12px] italic hidden sm:inline">// Move bounds towards center</span>
+</div>
+</td>
+</tr>
+<!-- Line 12 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">12</td>
+<td class="whitespace-pre"> </td>
+</tr>
+<!-- Line 13 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">13</td>
+<td class="whitespace-pre"> <span class="text-[#cba6f7]">return</span> <span class="text-[#cdd6f4]">arr</span></td>
+</tr>
+<!-- Line 14 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">14</td>
+<td class="whitespace-pre"><span class="text-[#6c7086] italic"># Time Complexity: O(n)</span></td>
+</tr>
+<!-- Line 15 -->
+<tr class="hover:bg-[#1e1e2e]/50 transition-colors">
+<td class="w-10 text-right pr-4 text-[#585b70] select-none text-[12px] font-code align-top">15</td>
+<td class="whitespace-pre"><span class="text-[#6c7086] italic"># Auxiliary Space Complexity: O(1) in-place</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Action Controls Strip -->
+<div class="bg-[#181825] px-4 py-3 flex flex-wrap items-center justify-between gap-3 border-t border-[#313244]/40">
+<!-- Hints & Guidance buttons -->
+<div class="flex items-center gap-2">
+<button class="font-pixel text-[9px] sm:text-[10px] text-on-surface-variant hover:text-primary bg-surface-container hover:bg-surface-container-high px-3.5 py-2.5 rounded-xl flex items-center gap-2 transition-all shadow-sm active:scale-95" id="hint-btn">
+<span class="material-symbols-outlined text-[16px] text-amber-500">lightbulb</span>
+            HINT (COST: 0 💎)
+          </button>
+<span class="hidden font-sans-body text-body-sm text-[#cdd6f4] bg-[#313244] px-3 py-1.5 rounded-lg shadow-sm" id="hint-bubble">
+            💡 Tip: Move left inwards (+1) and right outwards/inwards (-1).
+          </span>
+</div>
+<!-- Primary Execution Action Buttons -->
+<div class="flex items-center gap-3">
+<!-- RUN Button (Mint 3D tactile button) -->
+<button class="font-pixel text-[10px] sm:text-[11px] text-[#00382b] bg-[#7FFFD4] hover:bg-[#6ee7c8] px-5 py-3 rounded-xl shadow-[0_4px_0_#48bfa3] active:translate-y-1 active:shadow-none flex items-center gap-2 transition-all" id="run-btn">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+            RUN TESTS
+          </button>
+<!-- CHECK ANSWER Button (Primary Purple) -->
+<button class="font-pixel text-[10px] sm:text-[11px] text-on-primary bg-primary hover:bg-primary-container px-6 py-3 rounded-xl shadow-[0_4px_0_#46398f] active:translate-y-1 active:shadow-none flex items-center gap-2 transition-all" id="check-btn">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+            CHECK ANSWER
+          </button>
+</div>
+</div>
+</div>
+<!-- TERMINAL OUTPUT PANEL -->
+<div class="rounded-2xl overflow-hidden shadow-xl bg-[#0e1017] flex flex-col">
+<!-- Terminal Header Bar (Pixel Retro Styled) -->
+<div class="bg-[#161822] px-4 py-2.5 flex items-center justify-between select-none">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#7FFFD4] text-[18px]">terminal</span>
+<span class="font-pixel text-[10px] text-[#9399b2] tracking-wider">
+            SYSTEM TERMINAL // STDOUT &amp; TEST_RUNNER
+          </span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-pixel text-[9px] text-[#a6e3a1] bg-[#1b2b2b] px-2 py-0.5 rounded">ENV: PY3.11</span>
+<span class="material-symbols-outlined text-[#6c7086] text-[16px] cursor-pointer hover:text-white">horizontal_rule</span>
+<span class="material-symbols-outlined text-[#6c7086] text-[16px] cursor-pointer hover:text-white">check_box_outline_blank</span>
+</div>
+</div>
+<!-- Realistic VS Code Dark Console Output -->
+<div class="p-4 font-code text-[12px] sm:text-[13px] leading-relaxed text-[#cdd6f4] bg-[#0c0d14] min-h-[160px] flex flex-col gap-1.5 select-text overflow-x-auto" id="terminal-screen">
+<div class="text-[#a6adc8] flex items-center gap-2">
+<span class="text-[#a6e3a1]">guest@algoquest</span>:<span class="text-[#89b4fa]">~/stage4</span>$ python3 -m pytest solution.py
+        </div>
+<div class="text-[#6c7086] transition-colors" id="test-1-line">
+          [TEST 1] input: [1, 2, 3, 4, 5] -&gt; output: [5, 4, 3, 2, 1] <span class="text-[#a6e3a1] font-bold">[PASSED ✓]</span>
+</div>
+<div class="text-[#6c7086] transition-colors" id="test-2-line">
+          [TEST 2] input: ["a", "b", "c"] -&gt; output: ["c", "b", "a"] <span class="text-[#a6e3a1] font-bold">[PASSED ✓]</span>
+</div>
+<div class="text-[#6c7086] transition-colors" id="test-3-line">
+          [TEST 3] input: [42] -&gt; output: [42] <span class="text-[#a6e3a1] font-bold">[PASSED ✓]</span>
+</div>
+<div class="text-[#f9e2af] mt-1 font-bold" id="test-summary-line">
+          ⚡ ALL 5 GUIDED TEST CASES MATCH EXPECTED INVARIANTS!
+        </div>
+<div class="text-[#6c7086] text-[11px]">
+          Execution Time: 12ms | Memory Delta: 0 bytes (Strict O(1) in-place confirmation)
+        </div>
+<div class="flex items-center gap-1 text-[#a6e3a1] mt-1">
+<span>&gt; READY FOR SUBMISSION</span>
+<span class="inline-block w-2.5 h-4 bg-[#a6e3a1] animate-pulse"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- SUCCESS & REWARD OVERLAY / MODAL DIALOG (Hidden by default, triggered on Check Answer) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-md hidden items-center justify-center p-4 cursor-pointer hover:underline" id="success-overlay" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest max-w-lg w-full rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col items-center text-center transform transition-all scale-95 duration-200 cursor-pointer hover:underline" id="success-modal-card" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- Top Decorative Confetti / Stars particles -->
+<div class="absolute -top-10 -left-10 w-32 h-32 bg-secondary-container/30 rounded-full blur-2xl"></div>
+<div class="absolute -bottom-10 -right-10 w-32 h-32 bg-tertiary-fixed/30 rounded-full blur-2xl"></div>
+<!-- Pixel Crown / Verified Icon -->
+<div class="w-16 h-16 rounded-2xl bg-tertiary-fixed/40 flex items-center justify-center text-tertiary mb-4 shadow-sm">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<span class="font-pixel text-[10px] text-secondary tracking-widest uppercase mb-1 cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">STAGE 4 COMPLETE</span>
+<h2 class="font-pixel text-[16px] sm:text-[18px] text-on-surface mb-3 leading-tight">
+        CODE VERIFIED!
+      </h2>
+<!-- XP & Coin Reward Chips -->
+<div class="flex items-center gap-3 my-2">
+<div class="bg-surface-container-low px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[20px]">bolt</span>
+<span class="font-pixel text-[11px] text-on-surface">+100 XP</span>
+</div>
+<div class="bg-surface-container-low px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm">
+<span class="text-[16px]">🪙</span>
+<span class="font-pixel text-[11px] text-on-surface">+25 COINS</span>
+</div>
+</div>
+<p class="font-sans-body text-body-md text-on-surface-variant my-4 max-w-md">
+        You successfully implemented the canonical two-pointer reverse logic with optimal <span class="font-code text-primary font-bold">O(1)</span> space complexity. You're ready for the timed practice challenge!
+      </p>
+<!-- Primary Next Stage Action Button -->
+<a class="w-full font-pixel text-[11px] text-[#00382b] bg-[#7FFFD4] hover:bg-[#6ee7c8] py-4 rounded-2xl shadow-[0_5px_0_#48bfa3] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 text-center mt-2" href="stage_5_problem_solving_boss.html">
+        NEXT STAGE: PRACTICE PROBLEM →
+      </a>
+<!-- Secondary review button -->
+<button class="font-pixel text-[9px] text-on-surface-variant hover:text-on-surface mt-4 transition-colors" id="close-modal-btn" onclick="window.location.href='skill_tree_roadmap.html'">
+        [ RETURN TO INSPECT CODE ]
+      </button>
+</div>
+</div>
+<!-- Interactive Logic Script -->
+<script>
+    (function() {
+      const blank1 = document.getElementById('blank-1-input');
+      const blank2 = document.getElementById('blank-2-input');
+      const blankCounter = document.getElementById('blank-counter-text');
+      const badge1 = document.getElementById('blank-badge-1');
+      const badge2 = document.getElementById('blank-badge-2');
+      const hintBtn = document.getElementById('hint-btn');
+      const hintBubble = document.getElementById('hint-bubble');
+      const runBtn = document.getElementById('run-btn');
+      const checkBtn = document.getElementById('check-btn');
+      const terminalScreen = document.getElementById('terminal-screen');
+      const successOverlay = document.getElementById('success-overlay');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const resetBtn = document.getElementById('reset-code-btn');
+
+      // Update remaining blank counts
+      function updateBlankStatus() {
+        let remaining = 0;
+        if (!blank1.value.trim()) {
+          remaining++;
+          badge1.className = "w-4 h-4 rounded bg-surface-container-highest text-on-surface-variant font-pixel text-[8px] flex items-center justify-center font-bold";
+        } else {
+          badge1.className = "w-4 h-4 rounded bg-tertiary-fixed text-on-tertiary-fixed font-pixel text-[8px] flex items-center justify-center font-bold";
+        }
+
+        if (!blank2.value.trim()) {
+          remaining++;
+          badge2.className = "w-4 h-4 rounded bg-surface-container-highest text-on-surface-variant font-pixel text-[8px] flex items-center justify-center font-bold";
+        } else {
+          badge2.className = "w-4 h-4 rounded bg-tertiary-fixed text-on-tertiary-fixed font-pixel text-[8px] flex items-center justify-center font-bold";
+        }
+
+        blankCounter.textContent = remaining === 0 ? "0 ALL FILLED" : remaining + " REMAINING";
+      }
+
+      blank1.addEventListener('input', updateBlankStatus);
+      blank2.addEventListener('input', updateBlankStatus);
+
+      // Pre-fill Blank 2 if user clicks on it for rapid testing
+      blank2.addEventListener('focus', function() {
+        if (!this.value) {
+          this.value = "left += 1; right -= 1";
+          updateBlankStatus();
+        }
+      });
+
+      // Toggle hint
+      hintBtn.addEventListener('click', function() {
+        hintBubble.classList.toggle('hidden');
+      });
+
+      // Reset Code
+      resetBtn.addEventListener('click', function() {
+        blank1.value = "arr[left], arr[right] = arr[right], arr[left]";
+        blank2.value = "";
+        updateBlankStatus();
+      });
+
+      // Run tests animation
+      runBtn.addEventListener('click', function() {
+        const originalText = runBtn.innerHTML;
+        runBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> RUNNING...';
+        runBtn.disabled = true;
+
+        setTimeout(() => {
+          runBtn.innerHTML = originalText;
+          runBtn.disabled = false;
+          // flash terminal
+          terminalScreen.classList.add('ring-2', 'ring-[#7FFFD4]');
+          setTimeout(() => terminalScreen.classList.remove('ring-2', 'ring-[#7FFFD4]'), 500);
+        }, 600);
+      });
+
+      // Check Answer trigger success modal
+      checkBtn.addEventListener('click', function() {
+        // Ensure both blanks have content or autofill for demo
+        if (!blank2.value.trim()) {
+          blank2.value = "left += 1; right -= 1";
+          updateBlankStatus();
+        }
+        successOverlay.classList.remove('hidden');
+        successOverlay.classList.add('flex');
+      });
+
+      // Close modal
+      closeModalBtn.addEventListener('click', function() {
+        successOverlay.classList.add('hidden');
+        successOverlay.classList.remove('flex');
+      });
+
+      // Initial check
+      updateBlankStatus();
+    })();
+  </script>
+</div></main>
+<!-- Footer -->
+<footer class="w-full relative z-10 pt-space-xl pb-space-lg overflow-hidden" style="background-color: #1B2A4A;">
+<div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center text-inverse-on-surface gap-space-md relative z-10">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed">code</span>
+<span class="font-pixel text-sm font-bold text-inverse-on-surface">AlgoQuest</span>
+</div>
+<p class="font-pixel text-[10px] text-outline-variant">© 2025 AlgoQuest DSA Platform. Level up your code.</p>
+<div class="flex gap-space-md">
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+</div>
+</div>
+</footer>
+</body></html>

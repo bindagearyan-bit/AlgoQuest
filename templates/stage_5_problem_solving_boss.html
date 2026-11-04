@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html class="cursor-pointer hover:underline" lang="en" onclick="window.location.href='skill_tree_roadmap.html'"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>
+@layer base {
+  html, body { margin: 0; padding: 0; }
+  body { overscroll-behavior: none; }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
+}
+::-webkit-scrollbar { display: none; }
+@keyframes drift {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(100vw); }
+}
+.animate-drift { animation: drift 25s linear infinite; }
+
+/* Pixel perfection typography and crisp rendering rules */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0.05em;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  text-rendering: geometricPrecision;
+  image-rendering: pixelated;
+}
+.font-sans-body {
+  font-family: 'Nunito', sans-serif;
+}
+.font-code {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-secondary-container":"#6e0035","primary":"#5b4fa6","surface-bright":"#faf8ff","tertiary":"#006950","inverse-surface":"#1A2744","tertiary-fixed":"#79f9ce","inverse-on-surface":"#edf0ff","surface-container":"#e9edff","secondary-container":"#fc6d9e","secondary":"#aa2d5e","primary-container":"#7469c1","on-primary-fixed-variant":"#46398f","tertiary-fixed-dim":"#5adcb3","secondary-fixed":"#ffd9e1","on-secondary-fixed":"#3f001b","on-surface":"#0d1b37","on-tertiary":"#ffffff","outline-variant":"#c9c4d3","error":"#ba1a1a","secondary-fixed-dim":"#ffb1c6","on-error-container":"#93000a","on-background":"#0d1b37","on-tertiary-container":"#f5fff8","surface-container-highest":"#d9e2ff","on-secondary-fixed-variant":"#8a0f47","on-secondary":"#ffffff","on-primary-fixed":"#190063","surface-container-lowest":"#ffffff","surface-container-low":"#f2f3ff","primary-fixed-dim":"#c8bfff","surface-dim":"#cdd9ff","surface":"#faf8ff","surface-variant":"#d9e2ff","inverse-primary":"#c8bfff","on-tertiary-fixed-variant":"#00513d","on-primary":"#ffffff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-surface-variant":"#484551","tertiary-container":"#008466","outline":"#787582","background":"#faf8ff","surface-container-high":"#e1e8ff","on-error":"#ffffff","surface-tint":"#5e52a8","on-primary-container":"#fffbff","on-tertiary-fixed":"#002117","cyan-neon":"#00F0FF","magenta-neon":"#FF007F"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","space-lg":"1.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2rem","space-xl":"2.5rem","space-sm":"0.5rem"},"fontFamily":{"pixel":["'Press Start 2P'","monospace"],"nunito":["'Nunito'","sans-serif"],"pixelify":["'Pixelify Sans'","sans-serif"],"mono":["'JetBrains Mono'","'Fira Code'","monospace"]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Pixelify+Sans:wght@400..700&amp;family=Nunito:wght@400;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="font-sans-body text-on-surface min-h-screen flex flex-col cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'" style="background: linear-gradient(135deg, #CDE3F7 0%, #D9BEEA 50%, #F2A9C9 100%);">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-12 left-[-100px] w-32 h-12 bg-white/70 rounded-full blur-[2px] animate-drift"></div>
+<div class="absolute top-28 left-[-150px] w-48 h-16 bg-white/60 rounded-full blur-[2px] animate-drift" style="animation-delay: 8s;"></div>
+</div>
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-lg">
+<a class="font-pixel text-[15px] text-primary font-bold flex items-center gap-space-sm select-none tracking-wide" data-path="dashboard" href="main_dashboard.html">
+<span class="material-symbols-outlined text-[24px] text-secondary">terminal</span> AlgoQuest
+</a>
+<nav class="hidden lg:flex items-center gap-space-xs font-pixel text-[11px]" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="dashboard" href="main_dashboard.html">Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="skill-tree" href="skill_tree_roadmap.html">Skill Tree</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="explore" href="skill_tree_roadmap.html">Explore</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="leaderboard" href="leaderboard.html">Leaderboard</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-sm sm:gap-space-md">
+<div class="hidden sm:flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[16px]">bolt</span>
+<span class="font-pixel text-[10px] text-on-surface">1,250 XP</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">🪙</span>
+<span class="font-pixel text-[10px] text-on-surface">450</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">🔥</span>
+<span class="font-pixel text-[10px] text-on-surface">7</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">❤️</span>
+<span class="font-pixel text-[10px] text-on-surface">3</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform ml-1" onclick="window.location.href='profile_stats_dashboard.html'">
+<span class="material-symbols-outlined text-on-primary text-[20px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 flex-1 relative z-10 max-w-7xl mx-auto px-gutter my-space-lg cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'"><div class="flex flex-col w-full gap-space-md cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- TOP HUD BAR -->
+<div class="w-full bg-surface-container-lowest/90 backdrop-blur-md rounded-2xl p-space-md shadow-md flex flex-wrap items-center justify-between gap-space-md cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- Left: Breadcrumb & Stage Info -->
+<div class="flex flex-wrap items-center gap-space-md cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<div class="flex items-center gap-space-xs cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<span class="material-symbols-outlined text-secondary text-[20px]">castle</span>
+<span class="font-pixel text-[11px] text-primary tracking-wide cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">STAGE 8 OF 8:</span>
+<span class="font-pixel text-[11px] text-secondary font-bold" id="hudStageTitle">BOSS CHALLENGE</span>
+</div>
+<!-- Variant Switcher Pill Tabs -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-full shadow-inner gap-1">
+<button class="font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="btnEasy" onclick="switchVariant('easy')">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span> EASY
+        </button>
+<button class="font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="btnMedium" onclick="switchVariant('medium')">
+<span class="w-2 h-2 rounded-full" style="background-color: #facc15;"></span> MEDIUM
+        </button>
+<button class="font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all bg-secondary text-on-secondary shadow-sm flex items-center gap-1.5" id="btnBoss" onclick="switchVariant('boss')">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-ping"></span> BOSS: DNF
+        </button>
+</div>
+</div>
+<!-- Right: Timer, Hearts, Hint Button -->
+<div class="flex items-center gap-space-sm sm:gap-space-md flex-wrap">
+<!-- Boss Timer Countdown -->
+<div class="flex items-center gap-2 bg-gradient-to-r from-secondary/15 to-secondary-container/30 px-3.5 py-1.5 rounded-xl shadow-sm" id="bossTimerBadge">
+<span class="material-symbols-outlined text-secondary text-[16px] animate-pulse">timer</span>
+<span class="font-pixel text-[11px] text-secondary font-bold tracking-wider" id="timerCountdown">⏳ 24:58 REMAINING</span>
+</div>
+<!-- Hearts Display -->
+<div class="flex items-center gap-1 bg-surface-container-low px-3 py-1.5 rounded-full shadow-inner" title="3 Lives Remaining">
+<span class="font-pixel text-[12px] tracking-widest text-secondary select-none">❤️❤️❤️</span>
+</div>
+<!-- Hint Action -->
+<button class="font-pixel text-[9px] bg-surface-container-high hover:bg-surface-variant text-primary px-3.5 py-2 rounded-xl transition-all shadow-sm active:translate-y-0.5 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span>
+<span>HINT (50 💎)</span>
+</button>
+<!-- Victory Trigger Demo Button -->
+<button class="font-pixel text-[9px] bg-tertiary-container hover:bg-tertiary text-on-tertiary px-3 py-2 rounded-xl shadow-sm transition-all active:scale-95 flex items-center gap-1" onclick="toggleVictoryModal(true)">
+<span class="material-symbols-outlined text-[14px]">emoji_events</span>
+<span>TEST VICTORY</span>
+</button>
+</div>
+</div>
+<!-- MAIN 2-COLUMN SPLIT PANEL -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg w-full items-start cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- LEFT PANEL: Problem Specification (~40% on Desktop = 5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md max-h-[840px] overflow-y-auto pr-1 cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- Header Card with Boss Banner -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-md flex flex-col gap-space-sm relative overflow-hidden cursor-pointer hover:underline" id="problemHeaderCard" onclick="window.location.href='skill_tree_roadmap.html'">
+<!-- Ambient Decorative Accent -->
+<div class="absolute -top-12 -right-12 w-36 h-36 bg-secondary/10 rounded-full blur-2xl pointer-events-none" id="cardAccentGlow"></div>
+<div class="flex items-center justify-between gap-space-sm flex-wrap">
+<span class="font-pixel text-[10px] px-3 py-1 rounded-md bg-secondary text-on-secondary shadow-sm flex items-center gap-1.5" id="variantBadge">
+<span class="material-symbols-outlined text-[14px]">skull</span> BOSS CHALLENGE
+          </span>
+<span class="font-pixel text-[9px] text-outline tracking-wider">+350 XP REWARD</span>
+</div>
+<h1 class="font-pixel text-[15px] sm:text-[16px] text-on-surface leading-relaxed mt-1 cursor-pointer hover:underline" id="problemTitle" onclick="window.location.href='skill_tree_roadmap.html'">
+          STAGE 8: DUTCH NATIONAL FLAG PARTITION
+        </h1>
+<!-- Problem Description in Nunito -->
+<div class="font-sans-body text-body-md text-on-surface-variant flex flex-col gap-space-sm mt-1 leading-relaxed" id="problemDescription">
+<p>
+            Given an array <code class="font-code font-bold bg-surface-container-high px-1.5 py-0.5 rounded text-[13px] text-primary">nums</code> containing <span class="font-bold text-on-surface">n</span> objects colored red, white, or blue, sort them <strong class="text-on-surface">in-place</strong> such that items of the same color are adjacent, in order: red (0), white (1), and blue (2).
+          </p>
+<div class="p-3 bg-surface-container-low rounded-xl text-body-sm flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">verified_user</span>
+<span>You must solve this in <strong class="text-on-surface">one single pass</strong> using only <strong class="text-on-surface">O(1) extra auxiliary memory</strong>. Library sort functions are strictly banned.</span>
+</div>
+</div>
+</div>
+<!-- Example 1 Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-pixel text-[10px] text-primary">EXAMPLE 1:</span>
+<span class="font-pixel text-[8px] text-tertiary">NORMALIZED CASE</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5 font-code text-[12px] text-on-surface">
+<div><span class="text-outline select-none">Input:  </span><span class="font-bold text-primary">nums = [2, 0, 2, 1, 1, 0]</span></div>
+<div><span class="text-outline select-none">Output: </span><span class="font-bold text-tertiary-container">[0, 0, 1, 1, 2, 2]</span></div>
+<div><span class="text-outline select-none">State:  </span><span class="text-on-surface-variant text-[11px]">Red(0,0), White(1,1), Blue(2,2) partition locked</span></div>
+</div>
+</div>
+<!-- Example 2 Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-pixel text-[10px] text-primary">EXAMPLE 2:</span>
+<span class="font-pixel text-[8px] text-secondary">MINIMAL EDGE CASE</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5 font-code text-[12px] text-on-surface">
+<div><span class="text-outline select-none">Input:  </span><span class="font-bold text-primary">nums = [2, 0, 1]</span></div>
+<div><span class="text-outline select-none">Output: </span><span class="font-bold text-tertiary-container">[0, 1, 2]</span></div>
+</div>
+</div>
+<!-- Constraints Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-md flex flex-col gap-space-xs">
+<span class="font-pixel text-[10px] text-primary mb-1">CONSTRAINTS &amp; INVARIANTS:</span>
+<ul class="font-sans-body text-body-sm text-on-surface-variant flex flex-col gap-1.5 list-none">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+<span><code class="font-code text-[12px] bg-surface-container px-1 rounded">n == nums.length</code> where <code class="font-code text-[12px] bg-surface-container px-1 rounded">1 &lt;= n &lt;= 300</code></span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+<span><code class="font-code text-[12px] bg-surface-container px-1 rounded">nums[i]</code> is strictly <code class="font-code text-[12px] text-secondary font-bold">0</code>, <code class="font-code text-[12px] font-bold">1</code>, or <code class="font-code text-[12px] text-primary font-bold">2</code></span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+<span><strong class="text-on-surface">Space Complexity:</strong> Strictly <code class="font-code text-[12px] bg-surface-container px-1 rounded font-bold">O(1)</code> auxiliary memory</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+<span><strong class="text-on-surface">Time Complexity:</strong> Strictly <code class="font-code text-[12px] bg-surface-container px-1 rounded font-bold">O(N)</code> single-pass pointer movement</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- RIGHT PANEL: Monaco Code Editor + Runner (~60% on Desktop = 7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Code Editor Panel Frame -->
+<div class="w-full bg-[#1A1E2E] rounded-2xl shadow-xl overflow-hidden flex flex-col">
+<!-- Monaco Frame Title & Language Bar -->
+<div class="bg-[#141824] px-space-md py-3 flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-[#FF5F56] inline-block shadow-sm"></span>
+<span class="w-3 h-3 rounded-full bg-[#FFBD2E] inline-block shadow-sm"></span>
+<span class="w-3 h-3 rounded-full bg-[#27C93F] inline-block shadow-sm"></span>
+</div>
+<span class="font-pixel text-[9px] text-[#A6ACCD] tracking-wider ml-2 hidden sm:inline">
+              SOLVE_CHAMBER.CPP // MONACO ENGINE
+            </span>
+</div>
+<!-- Language Selector Tabs in Press Start 2P -->
+<div class="flex items-center gap-1 bg-[#1F2438] p-1 rounded-lg">
+<button class="font-pixel text-[8px] px-2.5 py-1 rounded bg-primary text-on-primary shadow-sm transition-all" id="tabCpp" onclick="setLanguage('cpp')">
+              C++ 20
+            </button>
+<button class="font-pixel text-[8px] px-2.5 py-1 rounded text-[#A6ACCD] hover:text-white transition-all" id="tabPy" onclick="setLanguage('py')">
+              PYTHON 3
+            </button>
+<button class="font-pixel text-[8px] px-2.5 py-1 rounded text-[#A6ACCD] hover:text-white transition-all" id="tabJava" onclick="setLanguage('java')">
+              JAVA 17
+            </button>
+<button class="font-pixel text-[8px] px-2.5 py-1 rounded text-[#A6ACCD] hover:text-white transition-all" id="tabTs" onclick="setLanguage('ts')">
+              TYPESCRIPT
+            </button>
+</div>
+</div>
+<!-- Editor Workspace Area -->
+<div class="flex w-full bg-[#1A1E2E] text-[13px] font-code leading-6 p-space-md overflow-x-auto min-h-[340px]">
+<!-- Line Numbers Column -->
+<div class="select-none text-[#5C6370] pr-4 text-right flex flex-col border-r border-[#2C314A]/40 font-code text-[12px] opacity-60">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
+</div>
+<!-- Realistic Syntax Highlighted Code -->
+<div class="pl-4 flex-1 text-[#E6EDF3] whitespace-pre font-code text-[12.5px] outline-none" contenteditable="true" id="codeEditorArea" spellcheck="false">
+<span class="text-[#FF7B72]">class</span> <span class="text-[#FFA657]">Solution</span> {
+<span class="text-[#FF7B72]">public</span>:
+    <span class="text-[#79C0FF]">void</span> <span class="text-[#D2A8FF]">sortColors</span>(vector&lt;<span class="text-[#79C0FF]">int</span>&gt;&amp; <span class="text-[#FFA657]">nums</span>) {
+        <span class="text-[#79C0FF]">int</span> <span class="text-[#FFA657]">low</span> = <span class="text-[#79C0FF]">0</span>, <span class="text-[#FFA657]">mid</span> = <span class="text-[#79C0FF]">0</span>, <span class="text-[#FFA657]">high</span> = <span class="text-[#FFA657]">nums</span>.<span class="text-[#D2A8FF]">size</span>() - <span class="text-[#79C0FF]">1</span>;
+        
+        <span class="text-[#FF7B72]">while</span> (<span class="text-[#FFA657]">mid</span> &lt;= <span class="text-[#FFA657]">high</span>) {
+            <span class="text-[#FF7B72]">if</span> (<span class="text-[#FFA657]">nums</span>[<span class="text-[#FFA657]">mid</span>] == <span class="text-[#79C0FF]">0</span>) {
+                <span class="text-[#D2A8FF]">swap</span>(<span class="text-[#FFA657]">nums</span>[<span class="text-[#FFA657]">low</span>++], <span class="text-[#FFA657]">nums</span>[<span class="text-[#FFA657]">mid</span>++]);
+            } <span class="text-[#FF7B72]">else if</span> (<span class="text-[#FFA657]">nums</span>[<span class="text-[#FFA657]">mid</span>] == <span class="text-[#79C0FF]">1</span>) {
+                <span class="text-[#FFA657]">mid</span>++;
+            } <span class="text-[#FF7B72]">else</span> {
+                <span class="text-[#D2A8FF]">swap</span>(<span class="text-[#FFA657]">nums</span>[<span class="text-[#FFA657]">mid</span>], <span class="text-[#FFA657]">nums</span>[<span class="text-[#FFA657]">high</span>--]);
+            }
+        }
+    }
+};</div>
+</div>
+<!-- Terminal & Testbench Console (Bottom Portion of Panel) -->
+<div class="bg-[#121520] flex flex-col">
+<!-- Terminal Header -->
+<div class="bg-[#161A28] px-space-md py-2.5 flex items-center justify-between cursor-pointer select-none" onclick="toggleTerminal()">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">terminal</span>
+<span class="font-pixel text-[9px] text-[#A6ACCD]">TERMINAL &amp; TESTBENCH RUNNER</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span>
+<span class="font-pixel text-[8px] text-tertiary-fixed" id="terminalStatus">3/3 TESTS PASSING</span>
+<span class="material-symbols-outlined text-[#A6ACCD] text-[18px]" id="terminalToggleIcon">expand_more</span>
+</div>
+</div>
+<!-- Console Output Stream -->
+<div class="p-space-md font-code text-[12px] leading-relaxed flex flex-col gap-1 text-[#E6EDF3] bg-[#0E111A]" id="terminalBody">
+<div class="text-[#8B949E] flex items-center gap-2">
+<span class="text-tertiary-fixed font-bold">$</span>
+<span>algoquest-runner --suite=boss_dnf_partition --strict-invariants</span>
+</div>
+<div class="text-[#79C0FF] text-[11px] mt-0.5">
+              [SYSTEM] Running test suites against Hidden Boss Invariants &amp; O(1) Space Guard...
+            </div>
+<div class="text-tertiary-fixed flex items-center gap-2 mt-1">
+<span>✓</span>
+<span>Test Case 1: [2, 0, 2, 1, 1, 0] ➔ [0, 0, 1, 1, 2, 2] (Passed in 2ms)</span>
+</div>
+<div class="text-tertiary-fixed flex items-center gap-2">
+<span>✓</span>
+<span>Test Case 2: [0] ➔ [0] (Passed in 0ms)</span>
+</div>
+<div class="text-tertiary-fixed flex items-center gap-2">
+<span>✓</span>
+<span>Test Case 3: [2, 2, 2, 0, 0, 0] ➔ [0, 0, 0, 2, 2, 2] (Passed in 1ms)</span>
+</div>
+<div class="text-[#FFA657] mt-1 text-[11px] bg-[#161B22] p-2 rounded-lg flex items-center justify-between">
+<span>⚡ Memory Usage: 8.4 MB (Beats 98.7% of Questers)</span>
+<span>Time: O(N) single-pass</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Dock: Run Code & Submit Button -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-md flex items-center justify-between gap-space-md flex-wrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">info</span>
+<span class="font-pixel text-[9px] text-on-surface-variant">AUTO-SAVED 20 SECONDS AGO</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<!-- Run Code Ghost Button -->
+<button class="font-pixel text-[10px] bg-surface-container-low hover:bg-surface-container text-on-surface px-5 py-3 rounded-xl transition-all shadow-sm active:translate-y-0.5 flex items-center gap-2" onclick="runCodeSimulation()">
+<span class="material-symbols-outlined text-[16px] text-primary">play_arrow</span>
+<span>RUN CODE</span>
+</button>
+<!-- Submit Solution 3D Mint Pill Button -->
+<button class="font-pixel text-[10px] bg-gradient-to-r from-tertiary-fixed to-tertiary-fixed-dim hover:brightness-105 text-[#002117] font-bold px-7 py-3 rounded-full transition-all shadow-[0_4px_0_#006950] active:translate-y-1 active:shadow-none flex items-center gap-2" onclick="submitSolution()">
+<span class="material-symbols-outlined text-[18px] text-[#002117]">rocket_launch</span>
+<span>SUBMIT SOLUTION</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BOSS DEFEATED VICTORY MODAL OVERLAY -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-inverse-surface/75 backdrop-blur-md hidden" id="victoryModal">
+<!-- Modal Container with Gold/Boss Corner Pixel Accent Frame -->
+<div class="relative w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-2xl p-space-xl overflow-hidden flex flex-col items-center text-center">
+<!-- Top Decorative Boss Glow Header -->
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 w-72 h-36 bg-gradient-to-b from-secondary to-transparent opacity-25 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Close Action -->
+<button class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface p-2 rounded-full hover:bg-surface-container transition-all" onclick="toggleVictoryModal(false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Pixel Trophy Icon / Crest -->
+<div class="w-20 h-20 rounded-2xl bg-secondary-container/20 flex items-center justify-center shadow-lg relative mb-space-md">
+<span class="material-symbols-outlined text-secondary text-[48px] animate-bounce">military_tech</span>
+<span class="absolute -top-2 -right-2 text-[20px]">✨</span>
+</div>
+<!-- Boss Victory Headline -->
+<h2 class="font-pixel text-[15px] sm:text-[17px] text-secondary leading-relaxed mb-space-sm">
+        🏆 BOSS DEFEATED!<br/>SUBLEVEL 1.4 CLEARED!
+      </h2>
+<!-- Floating Reward Badges -->
+<div class="flex items-center gap-space-sm mb-space-md">
+<div class="font-pixel text-[10px] bg-tertiary-container text-on-tertiary px-3.5 py-1.5 rounded-full shadow-sm">
+          +200 XP REWARD
+        </div>
+<div class="font-pixel text-[10px] bg-secondary-fixed text-on-secondary-fixed px-3.5 py-1.5 rounded-full shadow-sm">
+          +200 GOLD COINS 🪙
+        </div>
+</div>
+<!-- Badge Unlocked Card -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-md flex items-center gap-space-md text-left mb-space-lg">
+<div class="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[30px]">shield_person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[8px] text-secondary tracking-widest uppercase">RARE BADGE UNLOCKED</span>
+<span class="font-pixel text-[12px] text-on-surface mt-0.5">POINTER WARDEN</span>
+<p class="font-sans-body text-body-sm text-on-surface-variant mt-0.5">
+            Mastered 3-way in-place partitioning with zero extra memory overhead!
+          </p>
+</div>
+</div>
+<!-- CTA Buttons in Press Start 2P -->
+<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<button class="font-pixel text-[10px] bg-surface-container-high hover:bg-surface-variant text-on-surface py-3.5 px-4 rounded-xl transition-all shadow-sm active:translate-y-0.5" onclick="window.location.href='leaderboard.html'">
+          VIEW LEADERBOARD
+        </button>
+<button class="font-pixel text-[10px] bg-primary text-on-primary hover:bg-primary-container py-3.5 px-4 rounded-xl transition-all shadow-md active:translate-y-0.5 flex items-center justify-center gap-2" onclick="window.location.href='sublevel_overview.html'">
+<span>NEXT REALM</span>
+<span>→</span>
+</button>
+</div>
+</div>
+</div>
+<script class="cursor-pointer hover:underline" onclick="window.location.href='skill_tree_roadmap.html'">
+    // State management for Easy, Medium, and Boss variations
+    function switchVariant(variant) {
+      const btnEasy = document.getElementById('btnEasy');
+      const btnMedium = document.getElementById('btnMedium');
+      const btnBoss = document.getElementById('btnBoss');
+      const hudStageTitle = document.getElementById('hudStageTitle');
+      const timerBadge = document.getElementById('bossTimerBadge');
+      const variantBadge = document.getElementById('variantBadge');
+      const problemTitle = document.getElementById('problemTitle');
+      const problemDesc = document.getElementById('problemDescription');
+      const cardGlow = document.getElementById('cardAccentGlow');
+
+      // Reset tabs styling
+      [btnEasy, btnMedium, btnBoss].forEach(b => {
+        b.className = "font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all text-on-surface-variant hover:text-on-surface flex items-center gap-1.5";
+      });
+
+      if (variant === 'easy') {
+        btnEasy.className = "font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all bg-tertiary-container text-on-tertiary shadow-sm flex items-center gap-1.5";
+        hudStageTitle.textContent = "STAGE 1: PRACTICE ARENA";
+        hudStageTitle.className = "font-pixel text-[11px] text-tertiary font-bold";
+        timerBadge.classList.add('hidden');
+        variantBadge.className = "font-pixel text-[10px] px-3 py-1 rounded-md bg-tertiary-container text-on-tertiary shadow-sm flex items-center gap-1.5";
+        variantBadge.innerHTML = '<span class="material-symbols-outlined text-[14px]">eco</span> EASY CHALLENGE';
+        problemTitle.textContent = "STAGE 1: TWO SUM PARTITION";
+        problemDesc.innerHTML = `<p>Given an array of integers <code class="font-code font-bold bg-surface-container-high px-1.5 py-0.5 rounded text-[13px] text-primary">nums</code> and an integer <code class="font-code font-bold bg-surface-container-high px-1.5 py-0.5 rounded text-[13px] text-primary">target</code>, return indices of the two numbers such that they add up to target.</p>`;
+        cardGlow.className = "absolute -top-12 -right-12 w-36 h-36 bg-tertiary/10 rounded-full blur-2xl pointer-events-none";
+      } else if (variant === 'medium') {
+        btnMedium.className = "font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all bg-yellow-500 text-black shadow-sm flex items-center gap-1.5";
+        hudStageTitle.textContent = "STAGE 5: TRIAL GATE";
+        hudStageTitle.className = "font-pixel text-[11px] text-yellow-600 font-bold";
+        timerBadge.classList.add('hidden');
+        variantBadge.className = "font-pixel text-[10px] px-3 py-1 rounded-md bg-yellow-500 text-black shadow-sm flex items-center gap-1.5";
+        variantBadge.innerHTML = '<span class="material-symbols-outlined text-[14px]">shield</span> MEDIUM CHALLENGE';
+        problemTitle.textContent = "STAGE 5: SORT AN ARRAY (QUICKSORT)";
+        problemDesc.innerHTML = `<p>Given an array of integers <code class="font-code font-bold bg-surface-container-high px-1.5 py-0.5 rounded text-[13px] text-primary">nums</code>, sort the array in ascending order using divide-and-conquer partition in <strong class="text-on-surface">O(n log n)</strong> expected time.</p>`;
+        cardGlow.className = "absolute -top-12 -right-12 w-36 h-36 bg-yellow-400/10 rounded-full blur-2xl pointer-events-none";
+      } else {
+        // Boss Variant
+        btnBoss.className = "font-pixel text-[9px] px-3 py-1.5 rounded-full transition-all bg-secondary text-on-secondary shadow-sm flex items-center gap-1.5";
+        hudStageTitle.textContent = "BOSS CHALLENGE";
+        hudStageTitle.className = "font-pixel text-[11px] text-secondary font-bold";
+        timerBadge.classList.remove('hidden');
+        variantBadge.className = "font-pixel text-[10px] px-3 py-1 rounded-md bg-secondary text-on-secondary shadow-sm flex items-center gap-1.5";
+        variantBadge.innerHTML = '<span class="material-symbols-outlined text-[14px]">skull</span> BOSS CHALLENGE';
+        problemTitle.textContent = "STAGE 8: DUTCH NATIONAL FLAG PARTITION";
+        problemDesc.innerHTML = `
+          <p>
+            Given an array <code class="font-code font-bold bg-surface-container-high px-1.5 py-0.5 rounded text-[13px] text-primary">nums</code> containing <span class="font-bold text-on-surface">n</span> objects colored red, white, or blue, sort them <strong class="text-on-surface">in-place</strong> such that items of the same color are adjacent, in order: red (0), white (1), and blue (2).
+          </p>
+          <div class="p-3 bg-surface-container-low rounded-xl text-body-sm flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">verified_user</span>
+            <span>You must solve this in <strong class="text-on-surface">one single pass</strong> using only <strong class="text-on-surface">O(1) extra auxiliary memory</strong>. Library sort functions are strictly banned.</span>
+          </div>
+        `;
+        cardGlow.className = "absolute -top-12 -right-12 w-36 h-36 bg-secondary/10 rounded-full blur-2xl pointer-events-none";
+      }
+    }
+
+    // Modal display toggle
+    function toggleVictoryModal(show) {
+      const modal = document.getElementById('victoryModal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    // Terminal folding
+    let terminalOpen = true;
+    function toggleTerminal() {
+      const body = document.getElementById('terminalBody');
+      const icon = document.getElementById('terminalToggleIcon');
+      terminalOpen = !terminalOpen;
+      if (terminalOpen) {
+        body.classList.remove('hidden');
+        icon.textContent = 'expand_more';
+      } else {
+        body.classList.add('hidden');
+        icon.textContent = 'expand_less';
+      }
+    }
+
+    // Code execution simulation
+    function runCodeSimulation() {
+      const status = document.getElementById('terminalStatus');
+      status.textContent = 'RUNNING TESTBENCH...';
+      status.className = 'font-pixel text-[8px] text-yellow-400 animate-pulse';
+      setTimeout(() => {
+        status.textContent = '3/3 TESTS PASSING';
+        status.className = 'font-pixel text-[8px] text-tertiary-fixed';
+      }, 700);
+    }
+
+    function submitSolution() {
+      runCodeSimulation();
+      setTimeout(() => {
+        toggleVictoryModal(true);
+      }, 800);
+    }
+
+    // Language switcher demo
+    function setLanguage(lang) {
+      ['tabCpp', 'tabPy', 'tabJava', 'tabTs'].forEach(id => {
+        const el = document.getElementById(id);
+        el.className = "font-pixel text-[8px] px-2.5 py-1 rounded text-[#A6ACCD] hover:text-white transition-all";
+      });
+      if (lang === 'cpp') document.getElementById('tabCpp').className = "font-pixel text-[8px] px-2.5 py-1 rounded bg-primary text-on-primary shadow-sm transition-all";
+      if (lang === 'py') document.getElementById('tabPy').className = "font-pixel text-[8px] px-2.5 py-1 rounded bg-primary text-on-primary shadow-sm transition-all";
+      if (lang === 'java') document.getElementById('tabJava').className = "font-pixel text-[8px] px-2.5 py-1 rounded bg-primary text-on-primary shadow-sm transition-all";
+      if (lang === 'ts') document.getElementById('tabTs').className = "font-pixel text-[8px] px-2.5 py-1 rounded bg-primary text-on-primary shadow-sm transition-all";
+    }
+
+    // Timer decrement ticker
+    let totalSeconds = 24 * 60 + 58;
+    setInterval(() => {
+      if (totalSeconds > 0) {
+        totalSeconds--;
+        const mins = Math.floor(totalSeconds / 60);
+        const secs = totalSeconds % 60;
+        const pad = n => n < 10 ? '0' + n : n;
+        const timerEl = document.getElementById('timerCountdown');
+        if (timerEl) {
+          timerEl.textContent = `⏳ ${pad(mins)}:${pad(secs)} REMAINING`;
+        }
+      }
+    }, 1000);
+  </script>
+</div></main>
+<!-- Footer -->
+<footer class="w-full relative z-10 pt-space-xl pb-space-lg overflow-hidden" style="background-color: #1B2A4A;">
+<div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center text-inverse-on-surface gap-space-md relative z-10">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed">code</span>
+<span class="font-pixel text-sm font-bold text-inverse-on-surface">AlgoQuest</span>
+</div>
+<p class="font-pixel text-[10px] text-outline-variant">© 2025 AlgoQuest DSA Platform. Level up your code.</p>
+<div class="flex gap-space-md">
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+</div>
+</div>
+</footer>
+</body></html>
