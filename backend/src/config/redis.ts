@@ -86,6 +86,10 @@ class RedisService {
     }
   }
 
+  public async isTokenBlacklisted(token: string): Promise<boolean> {
+    return this.isBlacklisted(token);
+  }
+
   public async blacklistToken(token: string, expiresInSeconds: number): Promise<void> {
     if (!this.client || !this.isConnected) return;
     try {
@@ -94,8 +98,19 @@ class RedisService {
       // silent fallback
     }
   }
+
+  public async disconnect(): Promise<void> {
+    if (this.client) {
+      try {
+        await this.client.quit();
+      } catch {
+        // silent fallback
+      }
+    }
+  }
 }
 
 export const redis = new RedisService();
+export const redisClient = redis;
 export default redis;
 

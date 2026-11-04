@@ -13,6 +13,9 @@ const envSchema = z.object({
   JWT_ACCESS_EXPIRES_IN: z.string().default('15m'),
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
   CLIENT_URL: z.string().default('http://localhost:3000,http://localhost:8080'),
+  CORS_ORIGIN: z.string().default('*'),
+  RATE_LIMIT_WINDOW_MS: z.string().transform((val) => parseInt(val, 10)).default('900000'),
+  RATE_LIMIT_MAX: z.string().transform((val) => parseInt(val, 10)).default('100'),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
