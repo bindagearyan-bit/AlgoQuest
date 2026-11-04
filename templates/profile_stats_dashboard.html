@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>
+@layer base {
+  html, body { margin: 0; padding: 0; }
+  body { overscroll-behavior: none; }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
+}
+::-webkit-scrollbar { display: none; }
+@keyframes drift {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(100vw); }
+}
+.animate-drift { animation: drift 25s linear infinite; }
+
+/* Pixel perfection typography and crisp rendering rules */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0.05em;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  text-rendering: geometricPrecision;
+  image-rendering: pixelated;
+}
+.font-sans-body {
+  font-family: 'Nunito', sans-serif;
+}
+.font-code {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-secondary-container":"#6e0035","primary":"#5b4fa6","surface-bright":"#faf8ff","tertiary":"#006950","inverse-surface":"#1A2744","tertiary-fixed":"#79f9ce","inverse-on-surface":"#edf0ff","surface-container":"#e9edff","secondary-container":"#fc6d9e","secondary":"#aa2d5e","primary-container":"#7469c1","on-primary-fixed-variant":"#46398f","tertiary-fixed-dim":"#5adcb3","secondary-fixed":"#ffd9e1","on-secondary-fixed":"#3f001b","on-surface":"#0d1b37","on-tertiary":"#ffffff","outline-variant":"#c9c4d3","error":"#ba1a1a","secondary-fixed-dim":"#ffb1c6","on-error-container":"#93000a","on-background":"#0d1b37","on-tertiary-container":"#f5fff8","surface-container-highest":"#d9e2ff","on-secondary-fixed-variant":"#8a0f47","on-secondary":"#ffffff","on-primary-fixed":"#190063","surface-container-lowest":"#ffffff","surface-container-low":"#f2f3ff","primary-fixed-dim":"#c8bfff","surface-dim":"#cdd9ff","surface":"#faf8ff","surface-variant":"#d9e2ff","inverse-primary":"#c8bfff","on-tertiary-fixed-variant":"#00513d","on-primary":"#ffffff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-surface-variant":"#484551","tertiary-container":"#008466","outline":"#787582","background":"#faf8ff","surface-container-high":"#e1e8ff","on-error":"#ffffff","surface-tint":"#5e52a8","on-primary-container":"#fffbff","on-tertiary-fixed":"#002117","cyan-neon":"#00F0FF","magenta-neon":"#FF007F"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","space-lg":"1.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2rem","space-xl":"2.5rem","space-sm":"0.5rem"},"fontFamily":{"pixel":["'Press Start 2P'","monospace"],"nunito":["'Nunito'","sans-serif"],"pixelify":["'Pixelify Sans'","sans-serif"],"mono":["'JetBrains Mono'","'Fira Code'","monospace"]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Pixelify+Sans:wght@400..700&amp;family=Nunito:wght@400;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="font-sans-body text-on-surface min-h-screen flex flex-col" style="background: linear-gradient(135deg, #CDE3F7 0%, #D9BEEA 50%, #F2A9C9 100%);">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-12 left-[-100px] w-32 h-12 bg-white/70 rounded-full blur-[2px] animate-drift"></div>
+<div class="absolute top-28 left-[-150px] w-48 h-16 bg-white/60 rounded-full blur-[2px] animate-drift" style="animation-delay: 8s;"></div>
+</div>
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-lg">
+<a class="font-pixel text-[15px] text-primary font-bold flex items-center gap-space-sm select-none tracking-wide" data-path="dashboard" href="main_dashboard.html">
+<span class="material-symbols-outlined text-[24px] text-secondary">terminal</span> AlgoQuest
+</a>
+<nav class="hidden lg:flex items-center gap-space-xs font-pixel text-[11px]" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="dashboard" href="main_dashboard.html">Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="skill-tree" href="skill_tree_roadmap.html">Skill Tree</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="explore" href="skill_tree_roadmap.html">Explore</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors px-3 py-2 rounded-lg" data-path="leaderboard" href="leaderboard.html">Leaderboard</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-sm sm:gap-space-md">
+<div class="hidden sm:flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[16px]">bolt</span>
+<span class="font-pixel text-[10px] text-on-surface">1,250 XP</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">🪙</span>
+<span class="font-pixel text-[10px] text-on-surface">450</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">🔥</span>
+<span class="font-pixel text-[10px] text-on-surface">7</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="text-[13px]">❤️</span>
+<span class="font-pixel text-[10px] text-on-surface">3</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform ml-1" onclick="window.location.href='profile_stats_dashboard.html'">
+<span class="material-symbols-outlined text-on-primary text-[20px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 flex-1 relative z-10 max-w-7xl mx-auto px-gutter my-space-lg"><div class="flex flex-col w-full gap-space-lg">
+<!-- TOP IDENTITY & STAT HERO CARD -->
+<section class="w-full bg-surface-container-lowest/80 backdrop-blur-md rounded-lg p-space-md sm:p-space-lg shadow-xl relative overflow-hidden">
+<!-- Top accent strip & retro deco dots -->
+<div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-secondary to-tertiary-fixed"></div>
+<div class="flex justify-between items-center pb-space-sm mb-space-md border-b border-surface-container/60">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[10px] text-primary">PLAYER_ID #4208</span>
+<span class="text-surface-variant font-bold text-xs select-none">⋮⋮⋮</span>
+<span class="inline-flex items-center gap-1 bg-surface-container px-2.5 py-0.5 rounded-full text-[10px] font-pixel text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> ONLINE
+        </span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-[11px] font-pixel">
+<span class="material-symbols-outlined text-[14px] text-tertiary">verified_user</span>
+<span>ZONE 4: VAL-MEMORIA</span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row items-center lg:items-start gap-space-lg">
+<!-- AVATAR BOX & PIXEL CHARACTER PREVIEW -->
+<div class="flex flex-col items-center gap-space-sm shrink-0">
+<div class="relative w-40 h-40 sm:w-44 sm:h-44 rounded-2xl bg-gradient-to-b from-surface-container to-surface-container-highest flex items-center justify-center shadow-inner group">
+<!-- Pixel glow aura -->
+<div class="absolute inset-2 rounded-xl bg-primary/10 blur-md pointer-events-none"></div>
+<!-- Pixel Knight Sprite (Pure Scalable Vector Pixel Grid) -->
+<div class="relative z-10 transition-transform duration-300 transform group-hover:scale-110">
+<svg class="drop-shadow-md select-none" height="108" style="image-rendering: pixelated; shape-rendering: crispEdges;" viewbox="0 0 24 24" width="108">
+<!-- Shadow base -->
+<rect fill="#7469c1" height="2" opacity="0.3" width="14" x="5" y="21"></rect>
+<!-- Boots -->
+<rect fill="#23304d" height="3" width="4" x="7" y="18"></rect>
+<rect fill="#23304d" height="3" width="4" x="13" y="18"></rect>
+<rect fill="#c9c4d3" height="2" width="2" x="6" y="19"></rect>
+<rect fill="#c9c4d3" height="2" width="2" x="16" y="19"></rect>
+<!-- Legs/Greaves -->
+<rect fill="#5b4fa6" height="3" width="3" x="8" y="15"></rect>
+<rect fill="#5b4fa6" height="3" width="3" x="13" y="15"></rect>
+<!-- Torso Armor -->
+<rect fill="#e9edff" height="6" width="10" x="7" y="9"></rect>
+<rect fill="#fc6d9e" height="4" width="6" x="9" y="10"></rect>
+<rect fill="#ffffff" height="2" width="2" x="11" y="11"></rect>
+<!-- Cape -->
+<rect fill="#aa2d5e" height="7" width="2" x="5" y="10"></rect>
+<rect fill="#aa2d5e" height="7" width="2" x="17" y="10"></rect>
+<!-- Arms & Gauntlets -->
+<rect fill="#c9c4d3" height="3" width="2" x="5" y="9"></rect>
+<rect fill="#c9c4d3" height="3" width="2" x="17" y="9"></rect>
+<!-- Great Sword (Right Hand) -->
+<rect fill="#79f9ce" height="11" width="2" x="19" y="6"></rect>
+<rect fill="#008466" height="1" width="4" x="18" y="12"></rect>
+<rect fill="#3f001b" height="3" width="2" x="19" y="13"></rect>
+<rect fill="#ffffff" height="2" width="2" x="19" y="4"></rect>
+<!-- Helmet & Visor -->
+<rect fill="#cdd9ff" height="5" width="10" x="7" y="4"></rect>
+<rect fill="#cdd9ff" height="2" width="8" x="8" y="3"></rect>
+<rect fill="#0d1b37" height="2" width="6" x="9" y="6"></rect>
+<rect fill="#00f0ff" height="1" width="2" x="10" y="6"></rect>
+<rect fill="#00f0ff" height="1" width="2" x="13" y="6"></rect>
+<!-- Plume / Crest -->
+<rect fill="#fc6d9e" height="2" width="4" x="10" y="1"></rect>
+<rect fill="#fc6d9e" height="2" width="4" x="12" y="2"></rect>
+<rect fill="#aa2d5e" height="1" width="2" x="8" y="2"></rect>
+</svg>
+</div>
+<!-- Level tag pill -->
+<div class="absolute bottom-2 right-2 bg-inverse-surface/90 text-surface-bright px-2 py-0.5 rounded font-pixel text-[8px] tracking-tight">
+            LVL 14
+          </div>
+</div>
+<!-- Customization Button -->
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-high hover:bg-surface-dim active:translate-y-0.5 transition-all text-primary font-pixel text-[9px] shadow-sm cursor-pointer border-b-2 border-primary/40" id="editAvatarBtn">
+<span class="material-symbols-outlined text-[14px]">build</span>
+<span>EDIT AVATAR</span>
+</button>
+</div>
+<!-- IDENTITY & STATS BLOCK -->
+<div class="flex-1 flex flex-col justify-between w-full">
+<div>
+<!-- Title & Level Rank Badge -->
+<div class="flex flex-wrap items-center gap-space-sm mb-space-xs">
+<h1 class="font-pixel text-[14px] sm:text-[18px] text-on-surface tracking-wide">
+              ALEXANDER <span class="text-primary">//</span> <span class="text-secondary text-[12px] sm:text-[15px]">@ALGO_KNIGHT_42</span>
+</h1>
+</div>
+<!-- Rank Pill -->
+<div class="inline-flex items-center gap-2 bg-gradient-to-r from-[#FFD700]/25 via-surface-container to-surface-container-high px-3 py-1.5 rounded-lg mb-space-md shadow-sm">
+<span class="text-[16px]">👑</span>
+<span class="font-pixel text-[10px] text-on-surface tracking-wider">LEVEL 14 GRANDMASTER</span>
+<span class="font-pixel text-[8px] text-tertiary font-bold bg-surface-container-lowest px-1.5 py-0.5 rounded">TOP 0.4%</span>
+</div>
+<!-- Bio helper in Nunito -->
+<p class="font-sans-body text-body-sm text-on-surface-variant max-w-2xl mb-space-md leading-relaxed">
+            Mastering amortized complexity and non-linear dynamic programming paths. Currently clearing the Graph &amp; Tree dungeons before the Global PvP seasonal tournament.
+          </p>
+</div>
+<!-- 4-PART METRIC STRIP -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm w-full">
+<!-- XP -->
+<div class="bg-surface-container/70 rounded-xl p-3 flex flex-col justify-between shadow-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between text-tertiary mb-1">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">TOTAL</span>
+</div>
+<div class="font-pixel text-[13px] text-on-surface">1,250 XP</div>
+<span class="font-sans-body text-[11px] text-on-surface-variant font-semibold">+320 this week</span>
+</div>
+<!-- COINS -->
+<div class="bg-surface-container/70 rounded-xl p-3 flex flex-col justify-between shadow-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between text-secondary mb-1">
+<span class="text-[15px]">🪙</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">VAULT</span>
+</div>
+<div class="font-pixel text-[13px] text-on-surface">450 COINS</div>
+<span class="font-sans-body text-[11px] text-on-surface-variant font-semibold">Store Ready</span>
+</div>
+<!-- STREAK -->
+<div class="bg-surface-container/70 rounded-xl p-3 flex flex-col justify-between shadow-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between text-secondary mb-1">
+<span class="text-[15px]">🔥</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">COMBO</span>
+</div>
+<div class="font-pixel text-[13px] text-secondary">7 DAY STREAK</div>
+<span class="font-sans-body text-[11px] text-on-surface-variant font-semibold">2x XP Active</span>
+</div>
+<!-- LEAGUE RANK -->
+<div class="bg-surface-container/70 rounded-xl p-3 flex flex-col justify-between shadow-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between text-primary mb-1">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">TIER</span>
+</div>
+<div class="font-pixel text-[11px] sm:text-[12px] text-primary truncate">DIAMOND #12</div>
+<span class="font-sans-body text-[11px] text-tertiary font-bold font-sans-body">Safe Zone (+4 pts)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2-COLUMN MAIN CONTENT GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg w-full">
+<!-- LEFT COLUMN: TOPIC MASTERY PROGRESS (7 cols) -->
+<section class="lg:col-span-7 bg-surface-container-lowest/80 backdrop-blur-md rounded-lg p-space-md sm:p-space-lg shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-surface-container/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
+<h2 class="font-pixel text-[12px] sm:text-[13px] text-on-surface">TOPIC MASTERY PROGRESS</h2>
+</div>
+<span class="text-surface-variant font-bold text-xs select-none">⋮⋮⋮</span>
+</div>
+<p class="font-sans-body text-body-sm text-on-surface-variant mb-space-lg">
+          Mastery is measured via successful non-hint solutions, algorithm time-complexity analyses, and multi-tier boss nodes.
+        </p>
+<!-- TOPIC LIST WITH RETRO SEGMENTED PROGRESS BARS -->
+<div class="space-y-space-md">
+<!-- 1. ARRAYS & POINTERS -->
+<div class="bg-surface-container-low p-space-sm rounded-xl">
+<div class="flex justify-between items-center mb-2">
+<span class="font-pixel text-[10px] text-on-surface">ARRAYS &amp; POINTERS</span>
+<div class="flex items-center gap-2">
+<span class="font-sans-body text-[11px] font-bold text-on-surface-variant">8/9 COMPLETED</span>
+<span class="font-pixel text-[11px] text-tertiary">88%</span>
+</div>
+</div>
+<!-- Segmented Pixel Bar (9 chunks, 8 active green, 1 empty) -->
+<div class="grid grid-cols-9 gap-1 h-3.5 bg-surface-container-highest p-0.5 rounded">
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-tertiary-container rounded-xs"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+</div>
+</div>
+<!-- 2. TREES & SEARCH REALMS -->
+<div class="bg-surface-container-low p-space-sm rounded-xl">
+<div class="flex justify-between items-center mb-2">
+<span class="font-pixel text-[10px] text-on-surface">TREES &amp; SEARCH REALMS</span>
+<div class="flex items-center gap-2">
+<span class="font-sans-body text-[11px] font-bold text-on-surface-variant">5/8 COMPLETED</span>
+<span class="font-pixel text-[11px] text-primary">64%</span>
+</div>
+</div>
+<!-- Segmented Pixel Bar (8 chunks, 5 active purple, 3 empty) -->
+<div class="grid grid-cols-8 gap-1 h-3.5 bg-surface-container-highest p-0.5 rounded">
+<div class="bg-primary rounded-xs"></div>
+<div class="bg-primary rounded-xs"></div>
+<div class="bg-primary rounded-xs"></div>
+<div class="bg-primary rounded-xs"></div>
+<div class="bg-primary rounded-xs"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+</div>
+</div>
+<!-- 3. GRAPHS & TRAVERSAL -->
+<div class="bg-surface-container-low p-space-sm rounded-xl">
+<div class="flex justify-between items-center mb-2">
+<span class="font-pixel text-[10px] text-on-surface">GRAPHS &amp; TRAVERSAL</span>
+<div class="flex items-center gap-2">
+<span class="font-sans-body text-[11px] font-bold text-on-surface-variant">3/7 COMPLETED</span>
+<span class="font-pixel text-[11px] text-primary-container">42%</span>
+</div>
+</div>
+<!-- Segmented Pixel Bar (7 chunks, 3 active blue/indigo, 4 empty) -->
+<div class="grid grid-cols-7 gap-1 h-3.5 bg-surface-container-highest p-0.5 rounded">
+<div class="bg-primary-container rounded-xs"></div>
+<div class="bg-primary-container rounded-xs"></div>
+<div class="bg-primary-container rounded-xs"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+</div>
+</div>
+<!-- 4. DYNAMIC PROGRAMMING -->
+<div class="bg-surface-container-low p-space-sm rounded-xl">
+<div class="flex justify-between items-center mb-2">
+<span class="font-pixel text-[10px] text-on-surface">DYNAMIC PROGRAMMING</span>
+<div class="flex items-center gap-2">
+<span class="font-sans-body text-[11px] font-bold text-on-surface-variant">1/6 COMPLETED</span>
+<span class="font-pixel text-[11px] text-secondary">20%</span>
+</div>
+</div>
+<!-- Segmented Pixel Bar (6 chunks, 1 active pink, 5 empty) -->
+<div class="grid grid-cols-6 gap-1 h-3.5 bg-surface-container-highest p-0.5 rounded">
+<div class="bg-secondary-container rounded-xs"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+<div class="bg-surface-dim rounded-xs opacity-50"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action link to skill tree -->
+<div class="mt-space-lg pt-space-sm border-t border-surface-container/60 flex justify-between items-center">
+<span class="font-sans-body text-[12px] text-on-surface-variant font-medium">Next Milestone: Unlock DP Memoization Matrix</span>
+<button class="font-pixel text-[9px] text-primary hover:text-secondary transition-colors inline-flex items-center gap-1 cursor-pointer" onclick="window.location.href='skill_tree_roadmap.html'">
+<span>GO TO SKILL TREE</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- RIGHT COLUMN: WEEKLY XP ACTIVITY BAR CHART (5 cols) -->
+<section class="lg:col-span-5 bg-surface-container-lowest/80 backdrop-blur-md rounded-lg p-space-md sm:p-space-lg shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-surface-container/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">bar_chart</span>
+<h2 class="font-pixel text-[12px] sm:text-[13px] text-on-surface">WEEKLY XP ACTIVITY</h2>
+</div>
+<span class="text-surface-variant font-bold text-xs select-none">⋮⋮⋮</span>
+</div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="font-sans-body text-body-sm text-on-surface-variant">Weekly sum: <strong class="text-on-surface font-pixel text-[10px]">1,250 XP</strong></div>
+<span class="bg-tertiary-fixed/40 text-tertiary font-pixel text-[8px] px-2 py-1 rounded">GOAL MET 125%</span>
+</div>
+<!-- RETRO BAR CHART VISUALIZATION (Desktop/Mobile responsive) -->
+<div class="w-full bg-surface-container-low rounded-xl p-4 sm:p-5 flex flex-col gap-2">
+<!-- Bars Container with dashed benchmark lines -->
+<div class="h-44 sm:h-48 w-full flex items-end justify-between gap-1 sm:gap-2 pt-6 pb-2 px-1 relative">
+<!-- Target line guide -->
+<div class="absolute top-10 left-0 right-0 border-b border-dashed border-primary/20 flex justify-end">
+<span class="font-pixel text-[7px] text-primary/60 -mt-3 mr-1">DAILY TARGET (200 XP)</span>
+</div>
+<!-- MON: 120 XP (Height ~38%) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="font-pixel text-[7px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity mb-1">120</span>
+<div class="w-full max-w-[28px] h-[38%] bg-primary/70 rounded-t group-hover:bg-primary transition-all relative"></div>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-2">MON</span>
+</div>
+<!-- TUE: 180 XP (Height ~58%) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="font-pixel text-[7px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity mb-1">180</span>
+<div class="w-full max-w-[28px] h-[58%] bg-primary/70 rounded-t group-hover:bg-primary transition-all"></div>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-2">TUE</span>
+</div>
+<!-- WED: 220 XP (Height ~70%) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="font-pixel text-[7px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity mb-1">220</span>
+<div class="w-full max-w-[28px] h-[70%] bg-primary/80 rounded-t group-hover:bg-primary transition-all"></div>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-2">WED</span>
+</div>
+<!-- THU: 90 XP (Height ~29%) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="font-pixel text-[7px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity mb-1">90</span>
+<div class="w-full max-w-[28px] h-[29%] bg-primary/50 rounded-t group-hover:bg-primary transition-all"></div>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-2">THU</span>
+</div>
+<!-- FRI: 310 XP (Peak day ~100% with star icon) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer relative">
+<span class="font-pixel text-[7px] text-secondary mb-0.5">310</span>
+<span class="text-[12px] leading-none mb-1 animate-bounce">⭐</span>
+<div class="w-full max-w-[28px] h-[92%] bg-gradient-to-t from-primary via-secondary to-secondary-container rounded-t shadow-md group-hover:brightness-110 transition-all"></div>
+<span class="font-pixel text-[8px] text-secondary font-bold mt-2">FRI</span>
+</div>
+<!-- SAT: 150 XP (Height ~48%) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="font-pixel text-[7px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity mb-1">150</span>
+<div class="w-full max-w-[28px] h-[48%] bg-primary/70 rounded-t group-hover:bg-primary transition-all"></div>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-2">SAT</span>
+</div>
+<!-- SUN: 180 XP (Today ~58%) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="font-pixel text-[7px] text-tertiary mb-1">180</span>
+<div class="w-full max-w-[28px] h-[58%] bg-tertiary-container rounded-t group-hover:brightness-110 transition-all"></div>
+<span class="font-pixel text-[8px] text-tertiary font-bold mt-2">SUN</span>
+</div>
+</div>
+<!-- Legend line -->
+<div class="flex items-center justify-between text-[10px] font-pixel pt-2 border-t border-surface-container">
+<span class="text-tertiary flex items-center gap-1">
+<span class="w-2 h-2 rounded-xs bg-tertiary-container"></span> TODAY ACTIVE
+            </span>
+<span class="text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-xs bg-secondary-container"></span> PEAK: FRI (310 XP)
+            </span>
+</div>
+</div>
+</div>
+<!-- Quick reminder footer -->
+<div class="mt-space-md pt-space-xs text-center font-sans-body text-[12px] text-on-surface-variant">
+        Complete 1 daily review quest before midnight to protect your streak 🔥
+      </div>
+</section>
+</div>
+<!-- EARNED BADGES & TROPHIES SECTION -->
+<section class="w-full bg-surface-container-lowest/80 backdrop-blur-md rounded-lg p-space-md sm:p-space-lg shadow-xl">
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-surface-container/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">military_tech</span>
+<h2 class="font-pixel text-[12px] sm:text-[13px] text-on-surface">EARNED BADGES &amp; TROPHIES</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[9px] text-primary">4 / 6 UNLOCKED</span>
+<span class="text-surface-variant font-bold text-xs select-none">⋮⋮⋮</span>
+</div>
+</div>
+<!-- 6 Pixel Badges Bento Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-space-md">
+<!-- 1. POINTER WARDEN (Rare, glowing gold frame) -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col items-center text-center relative group hover:-translate-y-1 transition-transform shadow-sm">
+<div class="absolute -top-2 px-2 py-0.5 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-inverse-surface font-pixel text-[7px] rounded-full shadow-sm">
+          RARE
+        </div>
+<div class="w-16 h-16 rounded-xl bg-[#FFF9E6] shadow-[0_0_12px_rgba(255,215,0,0.4)] flex items-center justify-center my-2 text-2xl select-none">
+          🧭
+        </div>
+<div class="font-pixel text-[9px] text-on-surface mb-1">POINTER WARDEN</div>
+<p class="font-sans-body text-[11px] text-on-surface-variant leading-tight">Fast-slow pointer master without index leaks.</p>
+<span class="mt-2 font-pixel text-[8px] text-tertiary bg-surface-container px-2 py-0.5 rounded">UNLOCKED</span>
+</div>
+<!-- 2. ARRAY ACE (Green frame) -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col items-center text-center relative group hover:-translate-y-1 transition-transform shadow-sm">
+<div class="w-16 h-16 rounded-xl bg-tertiary-fixed/30 flex items-center justify-center my-2 text-2xl select-none">
+          ⚡
+        </div>
+<div class="font-pixel text-[9px] text-on-surface mb-1">ARRAY ACE</div>
+<p class="font-sans-body text-[11px] text-on-surface-variant leading-tight">Cleared 25 sequential arrays with zero O(N²) regressions.</p>
+<span class="mt-2 font-pixel text-[8px] text-tertiary bg-surface-container px-2 py-0.5 rounded">UNLOCKED</span>
+</div>
+<!-- 3. RECURSION HERO (Cyan frame) -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col items-center text-center relative group hover:-translate-y-1 transition-transform shadow-sm">
+<div class="w-16 h-16 rounded-xl bg-[#E0F7FA] flex items-center justify-center my-2 text-2xl select-none">
+          🌀
+        </div>
+<div class="font-pixel text-[9px] text-on-surface mb-1">RECURSION HERO</div>
+<p class="font-sans-body text-[11px] text-on-surface-variant leading-tight">Solved call stack mazes with verified base conditions.</p>
+<span class="mt-2 font-pixel text-[8px] text-tertiary bg-surface-container px-2 py-0.5 rounded">UNLOCKED</span>
+</div>
+<!-- 4. BUG HUNTER (Purple frame) -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col items-center text-center relative group hover:-translate-y-1 transition-transform shadow-sm">
+<div class="w-16 h-16 rounded-xl bg-primary-fixed flex items-center justify-center my-2 text-2xl select-none">
+          👾
+        </div>
+<div class="font-pixel text-[9px] text-on-surface mb-1">BUG HUNTER</div>
+<p class="font-sans-body text-[11px] text-on-surface-variant leading-tight">Caught 50 sneaky edge cases on test runner suites.</p>
+<span class="mt-2 font-pixel text-[8px] text-tertiary bg-surface-container px-2 py-0.5 rounded">UNLOCKED</span>
+</div>
+<!-- 5. TREE CONQUEROR (Locked) -->
+<div class="bg-surface-container-low/60 p-4 rounded-xl flex flex-col items-center text-center opacity-70 group hover:opacity-90 transition-opacity">
+<div class="w-16 h-16 rounded-xl bg-surface-dim/40 flex items-center justify-center my-2 text-2xl filter grayscale select-none">
+          🌲
+        </div>
+<div class="font-pixel text-[9px] text-on-surface-variant mb-1">TREE CONQUEROR</div>
+<p class="font-sans-body text-[11px] text-on-surface-variant leading-tight">Balance 10 Red-Black or AVL trees in dungeon boss mode.</p>
+<div class="mt-2 flex items-center gap-1 font-pixel text-[8px] text-outline bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[11px]">lock</span> LOCKED
+        </div>
+</div>
+<!-- 6. GRAPH FORTRESS (Locked) -->
+<div class="bg-surface-container-low/60 p-4 rounded-xl flex flex-col items-center text-center opacity-70 group hover:opacity-90 transition-opacity">
+<div class="w-16 h-16 rounded-xl bg-surface-dim/40 flex items-center justify-center my-2 text-2xl filter grayscale select-none">
+          🏰
+        </div>
+<div class="font-pixel text-[9px] text-on-surface-variant mb-1">GRAPH FORTRESS</div>
+<p class="font-sans-body text-[11px] text-on-surface-variant leading-tight">Traverse Dijkstra &amp; Tarjan algorithms under time limit.</p>
+<div class="mt-2 flex items-center gap-1 font-pixel text-[8px] text-outline bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[11px]">lock</span> LOCKED
+        </div>
+</div>
+</div>
+</section>
+<!-- CROWN REALM COLLECTION -->
+<section class="w-full bg-surface-container-lowest/80 backdrop-blur-md rounded-lg p-space-md sm:p-space-lg shadow-xl">
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-surface-container/60">
+<div class="flex items-center gap-2">
+<span class="text-[20px] select-none">👑</span>
+<h2 class="font-pixel text-[12px] sm:text-[13px] text-on-surface">CROWN REALM COLLECTION</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[9px] text-tertiary">SECTOR 1 COMPLETE (4/4)</span>
+<span class="text-surface-variant font-bold text-xs select-none">⋮⋮⋮</span>
+</div>
+</div>
+<p class="font-sans-body text-body-sm text-on-surface-variant mb-space-md">
+      Golden crowns are earned by achieving 100% test accuracy on sublevel certification challenges without using hints.
+    </p>
+<!-- Interactive Crown Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- CROWN 1 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-space-md hover:bg-surface-container transition-all group cursor-pointer relative shadow-sm">
+<div class="w-14 h-14 rounded-lg bg-gradient-to-br from-[#FFF8DC] to-[#FFE082] flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform shrink-0">
+<span class="text-2xl select-none">👑</span>
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[8px] text-tertiary mb-1">CROWN #01</span>
+<span class="font-pixel text-[9px] text-on-surface leading-snug">Sublevel 1.1: Linear Scanning</span>
+<span class="font-sans-body text-[11px] text-on-surface-variant mt-1">100% accuracy score</span>
+</div>
+</div>
+<!-- CROWN 2 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-space-md hover:bg-surface-container transition-all group cursor-pointer relative shadow-sm">
+<div class="w-14 h-14 rounded-lg bg-gradient-to-br from-[#FFF8DC] to-[#FFE082] flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform shrink-0">
+<span class="text-2xl select-none">👑</span>
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[8px] text-tertiary mb-1">CROWN #02</span>
+<span class="font-pixel text-[9px] text-on-surface leading-snug">Sublevel 1.2: Binary Search</span>
+<span class="font-sans-body text-[11px] text-on-surface-variant mt-1">Zero edge-case bugs</span>
+</div>
+</div>
+<!-- CROWN 3 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-space-md hover:bg-surface-container transition-all group cursor-pointer relative shadow-sm">
+<div class="w-14 h-14 rounded-lg bg-gradient-to-br from-[#FFF8DC] to-[#FFE082] flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform shrink-0">
+<span class="text-2xl select-none">👑</span>
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[8px] text-tertiary mb-1">CROWN #03</span>
+<span class="font-pixel text-[9px] text-on-surface leading-snug">Sublevel 1.3: Prefix Sums</span>
+<span class="font-sans-body text-[11px] text-on-surface-variant mt-1">O(1) query time achieved</span>
+</div>
+</div>
+<!-- CROWN 4 (Current) -->
+<div class="bg-gradient-to-r from-surface-container-low via-surface-container to-surface-container-low p-4 rounded-xl flex items-center gap-space-md hover:bg-surface-container transition-all group cursor-pointer relative shadow-sm">
+<div class="w-14 h-14 rounded-lg bg-gradient-to-br from-[#FFE082] to-[#FFB74D] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform shrink-0">
+<span class="text-2xl select-none">👑</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="font-pixel text-[8px] text-secondary">CROWN #04</span>
+<span class="font-pixel text-[7px] bg-secondary-container text-on-secondary-container px-1 py-0.2 rounded">CURRENT</span>
+</div>
+<span class="font-pixel text-[9px] text-on-surface leading-snug">Sublevel 1.4: Two-Pointers</span>
+<span class="font-sans-body text-[11px] text-on-surface-variant mt-1">Mastered 2 days ago</span>
+</div>
+</div>
+</div>
+</section>
+<!-- QUICK ACTION / SETTINGS STRIP -->
+<section class="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-lg bg-surface-container-lowest/60 backdrop-blur-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">sync</span>
+<span class="font-pixel text-[10px] text-on-surface">LEETCODE &amp; GITHUB SYNC: CONNECTED</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-4 py-2 rounded-lg bg-surface-container text-primary font-pixel text-[9px] hover:bg-surface-dim transition-colors cursor-pointer">
+        SHARE STATS
+      </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-pixel text-[9px] hover:bg-primary-container active:translate-y-0.5 transition-all shadow-md cursor-pointer" onclick="window.location.href='sublevel_overview.html'">
+        RESUME QUEST
+      </button>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interaction for avatar customization button
+  const editAvatarBtn = document.getElementById('editAvatarBtn');
+  if (editAvatarBtn) {
+    editAvatarBtn.addEventListener('click', () => {
+      const originalText = editAvatarBtn.innerHTML;
+      editAvatarBtn.innerHTML = '<span class="material-symbols-outlined text-[14px] animate-spin">refresh</span><span>OPENING WARDROBE...</span>';
+      setTimeout(() => {
+        editAvatarBtn.innerHTML = originalText;
+      }, 1200);
+    });
+  }
+</script></main>
+<!-- Footer -->
+<footer class="w-full relative z-10 pt-space-xl pb-space-lg overflow-hidden" style="background-color: #1B2A4A;">
+<div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center text-inverse-on-surface gap-space-md relative z-10">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed">code</span>
+<span class="font-pixel text-sm font-bold text-inverse-on-surface">AlgoQuest</span>
+</div>
+<p class="font-pixel text-[10px] text-outline-variant">© 2025 AlgoQuest DSA Platform. Level up your code.</p>
+<div class="flex gap-space-md">
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+</div>
+</div>
+</footer>
+</body></html>

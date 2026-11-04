@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.font-pixel{font-family:'Press Start 2P',cursive;letter-spacing:0.05em;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface":"#0d1b37","surface-container-low":"#f2f3ff","background":"#faf8ff","on-primary":"#ffffff","on-background":"#0d1b37","primary-fixed-dim":"#c8bfff","surface-container-high":"#e1e8ff","on-error-container":"#93000a","primary":"#5b4fa6","surface-variant":"#d9e2ff","outline":"#787582","tertiary-fixed-dim":"#5adcb3","secondary-fixed-dim":"#ffb1c6","surface-container-highest":"#d9e2ff","tertiary":"#006950","surface-dim":"#cdd9ff","surface-bright":"#faf8ff","secondary-fixed":"#ffd9e1","on-secondary":"#ffffff","on-secondary-fixed-variant":"#8a0f47","surface-container":"#e9edff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002117","on-secondary-container":"#6e0035","surface":"#faf8ff","outline-variant":"#c9c4d3","on-primary-fixed":"#190063","on-tertiary-fixed-variant":"#00513d","inverse-surface":"#23304d","primary-container":"#7469c1","tertiary-fixed":"#79f9ce","on-tertiary-container":"#f5fff8","on-surface-variant":"#484551","on-error":"#ffffff","on-secondary-fixed":"#3f001b","secondary":"#aa2d5e","secondary-container":"#fc6d9e","surface-tint":"#5e52a8","error":"#ba1a1a","inverse-on-surface":"#edf0ff","inverse-primary":"#c8bfff","on-primary-container":"#fffbff","on-primary-fixed-variant":"#46398f","tertiary-container":"#008466"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","space-md":"1rem","space-sm":"0.5rem","gutter":"1.5rem","space-xs":"0.25rem","space-lg":"1.5rem","margin":"2rem"},"fontFamily":{"headline-md":["Outfit"],"label-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-xl":["Outfit"],"body-lg":["Plus Jakarta Sans"],"headline-lg":["Outfit"],"label-md":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"600"}],"body-sm":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"44px","fontWeight":"600"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}]}}}}</script><link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="bg-background font-body-md text-on-surface min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm cursor-pointer select-none cursor-pointer" onclick="window.location.href='main_dashboard.html'"><div class="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-inner"><span class="material-symbols-outlined text-on-primary text-[20px]">videogame_asset</span></div><span class="font-pixel text-[13px] text-primary tracking-wider">AlgoQuest</span></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container"><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="main_dashboard.html">Dashboard</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="skill-tree" href="skill_tree_roadmap.html">Skill Tree</a><a aria-current="page" class="font-pixel px-space-sm py-space-xs rounded transition-all bg-primary-container text-on-primary-container" data-path="leaderboard" href="leaderboard.html">Leaderboard</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="squad" href="your_squad.html">Squad</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="daily_goals_achievements.html">Goals</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="discuss" href="discussion_community.html">Discuss</a></nav></div><div class="flex items-center gap-space-sm"><div class="hidden md:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded"><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">bolt</span><span class="font-pixel text-[9px] text-on-surface">1,250 XP</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-tertiary text-[16px]">monetization_on</span><span class="font-pixel text-[9px] text-on-surface">450</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">local_fire_department</span><span class="font-pixel text-[9px] text-on-surface">7 DAYS</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-error text-[16px]">favorite</span><span class="font-pixel text-[9px] text-on-surface">3</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer select-none" onclick="window.location.href='profile_stats_dashboard.html'"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 flex-1 bg-surface"><div class="flex flex-col w-full">
+<!-- Dynamic Season Ticker & Ambient Glow Canvas -->
+<div class="relative w-full overflow-hidden bg-gradient-to-b from-primary-fixed/30 via-surface to-surface pb-12 pt-6">
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-28 right-12 w-64 h-64 bg-tertiary-fixed/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-gutter relative z-10 flex flex-col gap-8">
+<!-- Top Header & Countdown Hero Banner -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-pixel text-[10px] tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">military_tech</span>
+              Ranked Division
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-pixel text-[9px] tracking-widest uppercase">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+              Live Queue
+            </span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-lg shadow-primary/20 text-on-primary">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<div>
+<h1 class="font-pixel text-[26px] sm:text-[34px] text-on-surface tracking-tight" style="image-rendering: pixelated; text-rendering: geometricPrecision;">
+                LEADERBOARD
+              </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Conquer dynamic programming, graphs, and system design challenges to ascend the algorithmic ranks.
+              </p>
+</div>
+</div>
+</div>
+<!-- Season Countdown Pill Card -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-2xl shadow-md self-start md:self-auto border-0">
+<div class="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[24px]">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[9px] text-on-surface-variant uppercase tracking-wider">SEASON 4 SPRINT</span>
+<span class="font-pixel text-[13px] text-secondary tracking-wide mt-1">3 DAYS LEFT</span>
+</div>
+</div>
+</div>
+<!-- League Switcher Tabs & Granular Filters -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-2">
+<!-- Division Tabs -->
+<div class="inline-flex p-1.5 rounded-2xl bg-surface-container gap-1 shadow-inner overflow-x-auto" id="league-tabs">
+<button class="tab-btn px-5 py-2.5 rounded-xl font-pixel text-[11px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-150" type="button">
+            BRONZE
+          </button>
+<button class="tab-btn px-5 py-2.5 rounded-xl font-pixel text-[11px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-150" type="button">
+            SILVER
+          </button>
+<button class="tab-btn px-5 py-2.5 rounded-xl font-pixel text-[11px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-150" type="button">
+            GOLD
+          </button>
+<button class="tab-btn active px-6 py-2.5 rounded-xl font-pixel text-[11px] bg-primary text-on-primary shadow-[0_4px_0_0_#46398f] translate-y-[-2px] transition-all duration-150 flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">diamond</span>
+            DIAMOND
+          </button>
+</div>
+<!-- Metric Filters -->
+<div class="flex items-center gap-2 self-start lg:self-auto">
+<span class="font-body-sm text-body-sm text-on-surface-variant mr-1">Sort:</span>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low font-pixel text-[10px] text-on-surface hover:bg-surface-container-high transition-colors shadow-sm" type="button">
+            GLOBAL XP
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest font-pixel text-[10px] text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors shadow-sm" type="button">
+            SPEED RUNS
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest font-pixel text-[10px] text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors shadow-sm" type="button">
+            HARD DSA
+          </button>
+</div>
+</div>
+<!-- Top 3 Podium (Featured Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end pt-4">
+<!-- RANK 2: Silver Card (Order 2 on mobile, 1 on desktop) -->
+<div class="order-2 md:order-1 relative bg-surface-container-lowest rounded-2xl p-6 shadow-md hover:-translate-y-1 transition-transform duration-300 flex flex-col items-center text-center">
+<div class="absolute -top-5 w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px] text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="mt-3 relative">
+<div class="w-20 h-20 rounded-2xl p-1 bg-gradient-to-tr from-surface-variant to-surface-container-highest shadow-md">
+<img class="w-full h-full object-cover rounded-xl" data-alt="Charming 16-bit retro isometric pixel character portrait of an elf huntress coding knight with silver tiara and vibrant pastel lilac hair, crisp voxel lighting, clean backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcFVE6fPi-yXbimsqJJAO3gCzpgMbKKx9Gq3zJK2lTFwdi7RY5afWFUk-kupnTzIprMP_QL2IFh_7gsQBX-g6Gfhh2tCs5d3IjYHd-WysNZckYR0kk_9KtpWwjjEWkB5qZyKMO_qgvMAc_xvOBZluZdoS9jyPm7MwyOCzggzDq2hRIQ_MTF4jcsRbhv4L2fUlvxv2b10OhQbStEuWmCvI5ko8uq6667dCp6OfQ" style="image-rendering: pixelated;"/>
+</div>
+<span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded bg-surface-dim font-pixel text-[9px] text-on-surface shadow">#2</span>
+</div>
+<div class="mt-4 flex items-center gap-1.5 text-tertiary">
+<span class="font-pixel text-[10px]">▲ +1</span>
+</div>
+<h3 class="font-pixel text-[12px] text-on-surface mt-1 truncate max-w-full">@ALGO_VALKYRIE</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tree Traversal Paragon</span>
+<div class="w-full mt-5 pt-4 bg-surface-container-low/70 rounded-xl px-4 py-2 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">XP Score</span>
+<span class="font-pixel text-[13px] text-primary">4,420 XP</span>
+</div>
+</div>
+<!-- RANK 1: Master Champion Podium Card (Elevated & Crowned) -->
+<div class="order-1 md:order-2 relative bg-gradient-to-b from-surface-container-lowest via-surface-container-lowest to-primary-fixed/20 rounded-3xl p-8 shadow-xl -mt-2 md:-mt-6 hover:-translate-y-1 transition-transform duration-300 flex flex-col items-center text-center">
+<!-- Crown Icon Header -->
+<div class="absolute -top-7 px-4 py-1.5 rounded-full bg-gradient-to-r from-secondary to-primary text-on-primary font-pixel text-[10px] tracking-wider flex items-center gap-1.5 shadow-lg">
+<span class="material-symbols-outlined text-[18px] text-yellow-300" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+            CHAMPION
+          </div>
+<div class="mt-2 relative">
+<div class="w-24 h-24 rounded-3xl p-1.5 bg-gradient-to-tr from-yellow-300 via-secondary to-primary shadow-xl">
+<img class="w-full h-full object-cover rounded-2xl" data-alt="Vibrant 16-bit cyber paladin wizard pixel character with glowing cybernetic visor and gold-accented battle helm, colorful pastel aesthetic, sharp pixel art style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbhZiIVjHluVOkMoj1Png4IRbvyXYQ-1hM79vIOplseogKnDeI3pgnu1YsVT3Uv1IIPYk7XfnnMbRqg0fye1x0DO37_6BvFPzzNMlDY3U23IHtpAwbJAdjWxn_URxBtM4gOaXtN3zNV2-ElxNLqQ_PiwCxNngtM5F8nepVji_qt9Mwk58LYfrip0Gpfox3bd2vRVNczmjO1wN4-SnlzUyMNRMrNf0a3WPQLlFm" style="image-rendering: pixelated;"/>
+</div>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-yellow-400 text-on-surface font-pixel text-[11px] shadow-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>
+              1
+            </div>
+</div>
+<div class="mt-5 flex items-center gap-1.5 text-tertiary">
+<span class="font-pixel text-[11px] animate-pulse">▲ +3</span>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider font-semibold">Streak Hot</span>
+</div>
+<h3 class="font-pixel text-[14px] text-on-surface mt-1.5 truncate max-w-full tracking-wide">@BYTE_CONQUEROR</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Grandmaster of Graphs</span>
+<div class="w-full mt-6 bg-gradient-to-r from-primary/10 via-surface-container-low to-primary/10 rounded-2xl p-4 flex items-center justify-between">
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Current Points</span>
+<span class="font-pixel text-[9px] text-secondary mt-0.5">TIER: DIAMOND I</span>
+</div>
+<span class="font-pixel text-[16px] text-primary">4,890 XP</span>
+</div>
+</div>
+<!-- RANK 3: Bronze Card (Order 3) -->
+<div class="order-3 relative bg-surface-container-lowest rounded-2xl p-6 shadow-md hover:-translate-y-1 transition-transform duration-300 flex flex-col items-center text-center">
+<div class="absolute -top-5 w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px] text-secondary" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div class="mt-3 relative">
+<div class="w-20 h-20 rounded-2xl p-1 bg-gradient-to-tr from-secondary-fixed to-surface-container-high shadow-md">
+<img class="w-full h-full object-cover rounded-xl" data-alt="Charming pixel art portrait of a rogue mechanic hacker wearing orange headphones and retro goggles, crisp 8-bit styling, playful pastel palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAVgoAKU-BcKbNANSZdG7SEhhKaZ5QLbvPKLc3tJkYKvTd-vaC6y4qVL6vsxM0fgv-wA3-pNWfEuxVUz6Iw4vHRK50dZSf7Tb9DHpR2eRpxOp4QcVV7UnUB6TyFqHo1L_q0eTwec9OnXjVlJgRJz1B2tkTu9XBftZsIyinTOEVonySTmm_ZO-jiEDoTkwiziRYu1k85GghkMpdg78mH8DEPBm1ORJ4X9bzXB-6" style="image-rendering: pixelated;"/>
+</div>
+<span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-pixel text-[9px] shadow">#3</span>
+</div>
+<div class="mt-4 flex items-center gap-1.5 text-error">
+<span class="font-pixel text-[10px]">▼ -1</span>
+</div>
+<h3 class="font-pixel text-[12px] text-on-surface mt-1 truncate max-w-full">@NEO_POINTER</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">DP Grid Master</span>
+<div class="w-full mt-5 pt-4 bg-surface-container-low/70 rounded-xl px-4 py-2 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">XP Score</span>
+<span class="font-pixel text-[13px] text-primary">3,980 XP</span>
+</div>
+</div>
+</div>
+<!-- Promotion Cutoff Zone Marker -->
+<div class="w-full my-2 flex items-center gap-3">
+<div class="h-0.5 flex-1 bg-tertiary-fixed-dim/60"></div>
+<div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-tertiary-container text-on-tertiary-container shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">keyboard_double_arrow_up</span>
+<span class="font-pixel text-[9px] tracking-wider">PROMOTION ZONE (TOP 10 TO MASTER LEAGUE)</span>
+</div>
+<div class="h-0.5 flex-1 bg-tertiary-fixed-dim/60"></div>
+</div>
+<!-- Ranked Leaderboard Roster (Ranks 4 - 10) -->
+<div class="flex flex-col gap-2.5">
+<!-- Row 4 -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-on-surface-variant w-7 text-center">4</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Retro 8-bit character avatar of a cyber swordsman with electric cyan hair and dark tunic, pixel art render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwA4BahAwREHLsb0ouBOHJdpMFhvXjC_72nACUWH_8VIclvyhfiUJT1WqVa5vC18XIUX4rpThQLRuU4tfqWpO8ePAo2g7ZiQjyaUShDsGjMX1M4M_p_itayGxScV4sWhZJeYIdBJT-cl3Kt0MmC4qkS0bMGqb8SkZaI0ldSt0MbczYsjCQRzcfFKPaCfiN5UOi6YfJ22sS4qRf6pPJrHwmx-ySd1TljRrib-p1" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@BIT_SHIFT_KING</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-surface-container-high text-on-surface-variant hidden sm:inline-block">DIAMOND I</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Solved 14 Hard LeetQuest problems</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-tertiary hidden sm:flex items-center gap-1">▲ +2</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-on-surface">3,610</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-on-surface-variant w-7 text-center">5</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Charming pixel art avatar of a retro robotic golem scholar with brass antennas, soft warm colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNVTX1wohwiOjz6cI42YB5A4MO-jNDRGylZhr9JN8foKEtXgqdMKrppS0-MsBEvT64fLKH4nHAg0pcURLRwbttHimQci1QKaUJi3tnq7uXcOqTnxWi9i_2kuiCL2SeSeLTBWIwrnNRuRTuO0_3Amv286HmuHksPIaD5e51N-vMXb6IhDu5Rdsa_F0uujoJAEs4NpqSP9ZJMkDH7YMC9pfYuGQ7czkOF6CE7qO1" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@STACK_OVERLOAD</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-surface-container-high text-on-surface-variant hidden sm:inline-block">DIAMOND I</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Completed Segment Tree sprint</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-on-surface-variant hidden sm:flex items-center gap-1">= 0</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-on-surface">3,240</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+<!-- Row 6 -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-on-surface-variant w-7 text-center">6</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Pixel art portrait of a digital sorceress in amethyst cloak with glowing runic tablet, pastel violet tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUQkv_7Z-TxSVCRyfacnXgqIPstGHetp7g1XHb2801ygRSWs7qF9GTDob15XrM9zqbEl81JFHONoMiV9LreWQ6tIlnwr4ZiQ-VEU1Ku0vWjjAROTnZjvO54xIpMzHJFeyZG1eugPRai4q0ovuUl0QgBoNT7w0AkY0eK9h3UZTyxPCgQzofrRmQTKx6xr8mPW_ym5Etfwz5Sq-IkxtZ3Z8rRLSONEedMWvUDn_A" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@NULL_POINTER_QUEEN</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-surface-container-high text-on-surface-variant hidden sm:inline-block">DIAMOND II</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Dijkstra Speedrun champion</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-tertiary hidden sm:flex items-center gap-1">▲ +5</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-on-surface">2,990</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+<!-- Row 7 -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-on-surface-variant w-7 text-center">7</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="16-bit pixel face icon of an arcade pilot with green visor cap and round aviator glasses, crisp game sprite" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVMJcQWR8Hob-iC1iN4bxs6nfDKyZ08FqGopm99vZxmvf9wDPHN55TStlqVeLOx5H3NUvwxCeC9OYVPrhmdIQQ4bZvn9kXL7M3qkMIrIWCOau2pAX9ALTHrg-XIjMX1eswmJ5sHQMAGYhRd7X1BLtlj0ZiXX1CBC_VAs9trE26uPq3cl88-LF5nRr8-xv2-jaVuI417PS3pC8xQVd0msBZ7oEAB9meVFYC2t6m" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@HASHMAP_SAMURAI</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-surface-container-high text-on-surface-variant hidden sm:inline-block">DIAMOND II</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">48-hour collision resolution challenge</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-error hidden sm:flex items-center gap-1">▼ -2</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-on-surface">2,710</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+<!-- Row 8 -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-on-surface-variant w-7 text-center">8</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Pixel art avatar of a retro cyber beast familiar cat with antenna tail and neon goggles, cozy pixel art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMES1qlXBC6kv8-IrVwsRF9BGQGcYrenQTm8YCCjV_KknjqBPeij6DcdtkWoz6043UYeRKw-47EWZrqTP5xd_jI6StQVwgPX5odwv609MZDDKUq5NrbaxOdJgD_1D_JYkxK0Z4rlp-s16gnXC_6cLbngFOIsvCnJEZCkoZRkLQCastQIGYcc0VNLvWZzi4BrOqv3lueJDCKrktNyVjasBTbelUxYenZEwlk-r5" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@TRIE_AND_ERROR</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-surface-container-high text-on-surface-variant hidden sm:inline-block">DIAMOND II</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Prefix tree autocomplete speed-run</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-tertiary hidden sm:flex items-center gap-1">▲ +1</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-on-surface">2,490</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+<!-- Row 9 -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-on-surface-variant w-7 text-center">9</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="8-bit avatar portrait of an alchemist programmer holding a glowing flask with code runes, playful aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv_mrUVpndztTZxREzFeyRvLbAF0JFZVusDCB-SoyqqT8Xd8Xes1RNz1B4CYDbwPx9wrhQa7zP1sdyb5JCrijgzffq6lOkM0XYZ-eWkiRNeiROxfguQe4nzsVE7M2bB7YuRSeY8zBioMmISUfyudwQsUKEmKhk8qWxB8u65F77GVQMtTS85eyEYM4QJuvQM6kybZ7UeuAHQyD0nDZQ4F8lk1rW3GyGcfPI-jzF" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@SYNTAX_SLAYER</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-surface-container-high text-on-surface-variant hidden sm:inline-block">DIAMOND III</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Weekly contest runner-up</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-error hidden sm:flex items-center gap-1">▼ -1</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-on-surface">2,150</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+<!-- Row 10 (Last Promotion Spot) -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-200 shadow-sm">
+<div class="flex items-center gap-4 min-w-0">
+<span class="font-pixel text-[12px] text-tertiary w-7 text-center font-bold">10</span>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Pixel avatar of an armored dwarf engineer with glowing wrench and pixel forge fire reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAouAyr5b4ZlK2Dc6HTtRUGSpndbAUnZueET5SWtw2QTE0kOQC0dwhfMD2V5Wga1sFXPcPwBFlL28T4OGelv7bR-l4y3dlcHHw7Bh-09KTSnney1ZuJrvWG6DOF4mlvo6uFFpPDG0Vfc8KGkeSdDRYnD83iucJLC0WrmnjVITK4c9_BvQYSl_cBEPm8abpiRIN9DoDzc8PKz0NFL6Svq-HdtIFX867tfzMgfABr" style="image-rendering: pixelated;"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[11px] text-on-surface truncate">@HEAP_HERO</span>
+<span class="px-2 py-0.5 rounded text-[9px] font-pixel bg-tertiary-fixed text-on-tertiary-fixed">CUTOFF</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Holding the promotion line</span>
+</div>
+</div>
+<div class="flex items-center gap-6 flex-shrink-0">
+<span class="font-pixel text-[9px] text-tertiary hidden sm:flex items-center gap-1">▲ +3</span>
+<div class="text-right">
+<span class="font-pixel text-[12px] text-tertiary font-bold">1,820</span>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-1">XP</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Demotion Zone Warning Divider -->
+<div class="w-full my-1 flex items-center gap-3">
+<div class="h-0.5 flex-1 bg-error-container"></div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-error-container text-on-error-container shadow-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-pixel text-[8px] tracking-wider uppercase">DEMOTION ZONE BELOW (RANKS 25+)</span>
+</div>
+<div class="h-0.5 flex-1 bg-error-container"></div>
+</div>
+<!-- Spotlight: Logged-In User Sticky Row -->
+<div class="sticky bottom-6 z-30 w-full">
+<div class="p-1 rounded-3xl bg-gradient-to-r from-primary via-primary-container to-secondary shadow-2xl backdrop-blur-md">
+<div class="p-4 sm:p-5 rounded-[22px] bg-inverse-surface text-inverse-on-surface flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Left: Rank & User Details -->
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="px-3 py-2 rounded-xl bg-primary-container text-on-primary-container flex flex-col items-center justify-center shadow-inner">
+<span class="font-label-sm text-[10px] uppercase font-bold text-primary-fixed">Rank</span>
+<span class="font-pixel text-[14px]">#12</span>
+</div>
+<div class="relative w-12 h-12 rounded-xl bg-primary-fixed-dim/20 p-0.5 flex-shrink-0">
+<div class="w-full h-full rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[24px]">terminal</span>
+</div>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-tertiary flex items-center justify-center text-[10px] text-white">
+                  ✓
+                </span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[12px] text-inverse-on-surface">@ALGO_KNIGHT_42</span>
+<span class="px-2 py-0.5 rounded font-pixel text-[9px] bg-primary text-on-primary uppercase">YOU</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-pixel text-[9px] text-tertiary-fixed">▲ +4 THIS SPRINT</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-body-sm text-body-sm text-inverse-on-surface/70">Safe Zone (Tier II)</span>
+</div>
+</div>
+</div>
+<!-- Right: Distance to Master & CTA -->
+<div class="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto">
+<div class="flex flex-col text-left md:text-right">
+<span class="font-pixel text-[8px] text-inverse-on-surface/60 uppercase">PROMOTION CUTOFF</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-pixel text-[11px] text-secondary-fixed">570 XP NEEDED</span>
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">trending_up</span>
+</div>
+</div>
+<div class="h-8 w-px bg-outline/30 hidden md:block"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<div class="font-pixel text-[14px] text-tertiary-fixed">1,250 XP</div>
+</div>
+<button class="px-5 py-2.5 rounded-full bg-gradient-to-r from-tertiary-fixed to-tertiary-fixed-dim text-on-tertiary-fixed font-pixel text-[10px] shadow-[0_4px_0_0_#00513d] hover:translate-y-0.5 active:translate-y-1 transition-all uppercase flex items-center gap-1.5" type="button">
+<span>GRIND</span>
+<span class="material-symbols-outlined text-[16px]">swords</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- League Rules & FAQ Bento Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 pb-8">
+<div class="p-6 rounded-2xl bg-surface-container-low flex flex-col gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">social_leaderboard</span>
+</div>
+<h4 class="font-pixel text-[11px] text-on-surface">LEAGUE MECHANICS</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Each ranked season resets bi-weekly. Solved LeetQuest algorithmic katas yield XP based on test case coverage, time complexity benchmarks, and streak multipliers.
+          </p>
+</div>
+<div class="p-6 rounded-2xl bg-surface-container-low flex flex-col gap-3">
+<div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[24px]">upgrade</span>
+</div>
+<h4 class="font-pixel text-[11px] text-on-surface">PROMOTION &amp; SAFE ZONES</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Finish in the top 10 to instantly advance to the Master tier. The middle ranks retain their Diamond standing, while participants in ranks 25-30 face relegation.
+          </p>
+</div>
+<div class="p-6 rounded-2xl bg-surface-container-low flex flex-col gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">redeem</span>
+</div>
+<h4 class="font-pixel text-[11px] text-on-surface">END OF SEASON LOOT</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Top finishers claim exclusive pixel badge skins, custom terminal shells, and rare algorithmic titles visible across the global community hub.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Tab switching visual micro-interaction
+    const tabBtns = document.querySelectorAll('#league-tabs .tab-btn');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => {
+          b.className = 'tab-btn px-5 py-2.5 rounded-xl font-pixel text-[11px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-150';
+        });
+        btn.className = 'tab-btn active px-6 py-2.5 rounded-xl font-pixel text-[11px] bg-primary text-on-primary shadow-[0_4px_0_0_#46398f] translate-y-[-2px] transition-all duration-150 flex items-center gap-2';
+      });
+    });
+  </script>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_-1px_8px_rgba(0,0,0,0.02)]"><div class="w-full h-12 bg-surface-container flex items-end justify-center gap-1 overflow-hidden opacity-40"><div class="w-6 h-8 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-8 h-12 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-5 h-6 bg-surface-container-highest"></div><div class="w-10 h-10 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-7 h-9 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div></div></div><div class="w-full px-gutter py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[18px] text-primary">terminal</span><span>© 2025 AlgoQuest DSA Platform. Level up your code.</span></div><div class="font-pixel text-[9px] text-on-surface-variant flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">SYSTEM: ONLINE</a><a class="hover:text-primary transition-colors" href="#">V2.4.0</a></div></div></footer></body></html>

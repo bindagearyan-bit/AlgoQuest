@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@keyframes drift{0%{transform:translateX(-100px);}100%{transform:translateX(100vw);}}.animate-drift{animation:drift 25s linear infinite;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-secondary-container":"#6e0035","primary":"#5b4fa6","surface-bright":"#faf8ff","tertiary":"#006950","inverse-surface":"#23304d","tertiary-fixed":"#79f9ce","inverse-on-surface":"#edf0ff","surface-container":"#e9edff","secondary-container":"#fc6d9e","secondary":"#aa2d5e","primary-container":"#7469c1","on-primary-fixed-variant":"#46398f","tertiary-fixed-dim":"#5adcb3","secondary-fixed":"#ffd9e1","on-secondary-fixed":"#3f001b","on-surface":"#0d1b37","on-tertiary":"#ffffff","outline-variant":"#c9c4d3","error":"#ba1a1a","secondary-fixed-dim":"#ffb1c6","on-error-container":"#93000a","on-background":"#0d1b37","on-tertiary-container":"#f5fff8","surface-container-highest":"#d9e2ff","on-secondary-fixed-variant":"#8a0f47","on-secondary":"#ffffff","on-primary-fixed":"#190063","surface-container-lowest":"#ffffff","surface-container-low":"#f2f3ff","primary-fixed-dim":"#c8bfff","surface-dim":"#cdd9ff","surface":"#faf8ff","surface-variant":"#d9e2ff","inverse-primary":"#c8bfff","on-tertiary-fixed-variant":"#00513d","on-primary":"#ffffff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-surface-variant":"#484551","tertiary-container":"#008466","outline":"#787582","background":"#faf8ff","surface-container-high":"#e1e8ff","on-error":"#ffffff","surface-tint":"#5e52a8","on-primary-container":"#fffbff","on-tertiary-fixed":"#002117"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","space-lg":"1.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2rem","space-xl":"2.5rem","space-sm":"0.5rem"},"fontFamily":{"body-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-lg":["Outfit"],"body-md":["Plus Jakarta Sans"],"headline-md":["Outfit"],"headline-xl":["Outfit"],"label-sm":["Plus Jakarta Sans"]},"fontSize":{"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"body-sm":["14px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"headline-lg":["36px",{"lineHeight":"44px","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"600"}]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;family=Pixelify+Sans:wght@400..700&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/><style id="particle-keyframes">
+          @keyframes fall {
+            0% { transform: translateY(-20px) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(360deg); }
+          }
+        </style><link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="font-body-md text-on-surface min-h-screen flex flex-col" style="background: linear-gradient(135deg, rgb(205, 227, 247) 0%, rgb(217, 190, 234) 50%, rgb(242, 169, 201) 100%); font-family: Nunito, sans-serif; -webkit-font-smoothing: antialiased;">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-12 left-[-100px] w-32 h-12 bg-white/70 rounded-full blur-[2px] animate-drift"></div>
+<div class="absolute top-28 left-[-150px] w-48 h-16 bg-white/60 rounded-full blur-[2px] animate-drift" style="animation-delay: 8s;"></div>
+</div>
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between">
+<a class="font-headline-md text-primary font-bold flex items-center gap-space-sm" data-path="home" href="main_dashboard.html" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em;'>
+<span class="material-symbols-outlined text-[28px] text-secondary">terminal</span> AlgoQuest
+      </a>
+<nav class="hidden md:flex items-center gap-space-lg" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 11px;'>
+<a aria-current="page" class="transition-colors px-space-md py-space-xs bg-primary-container text-on-primary-container font-bold rounded-lg" data-path="home" href="main_dashboard.html" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em;'>Home</a>
+<a class="text-body-md text-on-surface-variant hover:text-on-surface transition-colors px-space-md py-space-xs rounded-lg" data-path="explore" href="skill_tree_roadmap.html">Explore</a>
+<a class="text-body-md text-on-surface-variant hover:text-on-surface transition-colors px-space-md py-space-xs rounded-lg" data-path="pricing" href="#">Pricing</a>
+<a class="text-body-md text-on-surface-variant hover:text-on-surface transition-colors px-space-md py-space-xs rounded-lg" data-path="leaderboard" href="leaderboard.html">Leaderboard</a>
+</nav>
+<div class="flex items-center gap-space-md" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 12px;'>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<span class="text-error">❤️</span> <span class="text-label-md text-on-surface">3</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<span class="">🔥</span> <span class="text-label-md text-on-surface">7</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<span class="">🪙</span> <span class="text-label-md text-on-surface">450</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer shadow-sm" onclick="window.location.href='profile_stats_dashboard.html'">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 flex-1 relative z-10 max-w-7xl mx-auto px-gutter my-space-lg">
+<div class="flex flex-col w-full min-h-[870px] items-center justify-center relative overflow-hidden py-space-xl">
+<!-- Confetti & Pixel Coins Simulation Particles (CSS/JS) -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" id="particle-container">
+<!-- Generated dynamically via inline script below for rich confetti effect -->
+<div class="absolute rounded-sm animate-drift" style="width: 10.787px; height: 10.787px; left: 84.8706vw; top: -11.9069px; background-color: rgb(0, 105, 80); opacity: 0.563645; animation: 3.97336s linear 2.63597s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 14.3815px; height: 14.3815px; left: 3.30138vw; top: -14.4322px; background-color: rgb(170, 45, 94); opacity: 0.456925; animation: 4.44044s linear 3.61907s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 8.69599px; height: 8.69599px; left: 72.6635vw; top: -21.401px; background-color: rgb(170, 45, 94); opacity: 0.719382; animation: 4.96714s linear 3.16706s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 14.797px; height: 14.797px; left: 86.5335vw; top: -24.7819px; background-color: rgb(255, 217, 225); opacity: 0.493237; animation: 5.2401s linear 1.58988s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 9.78988px; height: 9.78988px; left: 84.2963vw; top: -21.24px; background-color: rgb(0, 105, 80); opacity: 0.522306; animation: 7.91637s linear 1.869s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 16.0895px; height: 16.0895px; left: 19.9892vw; top: -41.4957px; background-color: rgb(255, 217, 225); opacity: 0.773542; animation: 6.40025s linear 0.496999s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 11.4715px; height: 11.4715px; left: 15.1093vw; top: -2.51055px; background-color: rgb(91, 79, 166); opacity: 0.629112; animation: 5.39696s linear 2.66668s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 12.6656px; height: 12.6656px; left: 78.5014vw; top: -42.0557px; background-color: rgb(229, 222, 255); opacity: 0.802957; animation: 7.21348s linear 0.554604s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 6.16801px; height: 6.16801px; left: 43.7611vw; top: -49.9956px; background-color: rgb(255, 217, 225); opacity: 0.652307; animation: 3.62985s linear 2.25465s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 17.0426px; height: 17.0426px; left: 55.1604vw; top: -6.4638px; background-color: rgb(91, 79, 166); opacity: 0.42667; animation: 5.03406s linear 1.13948s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 14.9897px; height: 14.9897px; left: 35.206vw; top: -3.2527px; background-color: rgb(170, 45, 94); opacity: 0.762822; animation: 6.7324s linear 3.66636s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 17.8059px; height: 17.8059px; left: 34.4428vw; top: -47.2909px; background-color: rgb(229, 222, 255); opacity: 0.968948; animation: 7.5961s linear 4.68962s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 14.6934px; height: 14.6934px; left: 86.1128vw; top: -15.6984px; background-color: rgb(255, 217, 225); opacity: 0.62516; animation: 5.2309s linear 3.40817s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 12.6357px; height: 12.6357px; left: 66.2931vw; top: -19.1063px; background-color: rgb(91, 79, 166); opacity: 0.444304; animation: 4.96222s linear 2.3655s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 15.1676px; height: 15.1676px; left: 4.00571vw; top: -35.9966px; background-color: rgb(91, 79, 166); opacity: 0.357172; animation: 5.06471s linear 1.95906s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 7.35824px; height: 7.35824px; left: 6.66519vw; top: -48.4108px; background-color: rgb(229, 222, 255); opacity: 0.517167; animation: 3.86939s linear 0.102963s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 14.944px; height: 14.944px; left: 63.5146vw; top: -12.9583px; background-color: rgb(229, 222, 255); opacity: 0.693453; animation: 6.7631s linear 1.81376s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 7.55166px; height: 7.55166px; left: 27.4383vw; top: -3.00767px; background-color: rgb(229, 222, 255); opacity: 0.841828; animation: 3.86672s linear 4.66869s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 7.27198px; height: 7.27198px; left: 38.4687vw; top: -13.5821px; background-color: rgb(0, 105, 80); opacity: 0.36597; animation: 4.0754s linear 2.75188s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 11.6047px; height: 11.6047px; left: 57.2068vw; top: -21.9029px; background-color: rgb(91, 79, 166); opacity: 0.498248; animation: 3.70487s linear 2.20506s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 15.2528px; height: 15.2528px; left: 25.5527vw; top: -10.4875px; background-color: rgb(91, 79, 166); opacity: 0.846195; animation: 4.94052s linear 3.7656s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 16.0416px; height: 16.0416px; left: 55.4071vw; top: -37.0085px; background-color: rgb(229, 222, 255); opacity: 0.653295; animation: 3.49424s linear 3.69708s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 12.4598px; height: 12.4598px; left: 55.4859vw; top: -22.0109px; background-color: rgb(255, 217, 225); opacity: 0.753681; animation: 7.77491s linear 2.1521s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 12.3016px; height: 12.3016px; left: 3.50702vw; top: -8.2082px; background-color: rgb(170, 45, 94); opacity: 0.989624; animation: 4.83988s linear 3.19874s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 6.71512px; height: 6.71512px; left: 82.5722vw; top: -32.9655px; background-color: rgb(229, 222, 255); opacity: 0.842026; animation: 6.28078s linear 2.81365s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 12.8081px; height: 12.8081px; left: 2.88455vw; top: -48.5925px; background-color: rgb(255, 217, 225); opacity: 0.787568; animation: 5.9091s linear 2.00038s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 16.6491px; height: 16.6491px; left: 97.7418vw; top: -26.4322px; background-color: rgb(255, 217, 225); opacity: 0.337311; animation: 7.8719s linear 1.89619s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 8.24477px; height: 8.24477px; left: 30.1162vw; top: -7.28567px; background-color: rgb(170, 45, 94); opacity: 0.486983; animation: 4.716s linear 2.62672s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 10.1376px; height: 10.1376px; left: 97.3065vw; top: -6.36079px; background-color: rgb(0, 105, 80); opacity: 0.728154; animation: 3.07227s linear 0.217345s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 14.0259px; height: 14.0259px; left: 17.3562vw; top: -9.71567px; background-color: rgb(229, 222, 255); opacity: 0.305658; animation: 7.84811s linear 2.94367s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 13.6411px; height: 13.6411px; left: 60.7712vw; top: -25.2873px; background-color: rgb(91, 79, 166); opacity: 0.784643; animation: 4.23565s linear 2.06544s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 13.482px; height: 13.482px; left: 39.2735vw; top: -32.9955px; background-color: rgb(255, 217, 225); opacity: 0.768401; animation: 4.02324s linear 4.47022s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 17.2961px; height: 17.2961px; left: 45.1807vw; top: -35.6055px; background-color: rgb(91, 79, 166); opacity: 0.814909; animation: 5.00288s linear 2.9519s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 6.72881px; height: 6.72881px; left: 20.4493vw; top: -7.5029px; background-color: rgb(255, 217, 225); opacity: 0.836191; animation: 7.03528s linear 4.33934s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 7.4687px; height: 7.4687px; left: 58.3509vw; top: -4.42499px; background-color: rgb(0, 105, 80); opacity: 0.590344; animation: 6.80281s linear 4.52923s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 13.5903px; height: 13.5903px; left: 21.42vw; top: -37.764px; background-color: rgb(229, 222, 255); opacity: 0.371268; animation: 3.36763s linear 3.40982s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 7.23707px; height: 7.23707px; left: 33.1883vw; top: -36.0221px; background-color: rgb(170, 45, 94); opacity: 0.887333; animation: 4.83845s linear 1.6093s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 8.35628px; height: 8.35628px; left: 46.5759vw; top: -33.3387px; background-color: rgb(229, 222, 255); opacity: 0.317466; animation: 4.66s linear 1.07299s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 12.0827px; height: 12.0827px; left: 29.8633vw; top: -5.78517px; background-color: rgb(170, 45, 94); opacity: 0.479299; animation: 3.60614s linear 1.50064s infinite normal none running fall;"></div><div class="absolute rounded-sm animate-drift" style="width: 13.3001px; height: 13.3001px; left: 52.2862vw; top: -37.2063px; background-color: rgb(229, 222, 255); opacity: 0.923458; animation: 5.19608s linear 0.295417s infinite normal none running fall;"></div></div>
+<!-- Central Celebration Card (Bento/Retro Arcade Aesthetic) -->
+<div class="relative z-10 w-full max-w-4xl bg-surface/90 backdrop-blur-xl shadow-2xl rounded-xl p-space-xl flex flex-col items-center text-center gap-space-lg transition-transform duration-500 hover:scale-[1.01]">
+<!-- Top Badge / Overline -->
+<div class="flex items-center gap-space-xs bg-secondary-container px-space-md py-space-xs rounded-full text-on-secondary-container text-label-md shadow-sm animate-bounce" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 12px;'>
+<span class="material-symbols-outlined text-[18px]">military_tech</span> ASSESSMENT COMPLETE!
+    </div>
+<!-- Main Title -->
+<h1 class="font-headline-xl text-on-surface uppercase tracking-wide" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 26px; line-height: 1.5;'>
+      YOU'VE BEEN PLACED AT...
+    </h1>
+<!-- Prominent Glowing Badge Card -->
+<div class="w-full max-w-2xl bg-gradient-to-br from-primary-fixed to-surface-container-high p-space-xl rounded-xl shadow-lg border-2 border-primary/20 flex flex-col items-center gap-space-md relative overflow-hidden">
+<!-- Decorative background glow -->
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-secondary/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute -left-12 -bottom-12 w-48 h-48 bg-primary/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-lg text-on-primary">
+<span class="material-symbols-outlined text-[40px]" style="font-variation-settings: 'FILL' 1;">park</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="text-label-md text-primary tracking-widest uppercase" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 13px;'>Level 4</span>
+<h2 class="font-headline-lg text-on-surface" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 20px; line-height: 1.4;'>Intermediate Algorithms &amp; Trees</h2>
+</div>
+<p class="text-body-md text-on-surface-variant max-w-lg" style="font-family: Nunito, sans-serif; font-size: 16px; line-height: 1.6;">
+        You successfully parsed complex recursive challenges, tree traversals, and dynamic programming heuristics with high precision!
+      </p>
+</div>
+<!-- Interactive Stats Summary Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md w-full max-w-2xl" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em;'>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col items-center justify-center gap-space-xs shadow-sm">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined">bolt</span>
+<span class="text-label-md" style="font-size: 10px;">XP EARNED</span>
+</div>
+<span class="font-headline-md text-on-surface" style="font-size: 16px; line-height: 1.4;">+1,250 XP</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col items-center justify-center gap-space-xs shadow-sm">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined">target</span>
+<span class="text-label-md" style="font-size: 10px;">ACCURACY</span>
+</div>
+<span class="font-headline-md text-on-surface" style="font-size: 16px; line-height: 1.4;">94.8%</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col items-center justify-center gap-space-xs shadow-sm">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="text-label-md" style="font-size: 10px;">STREAK BONUS</span>
+</div>
+<span class="font-headline-md text-on-surface" style="font-size: 16px; line-height: 1.4;">7 Days 🔥</span>
+</div>
+</div>
+<!-- Mint CTA Button with 3D Press Effect -->
+<div class="pt-space-md">
+<a class="group relative inline-flex items-center gap-space-sm px-space-xl py-space-md rounded-full bg-gradient-to-r from-tertiary-fixed to-tertiary-fixed-dim text-on-tertiary-fixed font-label-md text-[18px] shadow-lg hover:shadow-xl transition-all transform active:translate-y-1" data-path="dashboard" href="main_dashboard.html" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 14px;'>
+<span class="material-symbols-outlined text-[24px]">rocket_launch</span>
+        GO TO DASHBOARD
+      </a>
+</div>
+</div>
+<!-- Client-side Particle Animation Script -->
+<script>
+    (function() {
+      const container = document.getElementById('particle-container');
+      const colors = ['#5b4fa6', '#aa2d5e', '#006950', '#ffd9e1', '#e5deff'];
+      const particleCount = 40;
+
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'absolute rounded-sm animate-drift';
+        
+        // Random positioning & styling
+        const size = Math.random() * 12 + 6;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = (Math.random() * -50) + 'px';
+        p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        p.style.opacity = Math.random() * 0.7 + 0.3;
+        
+        // Custom falling animation duration & delay
+        const duration = Math.random() * 5 + 3;
+        const delay = Math.random() * 5;
+        p.style.animation = `fall ${duration}s linear infinite ${delay}s`;
+        
+        container.appendChild(p);
+      }
+
+      // Inject keyframe for falling particles if not present
+      if (!document.getElementById('particle-keyframes')) {
+        const style = document.createElement('style');
+        style.id = 'particle-keyframes';
+        style.innerHTML = `
+          @keyframes fall {
+            0% { transform: translateY(-20px) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(360deg); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    })();
+  </script>
+</div>
+</main>
+<footer class="w-full relative z-10 pt-space-xl pb-space-lg overflow-hidden" style="background-color: #1B2A4A;">
+<div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center text-inverse-on-surface gap-space-md relative z-10">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed">code</span>
+<span class="font-headline-md font-bold text-inverse-on-surface" style='font-family: "Press Start 2P", monospace; letter-spacing: 0.05em; font-size: 16px;'>AlgoQuest</span>
+</div>
+<p class="text-body-sm text-outline-variant">© 2025 AlgoQuest DSA Platform. Level up your code.</p>
+<div class="flex gap-space-md">
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+</div>
+</div>
+</footer>
+</body></html>

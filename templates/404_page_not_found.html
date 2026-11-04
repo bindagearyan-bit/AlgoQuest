@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.font-pixel{font-family:'Press Start 2P',cursive;letter-spacing:0.05em;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface":"#0d1b37","surface-container-low":"#f2f3ff","background":"#faf8ff","on-primary":"#ffffff","on-background":"#0d1b37","primary-fixed-dim":"#c8bfff","surface-container-high":"#e1e8ff","on-error-container":"#93000a","primary":"#5b4fa6","surface-variant":"#d9e2ff","outline":"#787582","tertiary-fixed-dim":"#5adcb3","secondary-fixed-dim":"#ffb1c6","surface-container-highest":"#d9e2ff","tertiary":"#006950","surface-dim":"#cdd9ff","surface-bright":"#faf8ff","secondary-fixed":"#ffd9e1","on-secondary":"#ffffff","on-secondary-fixed-variant":"#8a0f47","surface-container":"#e9edff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002117","on-secondary-container":"#6e0035","surface":"#faf8ff","outline-variant":"#c9c4d3","on-primary-fixed":"#190063","on-tertiary-fixed-variant":"#00513d","inverse-surface":"#23304d","primary-container":"#7469c1","tertiary-fixed":"#79f9ce","on-tertiary-container":"#f5fff8","on-surface-variant":"#484551","on-error":"#ffffff","on-secondary-fixed":"#3f001b","secondary":"#aa2d5e","secondary-container":"#fc6d9e","surface-tint":"#5e52a8","error":"#ba1a1a","inverse-on-surface":"#edf0ff","inverse-primary":"#c8bfff","on-primary-container":"#fffbff","on-primary-fixed-variant":"#46398f","tertiary-container":"#008466"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","space-md":"1rem","space-sm":"0.5rem","gutter":"1.5rem","space-xs":"0.25rem","space-lg":"1.5rem","margin":"2rem"},"fontFamily":{"headline-md":["Outfit"],"label-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-xl":["Outfit"],"body-lg":["Plus Jakarta Sans"],"headline-lg":["Outfit"],"label-md":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"600"}],"body-sm":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"44px","fontWeight":"600"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}]}}}}</script><link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="bg-background font-body-md text-on-surface min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm cursor-pointer select-none cursor-pointer" onclick="window.location.href='main_dashboard.html'"><div class="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-inner"><span class="material-symbols-outlined text-on-primary text-[20px]">videogame_asset</span></div><span class="font-pixel text-[13px] text-primary tracking-wider">AlgoQuest</span></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container"><a aria-current="page" class="font-pixel px-space-sm py-space-xs rounded transition-all bg-primary-container text-on-primary-container" data-path="dashboard" href="main_dashboard.html">Dashboard</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="skill-tree" href="skill_tree_roadmap.html">Skill Tree</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="leaderboard" href="leaderboard.html">Leaderboard</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="squad" href="your_squad.html">Squad</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="daily_goals_achievements.html">Goals</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="discuss" href="discussion_community.html">Discuss</a></nav></div><div class="flex items-center gap-space-sm"><div class="hidden md:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded"><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">bolt</span><span class="font-pixel text-[9px] text-on-surface">1,250 XP</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-tertiary text-[16px]">monetization_on</span><span class="font-pixel text-[9px] text-on-surface">450</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">local_fire_department</span><span class="font-pixel text-[9px] text-on-surface">7 DAYS</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-error text-[16px]">favorite</span><span class="font-pixel text-[9px] text-on-surface">3</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer select-none" onclick="window.location.href='profile_stats_dashboard.html'"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 flex-1 bg-surface"><div class="flex flex-col w-full relative overflow-hidden select-none">
+<!-- Sky Pixel Atmosphere & Background Canvas -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#CDE3F7] via-[#D9BEEA] to-[#F2A9C9] opacity-90"></div>
+<!-- Ambient Animated Pixel Clouds SVG -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden opacity-85">
+<svg class="w-full h-full" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="180" id="pixel-cloud-pattern" patternunits="userSpaceOnUse" width="360">
+<!-- Pixel Cloud 1 -->
+<rect fill="#ffffff" fill-opacity="0.75" height="20" width="80" x="30" y="40"></rect>
+<rect fill="#ffffff" fill-opacity="0.9" height="16" width="50" x="50" y="24"></rect>
+<rect fill="#ffffff" fill-opacity="0.95" height="12" width="30" x="70" y="12"></rect>
+<rect fill="#ffffff" fill-opacity="0.8" height="14" width="100" x="20" y="50"></rect>
+<!-- Pixel Cloud 2 -->
+<rect fill="#ffffff" fill-opacity="0.65" height="24" width="110" x="210" y="90"></rect>
+<rect fill="#ffffff" fill-opacity="0.85" height="16" width="70" x="230" y="74"></rect>
+<rect fill="#ffffff" fill-opacity="0.95" height="12" width="36" x="260" y="62"></rect>
+</pattern>
+</defs>
+<rect fill="url(#pixel-cloud-pattern)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<!-- Decorative Wandering Pixel Glitch Artefacts -->
+<div class="absolute top-12 left-10 pointer-events-none hidden lg:block opacity-40">
+<div class="font-pixel text-[10px] text-[#1A2744] bg-white/60 backdrop-blur-md px-space-sm py-space-xs rounded shadow-sm">
+      HEX_ERR: 0x404_PAGE_MISSING
+    </div>
+</div>
+<div class="absolute top-20 right-12 pointer-events-none hidden lg:block opacity-40">
+<div class="font-pixel text-[10px] text-[#1A2744] bg-white/60 backdrop-blur-md px-space-sm py-space-xs rounded shadow-sm">
+      SECTOR_STATUS: DESYNC
+    </div>
+</div>
+<!-- Main Interactive Error Arena -->
+<div class="relative z-10 w-full max-w-6xl mx-auto px-gutter py-space-xl flex flex-col items-center justify-center">
+<!-- Top Status Banner -->
+<div class="flex items-center gap-space-sm bg-white/70 backdrop-blur-md px-space-md py-space-xs rounded-full shadow-sm mb-space-lg">
+<span class="inline-block w-2.5 h-2.5 rounded-none bg-secondary animate-pulse"></span>
+<span class="font-pixel text-[10px] text-on-surface tracking-wider">QUEST TERMINATED // WARP GATE OFFLINE</span>
+</div>
+<!-- Center Hero Card with 3D Bevel & Retro Frame -->
+<div class="w-full max-w-3xl bg-surface-container-lowest/95 backdrop-blur-xl rounded-lg shadow-[0_20px_50px_rgba(91,79,166,0.2),0_8px_0_#5b4fa6] p-space-lg md:p-space-xl relative overflow-hidden">
+<!-- Top Card Tech Bar -->
+<div class="flex items-center justify-between pb-space-md mb-space-md">
+<div class="flex items-center gap-space-xs">
+<div class="w-3 h-3 bg-secondary rounded-none shadow-[1px_1px_0_#000]"></div>
+<div class="w-3 h-3 bg-[#f59e0b] rounded-none shadow-[1px_1px_0_#000]"></div>
+<div class="w-3 h-3 bg-tertiary-fixed rounded-none shadow-[1px_1px_0_#000]"></div>
+<span class="font-pixel text-[9px] text-on-surface-variant ml-space-xs">KERNEL_DUMP_0404.LOG</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-pixel text-[12px] opacity-70">
+<span>⋮</span><span>⋮</span><span>⋮</span>
+</div>
+</div>
+<!-- Character Stage + Sprite Illustration -->
+<div class="flex flex-col items-center justify-center relative my-space-sm">
+<!-- Pulsing Floating Pixel Thought Bubble with Question Mark -->
+<div class="relative mb-2 flex flex-col items-center">
+<div class="bg-surface-container-lowest shadow-[0_4px_12px_rgba(91,79,166,0.18)] px-4 py-2 rounded-lg flex items-center justify-center animate-bounce">
+<span class="font-pixel text-[20px] text-secondary font-bold select-none drop-shadow-[2px_2px_0_#79f9ce]">?</span>
+</div>
+<!-- Pixel speech bubble tail dots -->
+<div class="w-2 h-2 bg-surface-container-lowest shadow-sm mt-1"></div>
+<div class="w-1.5 h-1.5 bg-surface-container-lowest shadow-sm mt-0.5"></div>
+</div>
+<!-- 8-Bit Pixel Knight Sprite (Pure Scalable Vector Pixel Grid) -->
+<div class="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-[0_12px_16px_rgba(26,39,68,0.2)]" shape-rendering="crispEdges" viewbox="0 0 24 24">
+<!-- Shadow under Knight -->
+<ellipse cx="12" cy="22.5" fill="#1A2744" opacity="0.25" rx="8" ry="1.5"></ellipse>
+<!-- Helmet Plume / Feather (Magenta) -->
+<rect fill="#aa2d5e" height="2" width="3" x="7" y="1"></rect>
+<rect fill="#fc6d9e" height="2" width="4" x="8" y="2"></rect>
+<rect fill="#fc6d9e" height="2" width="2" x="9" y="0"></rect>
+<!-- Knight Helmet (Steel Slate & Silver) -->
+<rect fill="#5b4fa6" height="8" width="10" x="7" y="3"></rect>
+<rect fill="#8B7FD9" height="6" width="8" x="8" y="4"></rect>
+<rect fill="#46398f" height="5" width="2" x="6" y="5"></rect>
+<rect fill="#46398f" height="5" width="2" x="16" y="5"></rect>
+<!-- Visor Slit & Confused Pixel Eyes -->
+<rect fill="#0d1b37" height="3" width="10" x="7" y="6"></rect>
+<!-- Left Eye (Looking up-left) -->
+<rect fill="#79f9ce" height="1" width="2" x="8" y="7"></rect>
+<!-- Right Eye (Looking down-right - confused asymmetry) -->
+<rect fill="#79f9ce" height="1" width="2" x="13" y="8"></rect>
+<!-- Cheeks blush (cute retro touch) -->
+<rect fill="#ffb1c6" height="1" width="2" x="7" y="10"></rect>
+<rect fill="#ffb1c6" height="1" width="2" x="15" y="10"></rect>
+<!-- Torso / Knight Armor -->
+<rect fill="#5b4fa6" height="6" width="8" x="8" y="11"></rect>
+<rect fill="#c8bfff" height="4" width="6" x="9" y="12"></rect>
+<!-- Golden Chest Emblem -->
+<rect fill="#ffd9e1" height="2" width="2" x="11" y="13"></rect>
+<!-- Left Arm & Upside Down Broken Wooden Sword -->
+<rect fill="#46398f" height="4" width="2" x="6" y="11"></rect>
+<rect fill="#ffd9e1" height="2" width="2" x="5" y="14"></rect>
+<!-- Broken Hilt pointing UP -->
+<rect fill="#8a0f47" height="4" width="1" x="4" y="13"></rect>
+<rect fill="#ffd9e1" height="1" width="3" x="3" y="14"></rect>
+<!-- Broken splintered blade pointing DOWN into ground -->
+<rect fill="#c9c4d3" height="3" width="1" x="4" y="17"></rect>
+<rect fill="#c9c4d3" height="1" width="1" x="5" y="18"></rect>
+<!-- Right Arm Holding Misoriented Parchment Map -->
+<rect fill="#46398f" height="4" width="2" x="16" y="11"></rect>
+<rect fill="#ffd9e1" height="2" width="2" x="17" y="14"></rect>
+<!-- Upside down curled parchment -->
+<rect fill="#fffbff" height="6" width="4" x="18" y="12"></rect>
+<rect fill="#fc6d9e" height="1" width="2" x="19" y="13"></rect>
+<rect fill="#5b4fa6" height="1" width="2" x="19" y="15"></rect>
+<rect fill="#006950" height="1" width="1" x="20" y="16"></rect>
+<!-- Legs & Boots -->
+<rect fill="#46398f" height="3" width="2" x="9" y="17"></rect>
+<rect fill="#46398f" height="3" width="2" x="13" y="17"></rect>
+<rect fill="#190063" height="2" width="3" x="8" y="20"></rect>
+<rect fill="#190063" height="2" width="3" x="13" y="20"></rect>
+</svg>
+</div>
+<!-- Giant Blocky Pixel 404 Headline -->
+<div class="relative mt-2">
+<span class="font-pixel text-[64px] sm:text-[84px] md:text-[104px] leading-none text-[#1A2744] tracking-tighter drop-shadow-[5px_5px_0_#79f9ce]">
+            404
+          </span>
+<span class="absolute inset-0 font-pixel text-[64px] sm:text-[84px] md:text-[104px] leading-none text-transparent tracking-tighter pointer-events-none select-none" style="-webkit-text-stroke: 2px #5b4fa6;">
+            404
+          </span>
+</div>
+<!-- Subtitle & Danger Tag -->
+<div class="flex flex-wrap items-center justify-center gap-space-sm mt-space-sm mb-space-sm text-center">
+<h1 class="font-pixel text-[14px] sm:text-[18px] md:text-[22px] text-on-surface tracking-wide">
+            OOPS! PAGE NOT FOUND
+          </h1>
+<span class="font-pixel text-[9px] bg-[#fef08a] text-[#854d0e] px-2.5 py-1 rounded shadow-sm">
+            LEVEL UNREACHABLE
+          </span>
+</div>
+<!-- Friendly Explanatory Paragraph (Nunito / Body Sans) -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl text-center leading-relaxed mt-2 mb-space-md">
+          Looks like this quest doesn't exist or has wandered into an uncharted glitch zone. Let's get your knight safely back to the guild hall before nightfall!
+        </p>
+<!-- Monospace System Diagnostics Pill -->
+<div class="w-full max-w-md bg-surface-container px-space-md py-space-xs rounded-full flex items-center justify-center gap-space-xs mb-space-lg overflow-hidden">
+<span class="material-symbols-outlined text-[16px] text-secondary">memory</span>
+<code class="font-pixel text-[9px] text-on-surface truncate">
+            [SYSTEM_KERNEL]: 404_DUNGEON_SECTOR_NOT_INITIALIZED
+          </code>
+</div>
+<!-- Dual Action CTAs -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-space-md w-full max-w-md">
+<!-- Primary Mint 3D Tactile Pill Button -->
+<a class="w-full sm:w-auto flex-1 group bg-gradient-to-r from-tertiary-fixed to-tertiary-fixed-dim text-on-tertiary-fixed font-pixel text-[11px] py-3.5 px-6 rounded-full shadow-[0_5px_0_#006950,0_10px_16px_rgba(0,105,80,0.2)] active:translate-y-1 active:shadow-[0_1px_0_#006950] transition-all flex items-center justify-center gap-2 text-center" href="main_dashboard.html">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">castle</span>
+            RETURN TO DASHBOARD
+          </a>
+<!-- Secondary Tactile Button -->
+<a class="w-full sm:w-auto flex-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-pixel text-[11px] py-3.5 px-6 rounded-full shadow-[0_5px_0_#787582] active:translate-y-1 active:shadow-[0_1px_0_#787582] transition-all flex items-center justify-center gap-2 text-center" href="skill_tree_roadmap.html">
+<span class="material-symbols-outlined text-[18px]">explore</span>
+            VIEW SKILL MAP
+          </a>
+</div>
+<!-- Quick Teleport Shortcuts -->
+<div class="mt-space-lg pt-space-md flex flex-wrap items-center justify-center gap-space-md text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-pixel text-[8px] uppercase tracking-wider text-outline">Fast Travel:</span>
+<a class="hover:text-primary transition-colors flex items-center gap-1 font-label-md text-label-md" href="leaderboard.html">
+<span class="material-symbols-outlined text-[14px]">leaderboard</span> Hall of Fame
+          </a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors flex items-center gap-1 font-label-md text-label-md" href="your_squad.html">
+<span class="material-symbols-outlined text-[14px]">groups</span> Squad Barracks
+          </a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors flex items-center gap-1 font-label-md text-label-md" href="discussion_community.html">
+<span class="material-symbols-outlined text-[14px]">bug_report</span> Submit Bug Lore
+          </a>
+</div>
+</div>
+<!-- Segmented Mini Retro Health Bar / Progress Aesthetic Element -->
+<div class="mt-space-md pt-space-sm flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="font-pixel text-[8px]">PORTAL INTEGRITY</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-3 h-2 bg-error"></div>
+<div class="w-3 h-2 bg-error opacity-40"></div>
+<div class="w-3 h-2 bg-surface-container-high"></div>
+<div class="w-3 h-2 bg-surface-container-high"></div>
+<div class="w-3 h-2 bg-surface-container-high"></div>
+<span class="font-pixel text-[8px] ml-1">12%</span>
+</div>
+</div>
+</div>
+<!-- Supplementary Adventure Hint Card -->
+<div class="w-full max-w-3xl mt-space-md grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-white/80 backdrop-blur-md rounded p-space-md shadow-sm flex items-start gap-space-sm hover:scale-[1.02] transition-transform">
+<div class="w-8 h-8 rounded bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</div>
+<div>
+<h4 class="font-pixel text-[9px] text-on-surface">LOST INVENTORY?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Your saved algorithms and challenge streaks remain completely safe.</p>
+</div>
+</div>
+<div class="bg-white/80 backdrop-blur-md rounded p-space-md shadow-sm flex items-start gap-space-sm hover:scale-[1.02] transition-transform">
+<div class="w-8 h-8 rounded bg-secondary-fixed flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">swords</span>
+</div>
+<div>
+<h4 class="font-pixel text-[9px] text-on-surface">BOSS RESPAWN</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Weekly Graph Theory Raid is live in the competitive arena.</p>
+</div>
+</div>
+<div class="bg-white/80 backdrop-blur-md rounded p-space-md shadow-sm flex items-start gap-space-sm hover:scale-[1.02] transition-transform">
+<div class="w-8 h-8 rounded bg-tertiary-fixed flex items-center justify-center text-tertiary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">support_agent</span>
+</div>
+<div>
+<h4 class="font-pixel text-[9px] text-on-surface">MAGE ASSIST</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Summon Discord support or report fractured hyperlinks instantly.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Retro Pixel City Skyline Silhouette with Glowing Yellow Windows -->
+<div class="relative w-full h-28 sm:h-36 mt-space-xl overflow-hidden pointer-events-none flex items-end">
+<svg class="w-full h-full text-[#1A2744]" fill="currentColor" preserveaspectratio="none" viewbox="0 0 1200 120">
+<!-- Background Skyline Layer (Distant Towers) -->
+<path d="
+        M0,120 L0,50 L40,50 L40,30 L80,30 L80,60 L120,60 L120,20 L160,20 L160,70 
+        L220,70 L220,40 L270,40 L270,15 L310,15 L310,55 L360,55 L360,35 L420,35 
+        L420,70 L480,70 L480,25 L530,25 L530,60 L580,60 L580,10 L630,10 L630,65 
+        L690,65 L690,40 L740,40 L740,25 L790,25 L790,75 L850,75 L850,30 L900,30 
+        L900,18 L950,18 L950,60 L1010,60 L1010,38 L1060,38 L1060,68 L1120,68 
+        L1120,22 L1170,22 L1170,55 L1200,55 L1200,120 Z
+      " opacity="0.45"></path>
+<!-- Foreground Skyline Layer -->
+<path d="
+        M0,120 L0,70 L30,70 L30,45 L70,45 L70,80 L110,80 L110,35 L150,35 L150,90 
+        L200,90 L200,50 L250,50 L250,30 L290,30 L290,75 L340,75 L340,50 L400,50 
+        L400,85 L460,85 L460,40 L510,40 L510,75 L560,75 L560,25 L610,25 L610,80 
+        L670,80 L670,55 L720,55 L720,35 L770,35 L770,90 L830,90 L830,45 L880,45 
+        L880,30 L930,30 L930,75 L990,75 L990,50 L1040,50 L1040,85 L1100,85 
+        L1100,35 L1150,35 L1150,70 L1200,70 L1200,120 Z
+      "></path>
+<!-- Pixel Yellow Lit Windows -->
+<!-- Building 1 -->
+<rect fill="#fef08a" height="4" width="4" x="10" y="78"></rect>
+<rect fill="#fef08a" height="4" width="4" x="18" y="78"></rect>
+<rect fill="#fef08a" height="4" width="4" x="10" y="88"></rect>
+<!-- Tower 2 -->
+<rect fill="#fef08a" height="4" width="4" x="42" y="52"></rect>
+<rect fill="#fef08a" height="4" width="4" x="52" y="52"></rect>
+<rect fill="#fef08a" height="4" width="4" x="42" y="62"></rect>
+<rect fill="#fef08a" height="4" width="4" x="52" y="62"></rect>
+<!-- Highrise 3 -->
+<rect fill="#fef08a" height="4" width="4" x="122" y="45"></rect>
+<rect fill="#fef08a" height="4" width="4" x="134" y="45"></rect>
+<rect fill="#fef08a" height="4" width="4" x="122" y="58"></rect>
+<rect fill="#fef08a" height="4" width="4" x="134" y="58"></rect>
+<!-- Center Citadel Windows -->
+<rect fill="#fef08a" height="4" width="4" x="572" y="35"></rect>
+<rect fill="#fef08a" height="4" width="4" x="584" y="35"></rect>
+<rect fill="#fef08a" height="4" width="4" x="596" y="35"></rect>
+<rect fill="#fef08a" height="4" width="4" x="572" y="48"></rect>
+<rect fill="#fef08a" height="4" width="4" x="596" y="48"></rect>
+<!-- Guild Spire Right -->
+<rect fill="#fef08a" height="4" width="4" x="892" y="42"></rect>
+<rect fill="#fef08a" height="4" width="4" x="904" y="42"></rect>
+<rect fill="#fef08a" height="4" width="4" x="892" y="54"></rect>
+<rect fill="#fef08a" height="4" width="4" x="916" y="54"></rect>
+<rect fill="#fef08a" height="4" width="4" x="1112" y="45"></rect>
+<rect fill="#fef08a" height="4" width="4" x="1124" y="45"></rect>
+<rect fill="#fef08a" height="4" width="4" x="1112" y="58"></rect>
+</svg>
+</div>
+<!-- Interactive Knight Sound Effect / Tap Easter Egg Micro-Script -->
+<script>
+    (function() {
+      const card = document.querySelector('.max-w-3xl');
+      if (card) {
+        card.addEventListener('click', function(e) {
+          if (e.target.tagName.toLowerCase() === 'a') return;
+          const bubble = card.querySelector('.animate-bounce');
+          if (bubble) {
+            bubble.classList.remove('animate-bounce');
+            void bubble.offsetWidth; // re-trigger animation
+            bubble.classList.add('animate-bounce');
+          }
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_-1px_8px_rgba(0,0,0,0.02)]"><div class="w-full h-12 bg-surface-container flex items-end justify-center gap-1 overflow-hidden opacity-40"><div class="w-6 h-8 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-8 h-12 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-5 h-6 bg-surface-container-highest"></div><div class="w-10 h-10 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-7 h-9 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div></div></div><div class="w-full px-gutter py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[18px] text-primary">terminal</span><span>© 2025 AlgoQuest DSA Platform. Level up your code.</span></div><div class="font-pixel text-[9px] text-on-surface-variant flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">SYSTEM: ONLINE</a><a class="hover:text-primary transition-colors" href="#">V2.4.0</a></div></div></footer></body></html>

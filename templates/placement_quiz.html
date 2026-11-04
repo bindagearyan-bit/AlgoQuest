@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@keyframes drift{0%{transform:translateX(-100px);}100%{transform:translateX(100vw);}}.animate-drift{animation:drift 25s linear infinite;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-secondary-container":"#6e0035","primary":"#5b4fa6","surface-bright":"#faf8ff","tertiary":"#006950","inverse-surface":"#23304d","tertiary-fixed":"#79f9ce","inverse-on-surface":"#edf0ff","surface-container":"#e9edff","secondary-container":"#fc6d9e","secondary":"#aa2d5e","primary-container":"#7469c1","on-primary-fixed-variant":"#46398f","tertiary-fixed-dim":"#5adcb3","secondary-fixed":"#ffd9e1","on-secondary-fixed":"#3f001b","on-surface":"#0d1b37","on-tertiary":"#ffffff","outline-variant":"#c9c4d3","error":"#ba1a1a","secondary-fixed-dim":"#ffb1c6","on-error-container":"#93000a","on-background":"#0d1b37","on-tertiary-container":"#f5fff8","surface-container-highest":"#d9e2ff","on-secondary-fixed-variant":"#8a0f47","on-secondary":"#ffffff","on-primary-fixed":"#190063","surface-container-lowest":"#ffffff","surface-container-low":"#f2f3ff","primary-fixed-dim":"#c8bfff","surface-dim":"#cdd9ff","surface":"#faf8ff","surface-variant":"#d9e2ff","inverse-primary":"#c8bfff","on-tertiary-fixed-variant":"#00513d","on-primary":"#ffffff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-surface-variant":"#484551","tertiary-container":"#008466","outline":"#787582","background":"#faf8ff","surface-container-high":"#e1e8ff","on-error":"#ffffff","surface-tint":"#5e52a8","on-primary-container":"#fffbff","on-tertiary-fixed":"#002117"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","space-lg":"1.5rem","gutter":"1.5rem","space-md":"1rem","margin":"2rem","space-xl":"2.5rem","space-sm":"0.5rem"},"fontFamily":{"body-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-lg":["Outfit"],"body-md":["Plus Jakarta Sans"],"headline-md":["Outfit"],"headline-xl":["Outfit"],"label-sm":["Plus Jakarta Sans"]},"fontSize":{"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"body-sm":["14px",{"lineHeight":"20px","fontWeight":"400"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"headline-lg":["36px",{"lineHeight":"44px","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"600"}]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;family=Pixelify+Sans:wght@400..700&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/><style>.font-press-start{font-family:'Press Start 2P',monospace;letter-spacing:0.05em;-webkit-font-smoothing:none;-moz-osx-font-smoothing:none;font-smooth:never;text-rendering:pixelated;}.font-nunito{font-family:'Nunito',sans-serif;}</style><link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="font-body-md text-on-surface min-h-screen flex flex-col" style="background: linear-gradient(135deg, #CDE3F7 0%, #D9BEEA 50%, #F2A9C9 100%);">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-12 left-[-100px] w-32 h-12 bg-white/70 rounded-full blur-[2px] animate-drift"></div>
+<div class="absolute top-28 left-[-150px] w-48 h-16 bg-white/60 rounded-full blur-[2px] animate-drift" style="animation-delay: 8s;"></div>
+</div>
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between font-press-start">
+<a class="font-headline-md text-primary font-bold flex items-center gap-space-sm font-press-start" data-path="home" href="main_dashboard.html">
+<span class="material-symbols-outlined text-[28px] text-secondary">terminal</span> AlgoQuest
+      </a>
+<nav class="hidden md:flex items-center gap-space-lg font-press-start" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg">
+<a aria-current="page" class="transition-colors px-space-md py-space-xs bg-primary-container text-on-primary-container font-bold rounded-lg font-press-start" data-path="home" href="main_dashboard.html">Home</a>
+<a class="text-body-md text-on-surface-variant hover:text-on-surface transition-colors px-space-md py-space-xs rounded-lg" data-path="explore" href="skill_tree_roadmap.html">Explore</a>
+<a class="text-body-md text-on-surface-variant hover:text-on-surface transition-colors px-space-md py-space-xs rounded-lg" data-path="pricing" href="#">Pricing</a>
+<a class="text-body-md text-on-surface-variant hover:text-on-surface transition-colors px-space-md py-space-xs rounded-lg" data-path="leaderboard" href="leaderboard.html">Leaderboard</a>
+</nav>
+<div class="flex items-center gap-space-md font-press-start">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<span class="text-error">❤️</span> <span class="text-label-md text-on-surface">3</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<span class="">🔥</span> <span class="text-label-md text-on-surface">7</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-sm">
+<span class="">🪙</span> <span class="text-label-md text-on-surface">450</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer shadow-sm" onclick="window.location.href='profile_stats_dashboard.html'">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 flex-1 relative z-10 max-w-7xl mx-auto px-gutter my-space-lg">
+<div class="flex flex-col w-full">
+<!-- Top Progress & Stats Bar -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-space-md mb-space-xl bg-surface/80 backdrop-blur-md p-space-md rounded-2xl shadow-sm">
+<div class="flex items-center gap-space-md w-full md:w-auto">
+<span class="material-symbols-outlined text-primary text-[28px]">quiz</span>
+<div class="flex flex-col flex-1 md:flex-initial">
+<div class="flex justify-between items-center mb-space-xs">
+<span class="font-headline-md text-on-surface text-[18px] font-press-start" id="question-counter">Question 3 of 10</span>
+<span class="text-body-sm text-on-surface-variant md:hidden">30%</span>
+</div>
+<!-- Segmented Health-bar Style Progress -->
+<div class="flex gap-1 w-full md:w-64 h-3 bg-surface-container-high rounded-full overflow-hidden p-0.5">
+<div class="flex-1 bg-primary rounded-l-full transition-all duration-300" id="prog-1"></div>
+<div class="flex-1 bg-primary transition-all duration-300" id="prog-2"></div>
+<div class="flex-1 bg-primary-container transition-all duration-300" id="prog-3"></div>
+<div class="flex-1 bg-surface-container-highest transition-all duration-300" id="prog-4"></div>
+<div class="flex-1 bg-surface-container-highest transition-all duration-300" id="prog-5"></div>
+<div class="flex-1 bg-surface-container-highest transition-all duration-300" id="prog-6"></div>
+<div class="flex-1 bg-surface-container-highest transition-all duration-300" id="prog-7"></div>
+<div class="flex-1 bg-surface-container-highest transition-all duration-300" id="prog-8"></div>
+<div class="flex-1 bg-surface-container-highest transition-all duration-300" id="prog-9"></div>
+<div class="flex-1 bg-surface-container-highest rounded-r-full transition-all duration-300" id="prog-10"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm bg-surface-container-low px-space-lg py-space-xs rounded-full shadow-inner">
+<span class="text-error text-[20px]">❤️</span>
+<span class="text-error text-[20px]">❤️</span>
+<span class="text-error text-[20px]">❤️</span>
+<span class="text-label-md text-on-surface ml-space-xs font-press-start">3 Lives Left</span>
+</div>
+</div>
+<!-- Central Quiz Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start mb-space-xl">
+<!-- Left Column: Question & Code Block -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="bg-surface/90 backdrop-blur-md p-space-xl rounded-2xl shadow-xl flex flex-col gap-space-lg relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-secondary"></div>
+<div class="flex items-center justify-between font-press-start">
+<span class="bg-primary-container/20 text-primary px-space-md py-space-xs rounded-full text-label-sm font-bold tracking-wider uppercase">Data Structures &amp; Algorithms</span>
+<span class="text-body-sm text-outline flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 45s avg time
+          </span>
+</div>
+<h2 class="font-headline-lg text-on-surface text-[28px] leading-tight font-press-start" id="question-title">
+          What is the time complexity of binary search in a sorted array?
+        </h2>
+<p class="text-body-md text-on-surface-variant">
+          Assume you are given a sorted array of <code class="bg-surface-container px-space-xs py-0.5 rounded text-primary font-bold">n</code> elements. You repeatedly divide the search interval in half.
+        </p>
+<!-- Code Snippet Box -->
+<div class="bg-inverse-surface text-inverse-on-surface p-space-md rounded-xl font-mono text-body-sm shadow-inner relative overflow-hidden">
+<div class="absolute top-2 right-3 flex gap-1.5 opacity-60">
+<span class="w-3 h-3 rounded-full bg-error inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-secondary-fixed inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed inline-block"></span>
+</div>
+<p class="text-tertiary-fixed-dim">// Target lookup implementation</p>
+<p class=""><span class="text-primary-fixed">int</span> binarySearch(<span class="text-primary-fixed">int</span> arr[], <span class="text-primary-fixed">int</span> l, <span class="text-primary-fixed">int</span> r, <span class="text-primary-fixed">int</span> x) {</p>
+<p class="pl-4">while (l &lt;= r) {</p>
+<p class="pl-8">int m = l + (r - l) / 2;</p>
+<p class="pl-8">if (arr[m] == x) return m;</p>
+<p class="pl-8">if (arr[m] &lt; x) l = m + 1;</p>
+<p class="pl-8">else r = m - 1;</p>
+<p class="pl-4">}</p>
+<p class="pl-4">return -1;</p>
+<p class="">}</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Interactive Options & Action -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-md font-press-start" id="options-container">
+<!-- Option A -->
+<button class="option-btn text-left p-space-md rounded-2xl bg-surface/90 hover:bg-surface-container-high transition-all duration-200 shadow-sm flex items-center gap-space-md group border-2 border-transparent" onclick="selectOption(this, 'A')">
+<span class="w-10 h-10 rounded-xl bg-surface-container-low text-primary font-bold flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">A</span>
+<span class="font-body-md text-on-surface flex-1">O(n) - Linear scan speed</span>
+</button>
+<!-- Option B -->
+<button class="option-btn text-left p-space-md rounded-2xl bg-surface/90 hover:bg-surface-container-high transition-all duration-200 shadow-sm flex items-center gap-space-md group border-2 border-transparent" onclick="selectOption(this, 'B')">
+<span class="w-10 h-10 rounded-xl bg-surface-container-low text-primary font-bold flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">B</span>
+<span class="font-body-md text-on-surface flex-1">O(n log n) - Linearithmic scale</span>
+</button>
+<!-- Option C -->
+<button class="option-btn text-left p-space-md rounded-2xl bg-surface/90 hover:bg-surface-container-high transition-all duration-200 shadow-sm flex items-center gap-space-md group border-2 border-transparent" onclick="selectOption(this, 'C')">
+<span class="w-10 h-10 rounded-xl bg-surface-container-low text-primary font-bold flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">C</span>
+<span class="font-body-md text-on-surface flex-1">O(log n) - Logarithmic search</span>
+</button>
+<!-- Option D -->
+<button class="option-btn text-left p-space-md rounded-2xl bg-surface/90 hover:bg-surface-container-high transition-all duration-200 shadow-sm flex items-center gap-space-md group border-2 border-transparent" onclick="selectOption(this, 'D')">
+<span class="w-10 h-10 rounded-xl bg-surface-container-low text-primary font-bold flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">D</span>
+<span class="font-body-md text-on-surface flex-1">O(1) - Constant time lookup</span>
+</button>
+</div>
+<!-- Action Footer -->
+<div class="mt-space-md flex flex-col gap-space-sm">
+<button class="w-full py-space-md px-space-lg rounded-full font-headline-md text-on-primary bg-primary opacity-50 cursor-not-allowed shadow-md transition-all flex items-center justify-center gap-space-sm font-press-start" disabled="" id="next-btn" onclick="handleNext()">
+<span class="">NEXT QUESTION</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-body-sm text-outline-variant">Select an option to enable the next step</p>
+</div>
+</div>
+</div>
+<!-- Hint Section / Motivation Banner -->
+<div class="bg-surface-container-low/80 backdrop-blur-sm p-space-lg rounded-2xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary text-[28px]">lightbulb</span>
+<div>
+<h4 class="font-headline-md text-on-surface text-[16px] font-press-start">Need a hint?</h4>
+<p class="text-body-sm text-on-surface-variant font-nunito">Think about how many times you can divide <code class="text-primary font-bold">n</code> by 2 before reaching 1.</p>
+</div>
+</div>
+<button class="bg-surface px-space-md py-space-xs rounded-full text-label-md text-primary hover:bg-surface-bright shadow-sm transition-colors font-press-start">
+      Use Hint (1 left)
+    </button>
+</div>
+<script>
+    let selectedAnswer = null;
+    let currentQuestionIndex = 3;
+
+    function selectOption(btn, optionKey) {
+      // Remove selected styling from all options
+      document.querySelectorAll('.option-btn').forEach(b => {
+        b.classList.remove('border-primary', 'bg-primary-fixed/20');
+        b.querySelector('span:first-child').classList.remove('bg-primary', 'text-on-primary');
+        b.querySelector('span:first-child').classList.add('bg-surface-container-low', 'text-primary');
+      });
+
+      // Add selected styling to clicked option
+      btn.classList.add('border-primary', 'bg-primary-fixed/20');
+      const badge = btn.querySelector('span:first-child');
+      badge.classList.remove('bg-surface-container-low', 'text-primary');
+      badge.classList.add('bg-primary', 'text-on-primary');
+
+      selectedAnswer = optionKey;
+
+      // Enable Next button
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      nextBtn.classList.add('hover:scale-[1.02]', 'cursor-pointer');
+    }
+
+    function handleNext() {
+      if (!selectedAnswer) return;
+
+      currentQuestionIndex++;
+      if (currentQuestionIndex > 10) {
+        // Complete animation / Routing simulation
+        const nextBtn = document.getElementById('next-btn');
+        nextBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Analyzing Results...';
+        setTimeout(() => {
+          window.location.href = 'placement_results_celebration.html';
+        }, 1200);
+        return;
+      }
+
+      // Update UI for next question mock
+      document.getElementById('question-counter').innerText = `Question ${currentQuestionIndex} of 10`;
+      
+      // Update progress bar blocks dynamically
+      const activeBlock = document.getElementById(`prog-${currentQuestionIndex}`);
+      if (activeBlock) {
+        activeBlock.classList.remove('bg-surface-container-highest');
+        activeBlock.classList.add('bg-primary');
+      }
+
+      // Reset selection state
+      selectedAnswer = null;
+      document.querySelectorAll('.option-btn').forEach(b => {
+        b.classList.remove('border-primary', 'bg-primary-fixed/20');
+        b.querySelector('span:first-child').classList.remove('bg-primary', 'text-on-primary');
+        b.querySelector('span:first-child').classList.add('bg-surface-container-low', 'text-primary');
+      });
+
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.disabled = true;
+      nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      nextBtn.classList.remove('hover:scale-[1.02]', 'cursor-pointer');
+
+      // Change question text dynamically for variety
+      if (currentQuestionIndex === 4) {
+        document.getElementById('question-title').innerText = "Which data structure uses LIFO (Last In, First Out) ordering?";
+      } else if (currentQuestionIndex === 5) {
+        document.getElementById('question-title').innerText = "What is the worst-case time complexity of QuickSort?";
+      }
+    }
+  </script>
+</div>
+</main>
+<footer class="w-full relative z-10 pt-space-xl pb-space-lg overflow-hidden" style="background-color: #1B2A4A;">
+<div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center text-inverse-on-surface gap-space-md relative z-10">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed">code</span>
+<span class="font-headline-md font-bold text-inverse-on-surface font-press-start">AlgoQuest</span>
+</div>
+<p class="text-body-sm text-outline-variant">© 2025 AlgoQuest DSA Platform. Level up your code.</p>
+<div class="flex gap-space-md">
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+<span class="w-2 h-2 rounded-full" style="background-color: #FFD93D;"></span>
+</div>
+</div>
+</footer>
+</body></html>

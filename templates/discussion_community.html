@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.font-pixel{font-family:'Press Start 2P',cursive;letter-spacing:0.05em;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface":"#0d1b37","surface-container-low":"#f2f3ff","background":"#faf8ff","on-primary":"#ffffff","on-background":"#0d1b37","primary-fixed-dim":"#c8bfff","surface-container-high":"#e1e8ff","on-error-container":"#93000a","primary":"#5b4fa6","surface-variant":"#d9e2ff","outline":"#787582","tertiary-fixed-dim":"#5adcb3","secondary-fixed-dim":"#ffb1c6","surface-container-highest":"#d9e2ff","tertiary":"#006950","surface-dim":"#cdd9ff","surface-bright":"#faf8ff","secondary-fixed":"#ffd9e1","on-secondary":"#ffffff","on-secondary-fixed-variant":"#8a0f47","surface-container":"#e9edff","error-container":"#ffdad6","primary-fixed":"#e5deff","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#002117","on-secondary-container":"#6e0035","surface":"#faf8ff","outline-variant":"#c9c4d3","on-primary-fixed":"#190063","on-tertiary-fixed-variant":"#00513d","inverse-surface":"#23304d","primary-container":"#7469c1","tertiary-fixed":"#79f9ce","on-tertiary-container":"#f5fff8","on-surface-variant":"#484551","on-error":"#ffffff","on-secondary-fixed":"#3f001b","secondary":"#aa2d5e","secondary-container":"#fc6d9e","surface-tint":"#5e52a8","error":"#ba1a1a","inverse-on-surface":"#edf0ff","inverse-primary":"#c8bfff","on-primary-container":"#fffbff","on-primary-fixed-variant":"#46398f","tertiary-container":"#008466"},"borderRadius":{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","space-md":"1rem","space-sm":"0.5rem","gutter":"1.5rem","space-xs":"0.25rem","space-lg":"1.5rem","margin":"2rem"},"fontFamily":{"headline-md":["Outfit"],"label-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-xl":["Outfit"],"body-lg":["Plus Jakarta Sans"],"headline-lg":["Outfit"],"label-md":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"600"}],"body-sm":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"44px","fontWeight":"600"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}]}}}}</script><link href="../static/css/styles.css" rel="stylesheet"/><script src="../static/js/main.js"></script></head><body class="bg-background font-body-md text-on-surface min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm cursor-pointer select-none cursor-pointer" onclick="window.location.href='main_dashboard.html'"><div class="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-inner"><span class="material-symbols-outlined text-on-primary text-[20px]">videogame_asset</span></div><span class="font-pixel text-[13px] text-primary tracking-wider">AlgoQuest</span></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container"><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="main_dashboard.html">Dashboard</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="skill-tree" href="skill_tree_roadmap.html">Skill Tree</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="leaderboard" href="leaderboard.html">Leaderboard</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="squad" href="your_squad.html">Squad</a><a class="font-pixel text-[10px] px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="goals" href="daily_goals_achievements.html">Goals</a><a aria-current="page" class="font-pixel px-space-sm py-space-xs rounded transition-all bg-primary-container text-on-primary-container" data-path="discuss" href="discussion_community.html">Discuss</a></nav></div><div class="flex items-center gap-space-sm"><div class="hidden md:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded"><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">bolt</span><span class="font-pixel text-[9px] text-on-surface">1,250 XP</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-tertiary text-[16px]">monetization_on</span><span class="font-pixel text-[9px] text-on-surface">450</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">local_fire_department</span><span class="font-pixel text-[9px] text-on-surface">7 DAYS</span></div><div class="flex items-center gap-1 px-space-xs"><span class="material-symbols-outlined text-error text-[16px]">favorite</span><span class="font-pixel text-[9px] text-on-surface">3</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer select-none" onclick="window.location.href='profile_stats_dashboard.html'"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 flex-1 bg-surface"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+<!-- CONTEXT HEADER -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6 p-6 sm:p-8 rounded-lg bg-surface-container-lowest shadow-sm relative overflow-hidden">
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col gap-3 relative z-10 max-w-3xl">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary text-on-primary font-pixel text-[9px] tracking-wider">
+<span class="material-symbols-outlined text-[14px]">forum</span>
+            DISCUSSION FORUM
+          </span>
+<span class="font-pixel text-[9px] text-primary tracking-wide">SUBLEVEL 1.4: ARRAYS &amp; POINTERS</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+          SUBLEVEL 1.4: TWO-POINTERS &amp; IN-PLACE REVERSAL
+        </h1>
+<div class="flex flex-wrap items-center gap-3 pt-1">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-primary text-[18px]">code_blocks</span>
+<span>PROBLEM SPEC: REVERSE ARRAY IN-PLACE <code class="font-mono text-xs bg-surface-container-high px-1.5 py-0.5 rounded text-primary">O(1) AUX</code></span>
+</div>
+<a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-pixel text-[9px] transition-colors shadow-sm" href="stage_5_problem_solving_boss.html">
+<span>VIEW STAGE</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Quick Metrics Strip -->
+<div class="flex items-center gap-4 bg-surface-container-low p-3 rounded-lg relative z-10 self-start md:self-auto shadow-inner">
+<div class="flex flex-col items-center px-3">
+<span class="font-pixel text-[13px] text-primary">38</span>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-1">DISCUSSIONS</span>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div class="flex flex-col items-center px-3">
+<span class="font-pixel text-[13px] text-tertiary">99.2%</span>
+<span class="font-pixel text-[8px] text-on-surface-variant mt-1">HELPFUL</span>
+</div>
+</div>
+</section>
+<!-- MAIN TWO-COLUMN CONTENT -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT FORUM FEED (8 COLUMNS) -->
+<main class="lg:col-span-8 flex flex-col gap-6">
+<!-- Controls & Sort Tabs -->
+<div class="flex items-center justify-between flex-wrap gap-4 pb-1">
+<div class="flex items-center gap-2 p-1 bg-surface-container rounded-lg">
+<button class="px-3 py-2 rounded font-pixel text-[9px] bg-surface-container-lowest text-primary shadow-[0_3px_0_0_#c8bfff] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-1.5" id="sort-upvoted-btn">
+<span class="material-symbols-outlined text-[15px] text-secondary">local_fire_department</span>
+<span>MOST UPVOTED</span>
+</button>
+<button class="px-3 py-2 rounded font-pixel text-[9px] text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5" id="sort-recent-btn">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+<span>MOST RECENT</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-pixel text-[8px] text-on-surface-variant">FILTER BY:</span>
+<button class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-pixel text-[8px] hover:bg-surface-container-high transition-colors">#EDGE_CASES</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-pixel text-[8px] hover:bg-surface-container-high transition-colors">#OPTIMIZATION</button>
+</div>
+</div>
+<!-- COMMENT INPUT BOX -->
+<section class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center shadow-inner relative overflow-hidden">
+<span class="material-symbols-outlined text-primary text-[22px]">smart_toy</span>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary-fixed-dim rounded-full"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[10px] text-primary">@ALGO_KNIGHT_42</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">LVL 14 REVERSER</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span class="font-pixel text-[8px] text-tertiary">STAGE UNLOCKED</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<textarea class="w-full p-4 rounded bg-surface-container-low text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant placeholder:opacity-70 focus:outline-none focus:bg-surface-container transition-all resize-none shadow-inner" placeholder="Share your algorithmic insights, edge-case findings, or ask the guild for help..." rows="3"></textarea>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+<!-- Formatting Pill Actions -->
+<div class="flex items-center gap-1.5">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-pixel text-[9px] flex items-center gap-1 transition-colors" title="Insert Code">
+<span class="material-symbols-outlined text-[14px]">code</span>
+<code>CODE</code>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-pixel text-[9px] flex items-center transition-colors" title="Bold Text">
+<span class="material-symbols-outlined text-[14px]">format_bold</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-pixel text-[9px] flex items-center gap-1 transition-colors" title="Add Complexity">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+<span>BIG-O</span>
+</button>
+</div>
+<!-- Mint 3D Post CTA Button -->
+<button class="px-5 py-2.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-pixel text-[10px] tracking-wider shadow-[0_4px_0_0_#5adcb3] active:translate-y-[3px] active:shadow-[0_1px_0_0_#5adcb3] hover:brightness-105 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>POST COMMENT</span>
+</button>
+</div>
+</section>
+<!-- THREADED STREAM -->
+<section class="flex flex-col gap-6">
+<!-- PARENT COMMENT 1 -->
+<article class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4 transition-all hover:shadow-md">
+<div class="flex items-start gap-4">
+<!-- Upvote Column -->
+<div class="flex flex-col items-center">
+<button class="group flex flex-col items-center justify-center w-12 py-2 px-1 rounded-lg bg-surface-container-low hover:bg-primary-fixed shadow-[0_2px_0_0_#c9c4d3] active:translate-y-0.5 active:shadow-none transition-all">
+<span class="font-pixel text-[10px] text-primary group-hover:-translate-y-0.5 transition-transform">▲</span>
+<span class="font-pixel text-[9px] text-on-surface mt-1">42</span>
+</button>
+</div>
+<!-- Main Content Body -->
+<div class="flex-1 flex flex-col gap-2 min-w-0">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center flex-wrap gap-2">
+<span class="font-pixel text-[10px] text-on-surface hover:text-primary cursor-pointer">@POINTER_GURU</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-pixel text-[7px] tracking-widest shadow-xs">
+                      STAFF
+                    </span>
+<span class="text-outline text-xs">•</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">2H AGO</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant opacity-80">
+<span class="material-symbols-outlined text-[16px] text-tertiary">verified</span>
+<span class="font-pixel text-[8px] text-tertiary">ACCEPTED PATTERN</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed pt-1">
+                  Crucial edge case: remember odd vs even length arrays! If array length is odd, the middle element doesn't need to be swapped since <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold">left == right</code> terminates the loop cleanly. This avoids redundant memory operations.
+                </p>
+<!-- Action Bar -->
+<div class="flex items-center gap-4 pt-2">
+<button class="font-pixel text-[9px] text-primary hover:text-primary-container flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">reply</span>
+<span>REPLY</span>
+</button>
+<button class="font-pixel text-[9px] text-on-surface-variant hover:text-on-surface flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">share</span>
+<span>SHARE</span>
+</button>
+<button class="font-pixel text-[9px] text-on-surface-variant hover:text-error flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">flag</span>
+<span>FLAG</span>
+</button>
+</div>
+</div>
+</div>
+<!-- NESTED / INDENTED REPLY 1 -->
+<div class="ml-6 sm:ml-12 pl-4 py-3 bg-surface-container-low rounded-lg flex items-start gap-3 relative shadow-inner">
+<div class="absolute -left-3 top-5 w-3 h-0.5 bg-surface-variant"></div>
+<div class="flex flex-col items-center">
+<button class="group flex flex-col items-center justify-center w-9 py-1 px-1 rounded bg-surface-container-lowest hover:bg-surface-container shadow-xs active:translate-y-0.5 transition-all">
+<span class="font-pixel text-[8px] text-primary">▲</span>
+<span class="font-pixel text-[8px] text-on-surface mt-0.5">8</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-1 min-w-0">
+<div class="flex items-center flex-wrap gap-2">
+<span class="font-pixel text-[9px] text-primary">@ALGO_KNIGHT_42</span>
+<span class="font-pixel text-[7px] text-on-primary bg-primary px-1 rounded">YOU</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">1H AGO</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-normal">
+                  Thanks! That fixed my off-by-one boundary bug on Test Case 3 in the Boss challenge. <code class="font-mono text-xs px-1 rounded bg-surface-container text-primary">while(left &lt; right)</code> kept running 1 unnecessary cycle when I had improper index decrementing.
+                </p>
+<div class="flex items-center gap-3 pt-1">
+<button class="font-pixel text-[8px] text-primary hover:underline">REPLY</button>
+</div>
+</div>
+</div>
+</article>
+<!-- PARENT COMMENT 2 -->
+<article class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4 transition-all hover:shadow-md">
+<div class="flex items-start gap-4">
+<!-- Upvote Column -->
+<div class="flex flex-col items-center">
+<button class="group flex flex-col items-center justify-center w-12 py-2 px-1 rounded-lg bg-surface-container-low hover:bg-primary-fixed shadow-[0_2px_0_0_#c9c4d3] active:translate-y-0.5 active:shadow-none transition-all">
+<span class="font-pixel text-[10px] text-primary group-hover:-translate-y-0.5 transition-transform">▲</span>
+<span class="font-pixel text-[9px] text-on-surface mt-1">19</span>
+</button>
+</div>
+<!-- Main Content Body -->
+<div class="flex-1 flex flex-col gap-2 min-w-0">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center flex-wrap gap-2">
+<span class="font-pixel text-[10px] text-on-surface hover:text-primary cursor-pointer">@DEV_SARAH</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-pixel text-[7px] tracking-widest shadow-xs">
+                      TOP QUESSTER
+                    </span>
+<span class="text-outline text-xs">•</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">5H AGO</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed pt-1">
+                  For Python questers: remember <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold">arr[l], arr[r] = arr[r], arr[l]</code> is done via tuple packing under the hood, but in C++ you want explicit <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold">std::swap</code> to maintain strict <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold">O(1)</code> auxiliary overhead.
+                </p>
+<!-- Code block visualization inside comment -->
+<div class="p-3 rounded bg-surface-container-high text-on-surface-variant font-mono text-xs overflow-x-auto my-1">
+<span class="text-secondary">void</span> reverseArray(vector&lt;<span class="text-secondary">int</span>&gt;&amp; arr) {<br/>
+                    <span class="text-secondary">int</span> l = 0, r = arr.size() - 1;<br/>
+                    <span class="text-primary font-bold">while</span> (l &lt; r) { std::swap(arr[l++], arr[r--]); }<br/>
+                  }
+                </div>
+<!-- Action Bar -->
+<div class="flex items-center gap-4 pt-2">
+<button class="font-pixel text-[9px] text-primary hover:text-primary-container flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">reply</span>
+<span>REPLY</span>
+</button>
+<button class="font-pixel text-[9px] text-on-surface-variant hover:text-on-surface flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">share</span>
+<span>SHARE</span>
+</button>
+<button class="font-pixel text-[9px] text-on-surface-variant hover:text-error flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">flag</span>
+<span>FLAG</span>
+</button>
+</div>
+</div>
+</div>
+<!-- NESTED REPLY -->
+<div class="ml-6 sm:ml-12 pl-4 py-3 bg-surface-container-low rounded-lg flex items-start gap-3 relative shadow-inner">
+<div class="absolute -left-3 top-5 w-3 h-0.5 bg-surface-variant"></div>
+<div class="flex flex-col items-center">
+<button class="group flex flex-col items-center justify-center w-9 py-1 px-1 rounded bg-surface-container-lowest hover:bg-surface-container shadow-xs active:translate-y-0.5 transition-all">
+<span class="font-pixel text-[8px] text-primary">▲</span>
+<span class="font-pixel text-[8px] text-on-surface mt-0.5">3</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-1 min-w-0">
+<div class="flex items-center flex-wrap gap-2">
+<span class="font-pixel text-[9px] text-on-surface hover:text-primary cursor-pointer">@BYTE_NINJA</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">3H AGO</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-normal">
+                  Good catch on the byte code representation! Especially when dealing with large 64-bit integers where compiler optimizations kick in.
+                </p>
+<div class="flex items-center gap-3 pt-1">
+<button class="font-pixel text-[8px] text-primary hover:underline">REPLY</button>
+</div>
+</div>
+</div>
+</article>
+<!-- PARENT COMMENT 3 (COMMUNITY QUESTION) -->
+<article class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4 transition-all hover:shadow-md">
+<div class="flex items-start gap-4">
+<div class="flex flex-col items-center">
+<button class="group flex flex-col items-center justify-center w-12 py-2 px-1 rounded-lg bg-surface-container-low hover:bg-primary-fixed shadow-[0_2px_0_0_#c9c4d3] active:translate-y-0.5 active:shadow-none transition-all">
+<span class="font-pixel text-[10px] text-primary group-hover:-translate-y-0.5 transition-transform">▲</span>
+<span class="font-pixel text-[9px] text-on-surface mt-1">5</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-2 min-w-0">
+<div class="flex items-center flex-wrap gap-2">
+<span class="font-pixel text-[10px] text-on-surface hover:text-primary cursor-pointer">@RECURSION_ROOKIE</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-pixel text-[8px] text-on-surface-variant">1D AGO</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed pt-1">
+                  Can we solve this using recursion and still pass the memory benchmark? Or will call stack frames violate the strict <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold">O(1)</code> auxiliary space criteria?
+                </p>
+<div class="flex items-center gap-4 pt-2">
+<button class="font-pixel text-[9px] text-primary hover:text-primary-container flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">reply</span>
+<span>REPLY</span>
+</button>
+<button class="font-pixel text-[9px] text-on-surface-variant hover:text-on-surface flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">share</span>
+<span>SHARE</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- Pagination Bar -->
+<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg">
+<span class="font-pixel text-[9px] text-on-surface-variant">SHOWING 1-3 OF 38 THREADS</span>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded bg-surface-container-highest opacity-50 cursor-not-allowed font-pixel text-[8px]">PREV</button>
+<button class="px-3 py-1.5 rounded bg-primary text-on-primary font-pixel text-[8px] shadow-sm">1</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-pixel text-[8px] transition-colors">2</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-pixel text-[8px] transition-colors">3</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-pixel text-[8px] transition-colors">NEXT</button>
+</div>
+</div>
+</main>
+<!-- RIGHT SIDEBAR / SIDE DOCK (4 COLUMNS) -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<!-- STAGE SUMMARY CARD -->
+<div class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2 pb-2">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment</span>
+<h2 class="font-pixel text-[10px] text-on-surface tracking-wider">STAGE RECAP</h2>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low flex flex-col gap-2">
+<span class="font-pixel text-[8px] text-secondary">OBJECTIVE INVARIANT</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+              Reverse array elements directly within the existing memory allocation. Pointer movement converges at the center array index.
+            </p>
+</div>
+<div class="grid grid-cols-2 gap-2 text-center">
+<div class="p-3 rounded bg-surface-container flex flex-col items-center">
+<span class="font-pixel text-[7px] text-on-surface-variant">TIME REQ</span>
+<span class="font-mono text-sm font-bold text-primary mt-1">O(N)</span>
+</div>
+<div class="p-3 rounded bg-surface-container flex flex-col items-center">
+<span class="font-pixel text-[7px] text-on-surface-variant">AUX SPACE</span>
+<span class="font-mono text-sm font-bold text-tertiary mt-1">O(1)</span>
+</div>
+</div>
+</div>
+<!-- GUILD GUIDELINES CARD -->
+<div class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2 pb-1">
+<span class="material-symbols-outlined text-secondary text-[20px]">policy</span>
+<h2 class="font-pixel text-[10px] text-on-surface tracking-wider">GUILD GUIDELINES</h2>
+</div>
+<ul class="flex flex-col gap-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">verified_user</span>
+<span><strong>No direct copy-pasting solutions:</strong> Explain the algorithmic invariants and intuition instead of full pastebins.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">query_stats</span>
+<span><strong>Analyze Space &amp; Time:</strong> Always mention Big-O performance considerations in suggestions.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">favorite</span>
+<span><strong>Be Encouraging:</strong> Help apprentices level up their pointer navigation skills with empathy!</span>
+</li>
+</ul>
+</div>
+<!-- TOP CONTRIBUTORS THIS WEEK -->
+<div class="p-6 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">military_tech</span>
+<h2 class="font-pixel text-[10px] text-on-surface tracking-wider">TOP CONTRIBUTORS</h2>
+</div>
+<span class="font-pixel text-[8px] text-on-surface-variant">THIS WEEK</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Contributor 1 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed flex items-center justify-center font-pixel text-[10px] text-primary">
+                  #1
+                </div>
+<div class="flex flex-col">
+<span class="font-pixel text-[9px] text-on-surface">@POINTER_GURU</span>
+<span class="font-pixel text-[7px] text-on-surface-variant">24 ANSWERS</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container text-tertiary font-pixel text-[8px]">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+<span>+620 XP</span>
+</div>
+</div>
+<!-- Contributor 2 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center font-pixel text-[10px] text-on-surface-variant">
+                  #2
+                </div>
+<div class="flex flex-col">
+<span class="font-pixel text-[9px] text-on-surface">@DEV_SARAH</span>
+<span class="font-pixel text-[7px] text-on-surface-variant">18 ANSWERS</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container text-tertiary font-pixel text-[8px]">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+<span>+480 XP</span>
+</div>
+</div>
+<!-- Contributor 3 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center font-pixel text-[10px] text-on-surface-variant">
+                  #3
+                </div>
+<div class="flex flex-col">
+<span class="font-pixel text-[9px] text-on-surface">@BYTE_NINJA</span>
+<span class="font-pixel text-[7px] text-on-surface-variant">11 ANSWERS</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container text-tertiary font-pixel text-[8px]">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+<span>+310 XP</span>
+</div>
+</div>
+</div>
+</div>
+<!-- REWARD BOUNTY ADVERTISEMENT -->
+<div class="p-6 rounded-lg bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-sm flex flex-col gap-3 relative overflow-hidden">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-[24px]">redeem</span>
+<span class="font-pixel text-[10px] text-tertiary-fixed tracking-wider">COMMUNITY BOUNTY</span>
+</div>
+<h3 class="font-headline-md text-headline-md leading-tight">Help 3 Guild Apprentices</h3>
+<p class="font-body-sm text-body-sm text-surface-container-low opacity-90">
+            Provide accepted answers to 3 open community edge-case questions this week to unlock the <strong>Mentor Badge</strong> and 250 Guild Coins.
+          </p>
+<div class="w-full bg-surface/20 rounded-full h-2 mt-1 overflow-hidden">
+<div class="bg-tertiary-fixed h-full rounded-full" style="width: 33%"></div>
+</div>
+<span class="font-pixel text-[8px] text-tertiary-fixed text-right">1 / 3 COMPLETED</span>
+</div>
+</aside>
+</div>
+</div>
+<script>
+    // Tab switching interactivity
+    const btnUpvoted = document.getElementById('sort-upvoted-btn');
+    const btnRecent = document.getElementById('sort-recent-btn');
+
+    if (btnUpvoted && btnRecent) {
+      btnUpvoted.addEventListener('click', () => {
+        btnUpvoted.className = "px-3 py-2 rounded font-pixel text-[9px] bg-surface-container-lowest text-primary shadow-[0_3px_0_0_#c8bfff] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-1.5";
+        btnRecent.className = "px-3 py-2 rounded font-pixel text-[9px] text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5";
+      });
+
+      btnRecent.addEventListener('click', () => {
+        btnRecent.className = "px-3 py-2 rounded font-pixel text-[9px] bg-surface-container-lowest text-primary shadow-[0_3px_0_0_#c8bfff] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-1.5";
+        btnUpvoted.className = "px-3 py-2 rounded font-pixel text-[9px] text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5";
+      });
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_-1px_8px_rgba(0,0,0,0.02)]"><div class="w-full h-12 bg-surface-container flex items-end justify-center gap-1 overflow-hidden opacity-40"><div class="w-6 h-8 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-8 h-12 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-5 h-6 bg-surface-container-highest"></div><div class="w-10 h-10 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div></div><div class="w-7 h-9 bg-surface-container-highest flex flex-col justify-start gap-1 p-1"><div class="w-1 h-1 bg-surface-container-lowest"></div></div></div><div class="w-full px-gutter py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[18px] text-primary">terminal</span><span>© 2025 AlgoQuest DSA Platform. Level up your code.</span></div><div class="font-pixel text-[9px] text-on-surface-variant flex items-center gap-space-md"><a class="hover:text-primary transition-colors" href="#">SYSTEM: ONLINE</a><a class="hover:text-primary transition-colors" href="#">V2.4.0</a></div></div></footer></body></html>
