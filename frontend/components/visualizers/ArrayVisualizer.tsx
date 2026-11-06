@@ -19,31 +19,37 @@ interface ArrayVisualizerProps {
   steps?: VisualizerStep[];
 }
 
-const DEFAULT_ARRAY = [12, 45, 68, 23, 89, 34, 91, 55];
+const DEFAULT_ARRAY = [12, 28, 35, 42, 58, 70, 85, 99];
 const DEFAULT_STEPS: VisualizerStep[] = [
-  { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: 'Initialize pointers at array boundaries', codeLine: 'int left = 0, right = arr.length - 1;' },
-  { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: 'Comparing values arr[0]=12 with arr[7]=55', codeLine: 'if (arr[left] + arr[right] == target)' },
-  { activeIndices: [1, 7], pointerLeft: 1, pointerRight: 7, action: 'Sum too small -> Advance left pointer to index 1', codeLine: 'left++;' },
-  { activeIndices: [1, 6], pointerLeft: 1, pointerRight: 6, action: 'Comparing arr[1]=45 with arr[6]=91', codeLine: 'if (arr[left] + arr[right] > target)' },
-  { activeIndices: [1, 5], pointerLeft: 1, pointerRight: 5, action: 'Sum too high -> Decrement right pointer to index 5', codeLine: 'right--;' },
-  { activeIndices: [2, 5], pointerLeft: 2, pointerRight: 5, action: 'Target match discovered at indices 2 and 5!', codeLine: 'return new int[] {left, right};' },
+  { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: 'Initialize pointers at boundaries: left=0 (12) and right=7 (99). Target sum: 100', codeLine: 'int left = 0, right = arr.length - 1;' },
+  { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: 'Sum = 12 + 99 = 111 (> 100). Sum is too large, decrement right pointer!', codeLine: 'if (arr[left] + arr[right] > target) right--;' },
+  { activeIndices: [0, 6], pointerLeft: 0, pointerRight: 6, action: 'Right moved to index 6: 12 + 85 = 97 (< 100). Sum too small, advance left pointer!', codeLine: 'else if (arr[left] + arr[right] < target) left++;' },
+  { activeIndices: [1, 6], pointerLeft: 1, pointerRight: 6, action: 'Left moved to index 1: 28 + 85 = 113 (> 100). Decrement right pointer!', codeLine: 'right--;' },
+  { activeIndices: [1, 5], pointerLeft: 1, pointerRight: 5, action: 'Right moved to index 5: 28 + 70 = 98 (< 100). Increment left pointer!', codeLine: 'left++;' },
+  { activeIndices: [2, 5], pointerLeft: 2, pointerRight: 5, action: 'Left moved to index 2: 35 + 70 = 105 (> 100). Decrement right pointer!', codeLine: 'right--;' },
+  { activeIndices: [2, 4], pointerLeft: 2, pointerRight: 4, action: 'Right moved to index 4: 35 + 58 = 93 (< 100). Increment left pointer!', codeLine: 'left++;' },
+  { activeIndices: [3, 4], pointerLeft: 3, pointerRight: 4, action: 'Target Match Discovered! arr[3]=42 + arr[4]=58 = 100. Disarming dungeon lock.', codeLine: 'return new int[] {left, right}; // Match found!' },
 ];
 
 export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
-  initialArray = DEFAULT_ARRAY,
-  steps = DEFAULT_STEPS,
+  initialArray,
+  steps,
 }) => {
+  // Guard against 1-step or missing steps from backend
+  const activeSteps = (steps && steps.length > 1) ? steps : DEFAULT_STEPS;
+  const activeArray = (initialArray && initialArray.length > 1) ? initialArray : DEFAULT_ARRAY;
+
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const currentStep = steps[currentStepIndex] || steps[0];
+  const currentStep = activeSteps[currentStepIndex] || activeSteps[0];
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isPlaying) {
       timer = setInterval(() => {
         setCurrentStepIndex((prev) => {
-          if (prev >= steps.length - 1) {
+          if (prev >= activeSteps.length - 1) {
             setIsPlaying(false);
             return prev;
           }
@@ -52,7 +58,7 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
       }, 1500);
     }
     return () => clearInterval(timer);
-  }, [isPlaying, steps.length]);
+  }, [isPlaying, activeSteps.length]);
 
   return (
     <div className="space-y-6 w-full max-w-5xl mx-auto">
@@ -70,7 +76,7 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-[#00F0FF] animate-ping" />
             <span className="font-pixel text-xs text-[#00F0FF] tracking-widest">
-              DUNGEON ARENA : STEP {currentStepIndex + 1} / {steps.length}
+              DUNGEON ARENA : STEP {currentStepIndex + 1} / {activeSteps.length}
             </span>
           </div>
 
@@ -99,10 +105,10 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
             <PixelButton
               variant="purple"
               size="sm"
-              disabled={currentStepIndex >= steps.length - 1}
+              disabled={currentStepIndex >= activeSteps.length - 1}
               onClick={() => {
                 setIsPlaying(false);
-                setCurrentStepIndex((prev) => Math.min(steps.length - 1, prev + 1));
+                setCurrentStepIndex((prev) => Math.min(activeSteps.length - 1, prev + 1));
               }}
             >
               NEXT <SkipForward size={14} className="ml-1" />
@@ -112,7 +118,7 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
 
         {/* Tiles Platform with Pixel Hero & Glowing Numbers */}
         <div className="relative z-10 py-10 flex flex-wrap justify-center items-end gap-3 sm:gap-4">
-          {initialArray.map((num, idx) => {
+          {activeArray.map((num, idx) => {
             const isActive = currentStep.activeIndices.includes(idx);
             const isLeft = currentStep.pointerLeft === idx;
             const isRight = currentStep.pointerRight === idx;
@@ -179,7 +185,7 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
       <VisualDebuggerConsole
         currentCodeLine={currentStep.codeLine}
         activeIndices={currentStep.activeIndices}
-        values={initialArray}
+        values={activeArray}
         pointerLeft={currentStep.pointerLeft}
         pointerRight={currentStep.pointerRight}
         actionMessage={currentStep.action}
@@ -187,4 +193,3 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
     </div>
   );
 };
-

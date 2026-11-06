@@ -192,7 +192,7 @@ export class RoadmapService {
       isCompleted: false,
       stages: [
         { id: 1, stageNumber: 1, stageType: 'THEORY', title: 'Theory: Big-O Bounds', status: 'UNLOCKED' },
-        { id: 2, stageNumber: 2, stageType: 'VISUALIZATION', title: 'Visualization: Growth Curves', status: 'LOCKED' },
+        { id: 2, stageNumber: 2, stageType: 'VISUALIZATION', title: 'Visualization: Dual Pointers Mechanics', status: 'LOCKED' },
         { id: 3, stageNumber: 3, stageType: 'DRY_RUN', title: 'Dry Run: Loop Counting', status: 'LOCKED' },
         { id: 4, stageNumber: 4, stageType: 'GUIDED_CODE', title: 'Guided Example: Binary Search', status: 'LOCKED' },
         { id: 5, stageNumber: 5, stageType: 'EASY_PROBLEM', title: 'Easy: Constant vs Linear', status: 'LOCKED' },
@@ -219,26 +219,101 @@ export class RoadmapService {
         },
       });
 
-      if (stage) {
+      if (stage && stage.contentJson) {
         return stage;
       }
     } catch (e) {
       // Fallback
     }
 
+    const stageType =
+      stageNumber === 1
+        ? 'THEORY'
+        : stageNumber === 2
+        ? 'VISUALIZATION'
+        : stageNumber === 3
+        ? 'DRY_RUN'
+        : stageNumber === 4
+        ? 'GUIDED_CODE'
+        : stageNumber === 5
+        ? 'EASY_PROBLEM'
+        : stageNumber === 6
+        ? 'MEDIUM_PROBLEM'
+        : stageNumber === 7
+        ? 'QUIZ'
+        : 'BOSS';
+
     return {
       id: stageNumber,
       sublevelId,
       stageNumber,
-      stageType: stageNumber === 1 ? 'THEORY' : stageNumber === 2 ? 'VISUALIZATION' : 'DRY_RUN',
-      title: `Stage ${stageNumber}: Fundamental Concepts`,
+      stageType,
+      title:
+        stageNumber === 2
+          ? 'Visualization: Interactive Dual Pointers Convergence'
+          : `Stage ${stageNumber}: Fundamental Concepts`,
       contentJson: {
         eli5: 'Welcome to this quest stage! Here we explore time complexity and memory mechanics.',
         keyTakeaways: ['O(1) is instant', 'O(log N) cuts in half', 'O(N) touches each element once'],
         codeSnippet: 'int n = arr.length;\nfor (int i = 0; i < n; i++) {\n    // O(N) loop\n}',
-        initialArray: [10, 20, 30, 40, 50],
+        initialArray: [12, 28, 35, 42, 58, 70, 85, 99],
         steps: [
-          { activeIndices: [0, 4], pointerLeft: 0, pointerRight: 4, action: 'Inspect boundaries', codeLine: 'int left = 0, right = 4;' },
+          {
+            activeIndices: [0, 7],
+            pointerLeft: 0,
+            pointerRight: 7,
+            action: 'Initialize left=0 (12) and right=7 (99). Target sum is 100.',
+            codeLine: 'int left = 0, right = arr.length - 1;',
+          },
+          {
+            activeIndices: [0, 7],
+            pointerLeft: 0,
+            pointerRight: 7,
+            action: 'Check sum: 12 + 99 = 111 > 100. Sum is too large!',
+            codeLine: 'if (arr[left] + arr[right] > target) right--;',
+          },
+          {
+            activeIndices: [0, 6],
+            pointerLeft: 0,
+            pointerRight: 6,
+            action: 'Decrement right pointer to index 6: 12 + 85 = 97 < 100. Sum too small!',
+            codeLine: 'else if (arr[left] + arr[right] < target) left++;',
+          },
+          {
+            activeIndices: [1, 6],
+            pointerLeft: 1,
+            pointerRight: 6,
+            action: 'Increment left pointer to index 1: 28 + 85 = 113 > 100.',
+            codeLine: 'right--;',
+          },
+          {
+            activeIndices: [1, 5],
+            pointerLeft: 1,
+            pointerRight: 5,
+            action: 'Decrement right pointer to index 5: 28 + 70 = 98 < 100.',
+            codeLine: 'left++;',
+          },
+          {
+            activeIndices: [2, 5],
+            pointerLeft: 2,
+            pointerRight: 5,
+            action: 'Increment left pointer to index 2: 35 + 70 = 105 > 100.',
+            codeLine: 'right--;',
+          },
+          {
+            activeIndices: [2, 4],
+            pointerLeft: 2,
+            pointerRight: 4,
+            action: 'Decrement right pointer to index 4: 35 + 58 = 93 < 100.',
+            codeLine: 'left++;',
+          },
+          {
+            activeIndices: [3, 4],
+            pointerLeft: 3,
+            pointerRight: 4,
+            action: 'Increment left pointer to index 3: arr[3]=42, arr[4]=58. 42 + 58 = 100 MATCH FOUND!',
+            codeLine: 'return new int[]{left, right}; // [3, 4] Target Disarmed!',
+          },
         ],
       },
     };
