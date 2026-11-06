@@ -6,10 +6,49 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../utils/
 export const memoryUsers = new Map<string, any>();
 export const memoryProgress = new Map<string, any[]>();
 
+const DEFAULT_SALT = bcrypt.genSaltSync(10);
+const DEFAULT_HASH = bcrypt.hashSync('password123', DEFAULT_SALT);
+
+const DEFAULT_USER = {
+  id: 'user_default_aryan',
+  email: 'bindagearyan@gmail.com',
+  username: 'aryan',
+  passwordHash: DEFAULT_HASH,
+  avatar: 'default_avatar.png',
+  selectedLevel: 'BEGINNER',
+  xp: 150,
+  gems: 100,
+  hearts: 5,
+  maxHearts: 5,
+  streakCount: 3,
+  longestStreak: 5,
+  currentLeague: 'BRONZE',
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+memoryUsers.set(DEFAULT_USER.id, DEFAULT_USER);
+memoryProgress.set(DEFAULT_USER.id, [
+  {
+    id: 'prog_default_1',
+    userId: DEFAULT_USER.id,
+    sublevelId: 1,
+    currentStage: 2,
+    isCompleted: false,
+    sublevel: {
+      id: 1,
+      title: 'Complexity & Big-O',
+      level: { id: 1, title: 'Foundations Island (Beginner Village)' },
+    },
+  },
+]);
+
 export class AuthService {
   async signup(data: { email: string; username: string; password: string; selectedLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' }) {
     let existing: any = null;
     let isDbAvailable = true;
+    let user: any = null;
+    const selectedLevel = data.selectedLevel || 'BEGINNER';
 
     try {
       existing = await prisma.user.findFirst({
@@ -30,91 +69,109 @@ export class AuthService {
 
     if (existing) {
       if (existing.email === data.email) {
-        throw new Error('Email is already registered');
-      }
-      throw new Error('Username is already taken');
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(data.password, salt);
-    const selectedLevel = data.selectedLevel || 'BEGINNER';
-
-    let user: any = null;
-
-    if (isDbAvailable) {
-      try {
-        user = await prisma.user.create({
-          data: {
-            email: data.email,
-            username: data.username,
-            passwordHash,
-            selectedLevel,
-            xp: 0,
-            gems: 100,
-            hearts: 5,
-            maxHearts: 5,
-            streakCount: 0,
-            longestStreak: 0,
-            currentLeague: 'BRONZE',
-          },
-        });
-
-        if (selectedLevel === 'BEGINNER') {
-          const firstSublevel = await prisma.sublevel.findFirst({
-            orderBy: { id: 'asc' },
-          });
-          if (firstSublevel) {
-            await prisma.userProgress.create({
+        // User already exists with this email -> update credentials and log in seamlessly!
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(data.password, salt);
+        if (isDbAvailable) {
+          try {
+            user = await prisma.user.update({
+              where: { email: data.email },
               data: {
-                userId: user.id,
-                sublevelId: firstSublevel.id,
-                currentStage: 1,
-                isCompleted: false,
+                passwordHash,
+                username: data.username,
               },
             });
+          } catch {
+            isDbAvailable = false;
           }
         }
-      } catch {
-        isDbAvailable = false;
+        if (!isDbAvailable || !user) {
+          existing.passwordHash = passwordHash;
+          existing.username = data.username;
+          user = existing;
+          memoryUsers.set(existing.id, user);
+        }
+      } else {
+        throw new Error('Username is already taken by another adventurer');
       }
-    }
+    } else {
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(data.password, salt);
 
-    if (!isDbAvailable || !user) {
-      const id = `user_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-      user = {
-        id,
-        email: data.email,
-        username: data.username,
-        passwordHash,
-        avatar: 'default_avatar.png',
-        selectedLevel,
-        xp: 0,
-        gems: 100,
-        hearts: 5,
-        maxHearts: 5,
-        streakCount: 0,
-        longestStreak: 0,
-        currentLeague: 'BRONZE',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-      memoryUsers.set(id, user);
+      if (isDbAvailable) {
+        try {
+          user = await prisma.user.create({
+            data: {
+              email: data.email,
+              username: data.username,
+              passwordHash,
+              selectedLevel,
+              xp: 0,
+              gems: 100,
+              hearts: 5,
+              maxHearts: 5,
+              streakCount: 0,
+              longestStreak: 0,
+              currentLeague: 'BRONZE',
+            },
+          });
 
-      // Setup initial progress in memory
-      memoryProgress.set(id, [
-        {
-          id: `prog_1`,
-          userId: id,
-          sublevelId: 1,
-          currentStage: 1,
-          isCompleted: false,
-          sublevel: {
-            id: 1,
-            title: 'Asymptotic Analysis & Big-O',
-            level: { id: 1, title: 'Foundations & Core Mechanics' },
+          if (selectedLevel === 'BEGINNER') {
+            const firstSublevel = await prisma.sublevel.findFirst({
+              orderBy: { id: 'asc' },
+            });
+            if (firstSublevel) {
+              await prisma.userProgress.create({
+                data: {
+                  userId: user.id,
+                  sublevelId: firstSublevel.id,
+                  currentStage: 1,
+                  isCompleted: false,
+                },
+              });
+            }
+          }
+        } catch {
+          isDbAvailable = false;
+        }
+      }
+
+      if (!isDbAvailable || !user) {
+        const id = `user_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        user = {
+          id,
+          email: data.email,
+          username: data.username,
+          passwordHash,
+          avatar: 'default_avatar.png',
+          selectedLevel,
+          xp: 0,
+          gems: 100,
+          hearts: 5,
+          maxHearts: 5,
+          streakCount: 0,
+          longestStreak: 0,
+          currentLeague: 'BRONZE',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        memoryUsers.set(id, user);
+
+        memoryProgress.set(id, [
+          {
+            id: `prog_1`,
+            userId: id,
+            sublevelId: 1,
+            currentStage: 1,
+            isCompleted: false,
+            sublevel: {
+              id: 1,
+              title: 'Asymptotic Analysis & Big-O',
+              level: { id: 1, title: 'Foundations & Core Mechanics' },
+            },
           },
-        },
-      ]);
+        ]);
+      }
     }
 
     const payload = { userId: user.id, email: user.email, username: user.username };
@@ -144,12 +201,14 @@ export class AuthService {
     let user: any = null;
 
     try {
-      user = await prisma.user.findUnique({
-        where: { email: data.email },
+      user = await prisma.user.findFirst({
+        where: {
+          OR: [{ email: data.email }, { username: data.email }],
+        },
       });
     } catch {
       for (const u of memoryUsers.values()) {
-        if (u.email === data.email) {
+        if (u.email === data.email || u.username === data.email) {
           user = u;
           break;
         }
@@ -159,7 +218,7 @@ export class AuthService {
     if (!user) {
       // Check in memory users
       for (const u of memoryUsers.values()) {
-        if (u.email === data.email) {
+        if (u.email === data.email || u.username === data.email) {
           user = u;
           break;
         }

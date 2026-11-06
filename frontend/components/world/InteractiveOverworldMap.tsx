@@ -379,3 +379,4 @@ export const InteractiveOverworldMap: React.FC<InteractiveOverworldMapProps> = (
     </div>
   );
 };
+

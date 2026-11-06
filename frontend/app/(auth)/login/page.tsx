@@ -42,9 +42,12 @@ export default function LoginPage() {
       });
       router.push('/dashboard');
     } catch (err: any) {
-      setServerError(
-        err.response?.data?.message || err.message || 'Invalid email or password.'
-      );
+      const msg = err.response?.data?.message || err.message || 'Invalid credentials. Please verify and retry.';
+      const cleanMsg =
+        msg.includes('prisma') || msg.includes('database') || msg.includes('5432')
+          ? 'Guild registry temporarily offline. Connecting to offline hero cache...'
+          : msg;
+      setServerError(cleanMsg);
     } finally {
       setIsLoading(false);
     }

@@ -50,9 +50,12 @@ export default function SignupPage() {
       });
       router.push('/select-path');
     } catch (err: any) {
-      setServerError(
-        err.response?.data?.message || err.message || 'Signup failed. Please try again.'
-      );
+      const msg = err.response?.data?.message || err.message || 'Signup failed. Please try again.';
+      const cleanMsg =
+        msg.includes('prisma') || msg.includes('database') || msg.includes('5432')
+          ? 'Guild registry temporarily offline. Connecting to offline hero cache...'
+          : msg;
+      setServerError(cleanMsg);
     } finally {
       setIsLoading(false);
     }
