@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { PixelCard } from '../ui/PixelCard';
 import { CodeEditor } from './CodeEditor';
 import { judge0Api } from '@/lib/api/judge0';
@@ -68,6 +69,25 @@ export const ProblemStage: React.FC<ProblemStageProps> = ({
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
+      {/* Epic Boss Arena Visual Banner */}
+      {isBoss && (
+        <div className="relative w-full h-44 sm:h-56 rounded-2xl border-4 border-[#FF2FD4] overflow-hidden shadow-[0_0_25px_rgba(255,47,212,0.4)]">
+          <Image
+            src="/images/boss-arena.png"
+            alt="Dungeon Boss Arena"
+            fill
+            priority
+            className="object-cover"
+            style={{ imageRendering: 'pixelated' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09081f] via-transparent to-transparent flex items-end p-4">
+            <span className="font-pixel text-[10px] text-[#FFD54F] bg-black/80 px-3 py-1 rounded-md border border-[#FFD54F]">
+              👑 FINAL BIOME BOSS GAUNTLET
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Problem Header */}
       <PixelCard variant={isBoss ? 'dungeon' : 'white'}>
         <div className="flex items-center gap-3 mb-4">

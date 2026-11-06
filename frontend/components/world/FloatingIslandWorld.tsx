@@ -428,3 +428,4 @@ export const FloatingIslandWorld: React.FC<FloatingIslandWorldProps> = ({
     </div>
   );
 };
+

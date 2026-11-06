@@ -2,12 +2,14 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useProgress } from '@/lib/hooks/useProgress';
 import { useUser } from '@/lib/hooks/useUser';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelProgressBar } from '@/components/ui/PixelProgressBar';
-import { Swords, Flame, Trophy, Play, CheckCircle2, Compass, MapPin } from 'lucide-react';
+import { InteractiveOverworldMap } from '@/components/world/InteractiveOverworldMap';
+import { Swords, Flame, Trophy, Play, CheckCircle2, Compass, MapPin, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function MainDashboardPage() {
@@ -21,20 +23,33 @@ export default function MainDashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      {/* Hero Panoramic Mini-Viewport of the Floating Island Overworld */}
-      <div className="relative rounded-2xl border-[3px] border-[#1B2A4A] bg-gradient-to-r from-[#F3C8DD] via-[#C7D3F5] to-[#FCE4C8] shadow-[4px_4px_0_#1B2A4A] overflow-hidden p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* Hero Panoramic Mini-Viewport of the Floating Island Overworld with Pixel Art Banner */}
+      <div className="relative rounded-2xl border-[3px] border-[#1B2A4A] bg-[#111] shadow-[4px_4px_0_#1B2A4A] overflow-hidden p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Full-bleed 16-Bit Retro Pixel Art Banner Image */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <Image
+            src="/images/hero-banner.png"
+            alt="AlgoQuest Floating Isles"
+            fill
+            priority
+            className="object-cover opacity-60 mix-blend-screen"
+            style={{ imageRendering: 'pixelated' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0f18]/90 via-[#0d0f18]/70 to-transparent" />
+        </div>
+
         <div className="space-y-2 z-10 text-center md:text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border-2 border-[#1B2A4A] text-[9px] font-pixel text-[#2E7D32]">
-            <MapPin size={12} className="text-emerald-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1B2A4A]/80 border-2 border-[#FFD54F] text-[9px] font-pixel text-[#FFD54F]">
+            <MapPin size={12} className="text-[#FFD54F]" />
             <span>CURRENT BIOME: BEGINNER VILLAGE MEADOWS</span>
           </div>
 
-          <h1 className="font-pixel text-base sm:text-xl text-[#1A2744]">
+          <h1 className="font-pixel text-base sm:text-xl text-white drop-shadow-[2px_2px_0_#000]">
             HERO {user?.username?.toUpperCase() || 'ADVENTURER'}
           </h1>
 
-          <p className="font-body text-xs sm:text-sm text-[#1A2744]/80 max-w-lg leading-relaxed">
-            Standing atop the floating isles. Your party is currently unsealing <span className="font-pixel text-[10px] text-[#2E7D32]">{sublevelTitle}</span> in the Foundations biome.
+          <p className="font-body text-xs sm:text-sm text-slate-200 max-w-lg leading-relaxed">
+            Standing atop the floating isles. Your party is currently unsealing <span className="font-pixel text-[10px] text-[#7FFFD4]">{sublevelTitle}</span> in the Foundations biome.
           </p>
 
           <div className="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
@@ -44,7 +59,7 @@ export default function MainDashboardPage() {
               </PixelButton>
             </Link>
             <Link href="/roadmap">
-              <PixelButton variant="outline" size="lg">
+              <PixelButton variant="gold" size="lg">
                 <Compass size={14} className="mr-1.5" /> OVERWORLD MAP
               </PixelButton>
             </Link>

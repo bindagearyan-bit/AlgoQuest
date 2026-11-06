@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { SkylineBackground } from '@/components/layout/SkylineBackground';
 import { PixelButton } from '@/components/ui/PixelButton';
@@ -67,7 +68,7 @@ export default function LandingPage() {
         </p>
 
         {/* Hero CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row gap-4 mb-12">
           <Link href="/signup">
             <PixelButton variant="mint" size="lg">
               START LEARNING FOR FREE
@@ -78,6 +79,33 @@ export default function LandingPage() {
               RESUME SAVED QUEST
             </PixelButton>
           </Link>
+        </div>
+
+        {/* 16-Bit Floating Island Overworld Showcase Banner */}
+        <div className="w-full max-w-4xl rounded-2xl border-4 border-[#3b4261] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(80,120,255,0.25)] mb-14 relative aspect-[16/9] group">
+          <Image
+            src="/map.png"
+            alt="AlgoQuest Overworld Map"
+            fill
+            priority
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            style={{ imageRendering: 'pixelated' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-between p-6">
+            <div className="text-left">
+              <span className="font-pixel text-[9px] text-[#FFD54F] bg-[#1A2744]/90 px-2.5 py-1 rounded border border-[#FFD54F] mb-1 inline-block">
+                OVERWORLD MAP ENGINE
+              </span>
+              <h3 className="font-pixel text-xs sm:text-sm text-white drop-shadow-[2px_2px_0_#000]">
+                Explore 6 Floating Island Biomes
+              </h3>
+            </div>
+            <Link href="/signup">
+              <PixelButton variant="gold" size="sm">
+                JOIN EXPEDITION ⚔️
+              </PixelButton>
+            </Link>
+          </div>
         </div>
 
         {/* Feature Cards Grid */}

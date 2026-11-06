@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { gamificationApi } from '@/lib/api/gamification';
 import { PixelCard } from '@/components/ui/PixelCard';
@@ -25,17 +26,27 @@ export default function LeaderboardPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      {/* Guild Hall Bulletin Header */}
-      <div className="text-center space-y-2">
-        <span className="font-pixel text-[9px] text-[#2E7D32] uppercase">
-          TAVERN BULLETIN BOARD
-        </span>
-        <h1 className="font-pixel text-lg sm:text-2xl text-[#1A2744]">
-          GUILD HALL RANKINGS
-        </h1>
-        <p className="font-body text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
-          Honored heroes across the 6 floating biomes. The top guild members receive weekly gem treasures.
-        </p>
+      {/* Guild Hall Bulletin Header with 16-Bit Pixel Art Tavern Image */}
+      <div className="relative rounded-2xl border-[3px] border-[#3E2723] overflow-hidden shadow-[4px_4px_0_#1B2A4A] p-6 text-center space-y-2 bg-[#1f1610]">
+        <Image
+          src="/images/guild-hall.png"
+          alt="Adventurer Guild Hall"
+          fill
+          priority
+          className="object-cover opacity-45 pointer-events-none"
+          style={{ imageRendering: 'pixelated' }}
+        />
+        <div className="relative z-10 space-y-1">
+          <span className="font-pixel text-[9px] text-[#FFD54F] uppercase bg-[#3E2723]/80 px-2 py-0.5 rounded border border-[#FFD54F]/40">
+            TAVERN BULLETIN BOARD
+          </span>
+          <h1 className="font-pixel text-lg sm:text-2xl text-white drop-shadow-[2px_2px_0_#000]">
+            GUILD HALL RANKINGS
+          </h1>
+          <p className="font-body text-xs sm:text-sm text-amber-100/90 max-w-md mx-auto leading-relaxed">
+            Honored heroes across the 6 floating biomes. The top guild members receive weekly gem treasures.
+          </p>
+        </div>
       </div>
 
       {/* League Selection Tabs styled as Wooden Notice Signposts */}
