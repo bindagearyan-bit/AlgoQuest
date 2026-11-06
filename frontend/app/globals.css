@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Nunito:wght@400;600;700;800&family=Pixelify+Sans:wght@500;700&family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --skyline-navy: #1B2A4A;
+  --window-yellow: #FFD93D;
+  --primary-purple: #8B7FD9;
+  --primary-pink: #FF6FA0;
+  --cta-mint: #7FFFD4;
+  --text-navy: #1A2744;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #1A2744;
+  background-color: #F8FAFC;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Pixel styling helpers */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+}
+
+.font-pixel-sans {
+  font-family: 'Pixelify Sans', sans-serif;
+}
+
+.font-body {
+  font-family: 'Nunito', sans-serif;
+}
+
+.font-mono {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0b2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8B7FD9;
+  border-radius: 4px;
+}
+
