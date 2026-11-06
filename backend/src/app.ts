@@ -23,8 +23,9 @@ app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'UP', timestamp: new Date().toISOString() });
 });
 
-// All API v1 routes
+// All API routes (supporting both /api/v1 and /api)
 app.use('/api/v1', routes);
+app.use('/api', routes);
 
 // Global centralized error handler
 app.use(errorHandler);

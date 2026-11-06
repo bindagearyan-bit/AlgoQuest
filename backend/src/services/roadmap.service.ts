@@ -220,6 +220,20 @@ export class RoadmapService {
       });
 
       if (stage && stage.contentJson) {
+        const content = stage.contentJson as any;
+        if (stage.stageType === 'VISUALIZATION' && (!content.steps || content.steps.length <= 1)) {
+          content.initialArray = [12, 28, 35, 42, 58, 70, 85, 99];
+          content.steps = [
+            { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: 'Initialize left=0 (12) and right=7 (99). Target sum: 100', codeLine: 'int left = 0, right = arr.length - 1;' },
+            { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: 'Check sum: 12 + 99 = 111 > 100. Sum is too large!', codeLine: 'if (arr[left] + arr[right] > target) right--;' },
+            { activeIndices: [0, 6], pointerLeft: 0, pointerRight: 6, action: 'Right moved to 6: 12 + 85 = 97 < 100. Sum too small!', codeLine: 'else if (arr[left] + arr[right] < target) left++;' },
+            { activeIndices: [1, 6], pointerLeft: 1, pointerRight: 6, action: 'Left moved to 1: 28 + 85 = 113 > 100. Sum too large!', codeLine: 'right--;' },
+            { activeIndices: [1, 5], pointerLeft: 1, pointerRight: 5, action: 'Right moved to 5: 28 + 70 = 98 < 100. Sum too small!', codeLine: 'left++;' },
+            { activeIndices: [2, 5], pointerLeft: 2, pointerRight: 5, action: 'Left moved to 2: 35 + 70 = 105 > 100. Sum too large!', codeLine: 'right--;' },
+            { activeIndices: [2, 4], pointerLeft: 2, pointerRight: 4, action: 'Right moved to 4: 35 + 58 = 93 < 100. Sum too small!', codeLine: 'left++;' },
+            { activeIndices: [3, 4], pointerLeft: 3, pointerRight: 4, action: 'Left moved to 3: arr[3]=42, arr[4]=58. 42 + 58 = 100 MATCH FOUND!', codeLine: 'return new int[]{left, right}; // [3, 4] Target Disarmed!' },
+          ];
+        }
         return stage;
       }
     } catch (e) {
