@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '@/lib/utils/cn';
 
 interface PixelCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'white' | 'blue' | 'pink' | 'dungeon';
+  variant?: 'white' | 'parchment' | 'blue' | 'pink' | 'dungeon' | 'wood';
   showDots?: boolean;
 }
 
@@ -16,16 +16,18 @@ export const PixelCard: React.FC<PixelCardProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    white: 'bg-white text-[#1A2744] border-2 border-[#1A2744]/20 shadow-[0_6px_0_0_rgba(27,42,74,0.08)]',
-    blue: 'bg-[#EAF4FC] text-[#1A2744] border-2 border-[#8B7FD9]/30 shadow-[0_6px_0_0_rgba(139,127,217,0.1)]',
-    pink: 'bg-[#FDEFF7] text-[#1A2744] border-2 border-[#FF6FA0]/30 shadow-[0_6px_0_0_rgba(255,111,160,0.1)]',
-    dungeon: 'bg-[#1A1744] text-white border-2 border-[#00F0FF]/50 shadow-[0_0_15px_rgba(0,240,255,0.2)]',
+    white: 'bg-white text-[#1A2744] border-[3px] border-[#1B2A4A] shadow-[4px_4px_0px_#1B2A4A]',
+    parchment: 'bg-[#FFF9E6] text-[#1A2744] border-[3px] border-[#3E2723] shadow-[4px_4px_0px_#3E2723]',
+    blue: 'bg-[#EAF4FC] text-[#1A2744] border-[3px] border-[#1B2A4A] shadow-[4px_4px_0px_#1B2A4A]',
+    pink: 'bg-[#FDEFF7] text-[#1A2744] border-[3px] border-[#1B2A4A] shadow-[4px_4px_0px_#1B2A4A]',
+    wood: 'bg-[#4E342E] text-white border-[3px] border-[#271815] shadow-[4px_4px_0px_#1B2A4A]',
+    dungeon: 'bg-[#1A1744] text-white border-[3px] border-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.3)]',
   };
 
   return (
     <div
       className={cn(
-        'relative rounded-[16px] p-6 transition-all',
+        'relative rounded-[12px] p-6 transition-all',
         variantStyles[variant],
         className
       )}
@@ -42,4 +44,3 @@ export const PixelCard: React.FC<PixelCardProps> = ({
     </div>
   );
 };
-

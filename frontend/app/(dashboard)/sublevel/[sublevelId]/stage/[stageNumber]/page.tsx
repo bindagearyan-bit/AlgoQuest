@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useStage } from '@/lib/hooks/useStage';
+import { BiomeBackground } from '@/components/layout/BiomeBackground';
 import { TheoryStage } from '@/components/stages/TheoryStage';
 import { VisualizationStage } from '@/components/stages/VisualizationStage';
 import { DryRunStage } from '@/components/stages/DryRunStage';
@@ -20,13 +21,14 @@ export default function DynamicStagePage() {
   const sublevelId = parseInt(params.sublevelId as string, 10);
   const stageNumber = parseInt(params.stageNumber as string, 10);
 
+  // Compute Biome Level (1 to 6) based on sublevelId
+  const biomeLevel = Math.max(1, Math.min(6, Math.floor((sublevelId - 1) / 10) + 1));
+
   const {
     stage,
     isLoading,
-    isError,
     completeStage,
     isCompleting,
-    completionResult,
   } = useStage(sublevelId, stageNumber);
 
   const [showCelebration, setShowCelebration] = useState(false);
@@ -38,7 +40,6 @@ export default function DynamicStagePage() {
       setXpAwarded(res?.xpGained || 10);
       setShowCelebration(true);
     } catch {
-      // Offline fallback
       setXpAwarded(10);
       setShowCelebration(true);
     }
@@ -56,13 +57,13 @@ export default function DynamicStagePage() {
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center font-pixel text-xs text-[#1A2744]">
-        INITIALIZING DUNGEON TRIAL...
+        CALIBRATING BIOME TRIAL...
       </div>
     );
   }
 
   const stageData = stage || {
-    title: `Stage ${stageNumber}: Fundamental Mechanics`,
+    title: `Stage ${stageNumber}: Fundamental Concepts`,
     stageType:
       stageNumber === 1
         ? 'THEORY'
@@ -82,104 +83,89 @@ export default function DynamicStagePage() {
     contentJson: {},
   };
 
-  const isDungeonTheme =
-    stageData.stageType === 'VISUALIZATION' ||
-    stageData.stageType === 'BOSS';
-
   return (
-    <div
-      className={`min-h-[calc(100vh-64px)] py-8 px-4 sm:px-6 transition-colors ${
-        isDungeonTheme ? 'bg-[#0D0B2E] text-white' : 'bg-[#F8FAFC]'
-      }`}
-    >
-      {/* Top Breadcrumb */}
-      <div className="max-w-5xl mx-auto mb-6 flex items-center justify-between">
+    <BiomeBackground biome={biomeLevel}>
+      {/* Top Breadcrumb Navigation */}
+      <div className="max-w-5xl mx-auto mb-6 px-4 flex items-center justify-between">
         <Link
           href={`/sublevel/${sublevelId}`}
-          className={`inline-flex items-center gap-2 font-pixel text-[10px] transition-colors ${
-            isDungeonTheme
-              ? 'text-[#00F0FF] hover:text-white'
-              : 'text-slate-600 hover:text-[#1A2744]'
-          }`}
+          className="inline-flex items-center gap-2 font-pixel text-[10px] text-[#1B2A4A] bg-white/80 px-3 py-1.5 rounded-full border-2 border-[#1B2A4A] shadow-[2px_2px_0_#1B2A4A] hover:bg-white transition-colors"
         >
           <ArrowLeft size={14} /> SUBLEVEL OVERVIEW
         </Link>
 
-        <span
-          className={`font-pixel text-[10px] ${
-            isDungeonTheme ? 'text-slate-400' : 'text-slate-500'
-          }`}
-        >
+        <span className="font-pixel text-[10px] bg-white/80 text-[#1B2A4A] px-3 py-1.5 rounded-full border-2 border-[#1B2A4A]">
           STAGE {stageNumber} OF 8
         </span>
       </div>
 
-      {/* Render Component based on stageType */}
-      {stageData.stageType === 'THEORY' && (
-        <TheoryStage
-          title={stageData.title}
-          content={stageData.contentJson}
-          onComplete={handleStageComplete}
-          isCompleting={isCompleting}
-        />
-      )}
+      {/* Dynamic Stage Engine */}
+      <div className="px-4">
+        {stageData.stageType === 'THEORY' && (
+          <TheoryStage
+            title={stageData.title}
+            content={stageData.contentJson}
+            onComplete={handleStageComplete}
+            isCompleting={isCompleting}
+          />
+        )}
 
-      {stageData.stageType === 'VISUALIZATION' && (
-        <VisualizationStage
-          title={stageData.title}
-          content={stageData.contentJson}
-          onComplete={handleStageComplete}
-          isCompleting={isCompleting}
-        />
-      )}
+        {stageData.stageType === 'VISUALIZATION' && (
+          <VisualizationStage
+            title={stageData.title}
+            content={stageData.contentJson}
+            onComplete={handleStageComplete}
+            isCompleting={isCompleting}
+          />
+        )}
 
-      {stageData.stageType === 'DRY_RUN' && (
-        <DryRunStage
-          title={stageData.title}
-          content={stageData.contentJson}
-          onComplete={handleStageComplete}
-          isCompleting={isCompleting}
-        />
-      )}
+        {stageData.stageType === 'DRY_RUN' && (
+          <DryRunStage
+            title={stageData.title}
+            content={stageData.contentJson}
+            onComplete={handleStageComplete}
+            isCompleting={isCompleting}
+          />
+        )}
 
-      {stageData.stageType === 'GUIDED_CODE' && (
-        <GuidedCodeStage
-          title={stageData.title}
-          content={stageData.contentJson}
-          onComplete={handleStageComplete}
-          isCompleting={isCompleting}
-        />
-      )}
+        {stageData.stageType === 'GUIDED_CODE' && (
+          <GuidedCodeStage
+            title={stageData.title}
+            content={stageData.contentJson}
+            onComplete={handleStageComplete}
+            isCompleting={isCompleting}
+          />
+        )}
 
-      {(stageData.stageType === 'EASY_PROBLEM' ||
-        stageData.stageType === 'MEDIUM_PROBLEM' ||
-        stageData.stageType === 'BOSS') && (
-        <ProblemStage
-          title={stageData.title}
-          stageType={stageData.stageType}
-          content={stageData.contentJson}
-          onComplete={handleStageComplete}
-          isCompleting={isCompleting}
-        />
-      )}
+        {(stageData.stageType === 'EASY_PROBLEM' ||
+          stageData.stageType === 'MEDIUM_PROBLEM' ||
+          stageData.stageType === 'BOSS') && (
+          <ProblemStage
+            title={stageData.title}
+            stageType={stageData.stageType}
+            content={stageData.contentJson}
+            onComplete={handleStageComplete}
+            isCompleting={isCompleting}
+          />
+        )}
 
-      {stageData.stageType === 'QUIZ' && (
-        <QuizStage
-          title={stageData.title}
-          content={stageData.contentJson}
-          onComplete={handleStageComplete}
-          isCompleting={isCompleting}
-        />
-      )}
+        {stageData.stageType === 'QUIZ' && (
+          <QuizStage
+            title={stageData.title}
+            content={stageData.contentJson}
+            onComplete={handleStageComplete}
+            isCompleting={isCompleting}
+          />
+        )}
+      </div>
 
-      {/* Victory Celebration Modal */}
+      {/* Victory Level Up Modal */}
       <LevelUpModal
         isOpen={showCelebration}
         onClose={handleCelebrationContinue}
         xpGained={xpAwarded}
         newLevelTitle={`Stage ${stageNumber} Conquered!`}
       />
-    </div>
+    </BiomeBackground>
   );
 }
-

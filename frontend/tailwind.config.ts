@@ -17,8 +17,31 @@ const config: Config = {
         mint: '#7FFFD4',
         accent: '#FFD93D',
         textNavy: '#1A2744',
-        success: '#6FCF97',
-        error: '#EB5757',
+        woodDark: '#3E2723',
+        woodBorder: '#5D4037',
+        parchment: '#FFF9E6',
+        success: '#4CAF50',
+        error: '#D32F2F',
+
+        // Biome Palette
+        biomeVillage: '#4CAF50',
+        biomeVillageDark: '#2E7D32',
+        biomeCastle: '#0288D1',
+        biomeCastleCyan: '#00E5FF',
+        biomeIsle: '#81C784',
+        biomeGlacier: '#4A6FA5',
+        biomeGlacierIce: '#90CAF9',
+        biomeVolcano: '#D32F2F',
+        biomeVolcanoLava: '#FF9800',
+        biomeCelestial: '#7E57C2',
+        biomeCelestialGold: '#FFD54F',
+
+        // Gold Node Path Colors
+        goldNode: '#FFD54F',
+        goldNodeEdge: '#FFB300',
+        goldNodeGlow: '#FFF59D',
+
+        // Dungeon & Visualizer Colors
         dungeonBg: '#0D0B2E',
         dungeonBg2: '#1A1744',
         brickDark: '#2E1F3D',
@@ -27,12 +50,17 @@ const config: Config = {
         neonMagenta: '#FF2FD4',
       },
       backgroundImage: {
-        sky: 'linear-gradient(180deg, #CDE3F7 0%, #D9BEEA 50%, #F2A9C9 100%)',
+        sunsetSky: 'linear-gradient(180deg, #F3C8DD 0%, #C7D3F5 45%, #FCE4C8 100%)',
+        sky: 'linear-gradient(180deg, #F3C8DD 0%, #C7D3F5 45%, #FCE4C8 100%)',
         dungeon: 'linear-gradient(180deg, #0D0B2E 0%, #1A1744 100%)',
+        parchmentGrad: 'linear-gradient(180deg, #FFFDF5 0%, #FFF4D6 100%)',
       },
       boxShadow: {
-        pixel: '4px 4px 0 0 rgba(0,0,0,0.2)',
-        pixelPress: '2px 2px 0 0 rgba(0,0,0,0.2)',
+        pixel: '4px 4px 0px #1B2A4A',
+        pixelWood: '4px 4px 0px #3E2723',
+        pixelPress: '2px 2px 0px #1B2A4A',
+        goldGlow: '0 0 15px #FFD54F, 0 0 25px #FFB300',
+        cyanGlow: '0 0 15px #00F0FF, 0 0 25px #00F0FF',
         glowCyan: '0 0 10px #00F0FF, 0 0 20px #00F0FF',
         glowMagenta: '0 0 10px #FF2FD4, 0 0 20px #FF2FD4',
       },
@@ -41,4 +69,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-

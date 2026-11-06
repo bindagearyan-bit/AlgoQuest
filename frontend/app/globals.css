@@ -5,24 +5,26 @@
 @tailwind utilities;
 
 :root {
+  --sunset-sky: linear-gradient(180deg, #F3C8DD 0%, #C7D3F5 45%, #FCE4C8 100%);
   --skyline-navy: #1B2A4A;
   --window-yellow: #FFD93D;
-  --primary-purple: #8B7FD9;
-  --primary-pink: #FF6FA0;
-  --cta-mint: #7FFFD4;
+  --gold-node: #FFD54F;
+  --gold-node-edge: #FFB300;
+  --gold-node-glow: #FFF59D;
   --text-navy: #1A2744;
 }
 
 body {
   font-family: 'Nunito', sans-serif;
   color: #1A2744;
-  background-color: #F8FAFC;
+  background: linear-gradient(180deg, #F3C8DD 0%, #C7D3F5 45%, #FCE4C8 100%);
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Pixel styling helpers */
+/* Retro Pixel Font Classes */
 .font-pixel {
   font-family: 'Press Start 2P', monospace;
 }
@@ -39,18 +41,61 @@ body {
   font-family: 'Fira Code', monospace;
 }
 
-/* Custom scrollbars */
+/* Layered Cloud & Waterfalls Animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes cloudDrift {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulseGold {
+  0%, 100% {
+    box-shadow: 0 0 10px #FFD54F, 0 0 20px #FFB300;
+  }
+  50% {
+    box-shadow: 0 0 18px #FFF59D, 0 0 32px #FFD54F;
+  }
+}
+
+.animate-float-island {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-pulse-gold {
+  animation: pulseGold 2s ease-in-out infinite;
+}
+
+/* Pixel Art Image Rendering */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Custom 16-bit scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0b2e;
+  background: #1B2A4A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8B7FD9;
+  background: #FFD54F;
+  border: 2px solid #1B2A4A;
   border-radius: 4px;
 }
-
