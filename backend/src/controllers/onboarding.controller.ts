@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import prisma from '../config/prisma';
+import { memoryUsers, memoryProgress } from '../services/auth.service';
 import { sendSuccess, sendError } from '../utils/response';
 
 const PLACEMENT_QUESTIONS = [
@@ -88,7 +89,7 @@ export class OnboardingController {
   async submitPlacementQuiz(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user?.userId;
-      const { answers } = req.body; // array of { questionId, selectedOption }
+      const { answers } = req.body;
 
       if (!Array.isArray(answers)) {
         return sendError(res, 'Answers array required', 400);
@@ -113,46 +114,33 @@ export class OnboardingController {
         targetLevelOrder = 2;
       }
 
-      let levelTitle = 'Level 1: Foundations';
-      let targetSublevelId = 1;
+      let levelTitle =
+        targetLevelOrder === 4
+          ? 'Level 4: Graph Traversal & Network Flow'
+          : targetLevelOrder === 2
+          ? 'Level 2: Linear Data Structures'
+          : 'Level 1: Foundations & Core Mechanics';
+
+      let targetSublevelId = (targetLevelOrder - 1) * 10 + 1;
 
       if (userId) {
-        // Record quiz attempt
-        await prisma.quizAttempt.create({
-          data: {
-            userId,
-            quizId: 999, // placement quiz
-            score,
-            isPassed: score >= 4,
-          },
-        });
-
-        // Update user's selected level
-        await prisma.user.update({
-          where: { id: userId },
-          data: {
-            selectedLevel: recommendedLevel as any,
-          },
-        });
-
-        // Find starting level
-        const level = await prisma.level.findFirst({
-          where: { orderIndex: targetLevelOrder },
-          include: { sublevels: { orderBy: { orderIndex: 'asc' } } },
-        });
-
-        if (level && level.sublevels.length > 0) {
-          levelTitle = level.title;
-          targetSublevelId = level.sublevels[0].id;
-
-          // Unlock progress for this sublevel
-          await prisma.userProgress.upsert({
-            where: {
-              userId_sublevelId: {
-                userId,
-                sublevelId: targetSublevelId,
-              },
+        try {
+          await prisma.quizAttempt.create({
+            data: {
+              userId,
+              quizId: 999,
+              score,
+              isPassed: score >= 4,
             },
+          });
+
+          await prisma.user.update({
+            where: { id: userId },
+            data: { selectedLevel: recommendedLevel as any },
+          });
+
+          await prisma.userProgress.upsert({
+            where: { userId_sublevelId: { userId, sublevelId: targetSublevelId } },
             update: {},
             create: {
               userId,
@@ -161,16 +149,43 @@ export class OnboardingController {
               isCompleted: false,
             },
           });
+        } catch {
+          // Memory fallback
+          const memUser = memoryUsers.get(userId);
+          if (memUser) {
+            memUser.selectedLevel = recommendedLevel;
+            memoryUsers.set(userId, memUser);
+          }
+          const progs = memoryProgress.get(userId) || [];
+          if (!progs.some((p: any) => p.sublevelId === targetSublevelId)) {
+            progs.push({
+              id: `prog_${targetSublevelId}`,
+              userId,
+              sublevelId: targetSublevelId,
+              currentStage: 1,
+              isCompleted: false,
+              sublevel: {
+                id: targetSublevelId,
+                title: levelTitle,
+                level: { id: targetLevelOrder, title: levelTitle },
+              },
+            });
+            memoryProgress.set(userId, progs);
+          }
         }
       }
 
-      return sendSuccess(res, {
-        score,
-        total: PLACEMENT_QUESTIONS.length,
-        recommendedLevel,
-        levelTitle,
-        sublevelId: targetSublevelId,
-      }, 200);
+      return sendSuccess(
+        res,
+        {
+          score,
+          total: PLACEMENT_QUESTIONS.length,
+          recommendedLevel,
+          levelTitle,
+          sublevelId: targetSublevelId,
+        },
+        200
+      );
     } catch (err: any) {
       return sendError(res, err.message, 400);
     }
@@ -178,4 +193,3 @@ export class OnboardingController {
 }
 
 export const onboardingController = new OnboardingController();
-
