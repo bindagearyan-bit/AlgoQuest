@@ -17,8 +17,10 @@ export default function MainDashboardPage() {
 
   const sublevelId = activeProgress?.sublevelId || 1;
   const currentStage = activeProgress?.currentStage || 1;
-  const sublevelTitle = activeProgress?.sublevel?.title || 'Asymptotic Analysis & Big-O';
+  const isCompleted = activeProgress?.isCompleted || false;
+  const sublevelTitle = activeProgress?.sublevel?.title || 'Concept & Need of Data Structures';
   const levelTitle = activeProgress?.sublevel?.level?.title || 'Level 1: Foundations Island (Beginner Village)';
+  const totalStages = (activeProgress as any)?.maxStage || (activeProgress?.sublevel?.sublevelType === 'THEORETICAL' ? 3 : activeProgress?.sublevel?.sublevelType === 'HYBRID' ? 5 : 8);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
@@ -54,7 +56,7 @@ export default function MainDashboardPage() {
           <div className="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
             <Link href={`/sublevel/${sublevelId}/stage/${currentStage}`}>
               <PixelButton variant="mint" size="lg">
-                <Play size={14} className="mr-1.5 fill-current" /> CONTINUE STAGE {currentStage}
+                <Play size={14} className="mr-1.5 fill-current" /> {currentStage > 1 ? `CONTINUE STAGE ${currentStage}` : 'ENTER QUEST'}
               </PixelButton>
             </Link>
             <Link href="/roadmap">
@@ -76,7 +78,7 @@ export default function MainDashboardPage() {
                 ACTIVE BIOME SECTOR
               </span>
               <span className="font-pixel text-[9px] bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full border border-emerald-300">
-                STAGE {currentStage} OF 8
+                {isCompleted ? 'COMPLETED' : `STAGE ${currentStage} OF ${totalStages}`}
               </span>
             </div>
 
@@ -86,13 +88,13 @@ export default function MainDashboardPage() {
             <p className="font-body text-xs text-slate-600 mb-6">{levelTitle}</p>
 
             <div className="mb-6">
-              <PixelProgressBar current={currentStage} total={8} showLabel />
+              <PixelProgressBar current={isCompleted ? totalStages : currentStage} total={totalStages} showLabel />
             </div>
 
             <div className="flex flex-wrap gap-3">
               <Link href={`/sublevel/${sublevelId}/stage/${currentStage}`}>
                 <PixelButton variant="mint" size="md">
-                  ENTER STAGE {currentStage}
+                  {currentStage > 1 ? `CONTINUE STAGE ${currentStage}` : 'ENTER QUEST'}
                 </PixelButton>
               </Link>
               <Link href={`/sublevel/${sublevelId}`}>

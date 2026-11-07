@@ -111,8 +111,8 @@ export class UserService {
           isCompleted: false,
           sublevel: {
             id: 1,
-            title: 'Asymptotic Analysis & Big-O',
-            level: { id: 1, title: 'Foundations & Core Mechanics' },
+            title: 'Concept & Need of Data Structures',
+            level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
           },
         },
       ];

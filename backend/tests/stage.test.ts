@@ -36,6 +36,19 @@ describe('Stage & Progression Endpoints Integration Tests', () => {
     expect(res.body.success).toBe(false);
   });
 
+  it('should increment currentStage from 1 to 2 after stage completion', async () => {
+    const res = await request(app)
+      .post('/api/v1/stage/complete')
+      .set('Authorization', `Bearer ${dummyToken}`)
+      .send({ sublevelId: 1, stageNumber: 1 });
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.progress).toBeDefined();
+    expect(res.body.data.progress.currentStage).toBe(2);
+    expect(res.body.data.nextStageNumber).toBe(2);
+  }, 15000);
+
   it('GET /api/v1/roadmap/sublevel/abc should return 400 for invalid ID', async () => {
     const res = await request(app)
       .get('/api/v1/roadmap/sublevel/invalid-id');
@@ -44,4 +57,3 @@ describe('Stage & Progression Endpoints Integration Tests', () => {
     expect(res.body.success).toBe(false);
   });
 });
-
