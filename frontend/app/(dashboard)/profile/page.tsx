@@ -3,35 +3,60 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { userApi } from '@/lib/api/user';
+import { badgeApi, BadgeItem } from '@/lib/api/badge';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelModal } from '@/components/ui/PixelModal';
 import { PixelInput } from '@/components/ui/PixelInput';
-import { Flame, Zap, Heart, Trophy, Edit3, Shield, Swords, Compass } from 'lucide-react';
+import { PixelBadge } from '@/components/ui/PixelBadge';
+import {
+  Flame,
+  Zap,
+  Heart,
+  Trophy,
+  Edit3,
+  Shield,
+  Medal,
+  Award,
+  Share2,
+  Check,
+  Download,
+  Sparkles,
+  ExternalLink,
+} from 'lucide-react';
 
 export default function ProfilePage() {
-  const { data: stats, isLoading, refetch } = useQuery({
+  const { data: stats, refetch: refetchUser } = useQuery({
     queryKey: ['userStats'],
     queryFn: () => userApi.getStats(),
+  });
+
+  const { data: badgesList = [] } = useQuery({
+    queryKey: ['allBadges'],
+    queryFn: () => badgeApi.getAllBadges(),
   });
 
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [newUsername, setNewUsername] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
+  const [badgeFilter, setBadgeFilter] = useState<'ALL' | 'EARNED' | 'LOCKED'>('ALL');
+  const [selectedBadge, setSelectedBadge] = useState<BadgeItem | null>(null);
+  const [copied, setCopied] = useState(false);
+
   const handleSaveProfile = async () => {
     if (!newUsername.trim()) return;
     setIsSaving(true);
     try {
       await userApi.updateProfile({ username: newUsername });
-      refetch();
+      refetchUser();
       setIsEditOpen(false);
     } catch {}
     setIsSaving(false);
   };
 
   const user = stats || {
-    username: 'PixelKnight',
+    username: 'aryan',
     xp: 250,
     hearts: 5,
     streakCount: 3,
@@ -40,17 +65,27 @@ export default function ProfilePage() {
     completionPercentage: 12,
   };
 
-  const biomeGear = [
-    { name: 'Wooden Training Sword', biome: 'Foundations Island', icon: '🗡️', equipped: true },
-    { name: 'Citadel Iron Shield', biome: 'Central Citadel', icon: '🛡️', equipped: user.xp >= 100 },
-    { name: 'Windmill Feather Boots', biome: 'Sky Isles', icon: '🥾', equipped: user.xp >= 200 },
-    { name: 'Glacier Crystal Ring', biome: 'Glacier Fortress', icon: '💍', equipped: user.xp >= 350 },
-    { name: 'Obsidian Fire Amulet', biome: 'Inferno Keep', icon: '📿', equipped: user.xp >= 500 },
-    { name: 'Dragon Crown', biome: 'Skyward Sanctuary', icon: '👑', equipped: user.xp >= 800 },
-  ];
+  const filteredBadges = badgesList.filter((b) => {
+    if (badgeFilter === 'EARNED') return b.isEarned;
+    if (badgeFilter === 'LOCKED') return !b.isEarned;
+    return true;
+  });
+
+  const earnedCount = badgesList.filter((b) => b.isEarned).length;
+
+  const handleShareCert = () => {
+    if (!selectedBadge) return;
+    const certCode = `AQ-${selectedBadge.id}-${Date.now().toString(36).toUpperCase()}`;
+    const text = `I conquered "${selectedBadge.title}" on AlgoQuest! Certificate verification: ${certCode}`;
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8">
       {/* Hero Character Sheet Banner */}
       <PixelCard variant="parchment" className="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
@@ -110,43 +145,142 @@ export default function ProfilePage() {
         </PixelCard>
 
         <PixelCard variant="white" className="text-center p-4">
-          <Trophy className="w-5 h-5 text-emerald-500 mx-auto mb-2" />
-          <span className="font-pixel text-base text-[#1A2744] block mb-1">{user.completionPercentage}%</span>
-          <span className="font-pixel text-[8px] text-slate-500 uppercase">WORLD CLEARED</span>
+          <Medal className="w-5 h-5 text-emerald-500 mx-auto mb-2" />
+          <span className="font-pixel text-base text-[#1A2744] block mb-1">
+            {earnedCount} / {badgesList.length || 54}
+          </span>
+          <span className="font-pixel text-[8px] text-slate-500 uppercase">BADGES WON</span>
         </PixelCard>
       </div>
 
-      {/* Biome Equipment & Relics Collected */}
+      {/* Badges Showcase Grid */}
       <PixelCard variant="white">
-        <div className="flex items-center gap-2 mb-4 border-b pb-3">
-          <Shield className="w-5 h-5 text-[#2E7D32]" />
-          <h2 className="font-pixel text-xs text-[#1A2744] uppercase">
-            BIOME RELICS & COLLECTED GEAR
-          </h2>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 border-b pb-4">
+          <div className="flex items-center gap-2">
+            <Award className="w-5 h-5 text-[#FFB300]" />
+            <div>
+              <h2 className="font-pixel text-xs text-[#1A2744] uppercase">
+                ALGORITHMIC MEDALS OF HONOR
+              </h2>
+              <span className="font-body text-xs text-slate-500">
+                Awarded upon completing each curriculum sector. Click any earned medal to view certificate!
+              </span>
+            </div>
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-300">
+            {(['ALL', 'EARNED', 'LOCKED'] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => setBadgeFilter(f)}
+                className={`font-pixel text-[8px] sm:text-[9px] px-3 py-1.5 rounded-lg transition-all ${
+                  badgeFilter === f
+                    ? 'bg-[#1B2A4A] text-[#FFD54F] shadow-sm'
+                    : 'text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {f === 'ALL' ? 'ALL (54)' : f === 'EARNED' ? `EARNED (${earnedCount})` : `LOCKED (${54 - earnedCount})`}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {biomeGear.map((item, idx) => (
-            <div
-              key={idx}
-              className={`p-3 rounded-xl border-2 flex items-center gap-3 transition-all ${
-                item.equipped
-                  ? 'bg-emerald-50/70 border-emerald-400 shadow-sm'
-                  : 'bg-slate-50 border-slate-200 opacity-40'
-              }`}
-            >
-              <span className="text-2xl">{item.icon}</span>
-              <div>
-                <h4 className="font-pixel text-[9px] text-[#1A2744]">{item.name}</h4>
-                <span className="font-body text-[10px] text-slate-500 block">{item.biome}</span>
-                <span className={`font-pixel text-[7px] mt-1 inline-block ${item.equipped ? 'text-emerald-700' : 'text-slate-400'}`}>
-                  {item.equipped ? 'EQUIPPED' : 'LOCKED BIOME'}
-                </span>
-              </div>
-            </div>
+        {/* Badges Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-items-center py-2">
+          {filteredBadges.map((badge) => (
+            <PixelBadge
+              key={badge.id}
+              title={badge.title}
+              description={badge.description}
+              iconSvg={badge.iconSvg}
+              tier={badge.tier}
+              isEarned={badge.isEarned}
+              xpReward={badge.xpReward}
+              onClick={() => {
+                if (badge.isEarned) setSelectedBadge(badge);
+              }}
+            />
           ))}
         </div>
       </PixelCard>
+
+      {/* Certificate Viewer Modal */}
+      {selectedBadge && (
+        <PixelModal
+          isOpen={!!selectedBadge}
+          onClose={() => setSelectedBadge(null)}
+          title="EXPEDITION CERTIFICATE OF MASTERY"
+        >
+          <div className="space-y-6 text-center">
+            {/* Certificate Frame */}
+            <div className="relative border-4 border-[#FFD54F] bg-[#0A1026] rounded-2xl p-6 sm:p-8 shadow-[0_0_25px_rgba(255,213,79,0.25)] text-center overflow-hidden">
+              <div className="absolute top-2 left-2 text-[#FFD54F] text-xs">❖</div>
+              <div className="absolute top-2 right-2 text-[#FFD54F] text-xs">❖</div>
+              <div className="absolute bottom-2 left-2 text-[#FFD54F] text-xs">❖</div>
+              <div className="absolute bottom-2 right-2 text-[#FFD54F] text-xs">❖</div>
+
+              <span className="font-pixel text-[8px] text-[#7FFFD4] tracking-widest uppercase block mb-1">
+                ALGOQUEST GUILD ACADEMY
+              </span>
+
+              <h3 className="font-pixel text-sm sm:text-base text-[#FFD54F] mb-3">
+                CERTIFICATE OF MASTERY
+              </h3>
+
+              <p className="font-body text-xs text-slate-300 mb-4">
+                This document certifies that
+              </p>
+
+              <div className="font-pixel text-base sm:text-lg text-white border-b-2 border-dashed border-[#FFD54F]/50 pb-2 mb-4 mx-auto max-w-xs">
+                {user.username.toUpperCase()}
+              </div>
+
+              <p className="font-body text-xs text-slate-300 mb-6">
+                has successfully conquered all progression stages of{' '}
+                <span className="text-[#7FFFD4] font-semibold">{selectedBadge.title}</span>, demonstrating rigorous algorithmic proficiency in data structures and algorithmic complexity.
+              </p>
+
+              <div className="flex justify-center mb-4">
+                <PixelBadge
+                  title={selectedBadge.title}
+                  description={selectedBadge.description}
+                  iconSvg={selectedBadge.iconSvg}
+                  tier={selectedBadge.tier}
+                  isEarned={true}
+                  size="md"
+                  xpReward={selectedBadge.xpReward}
+                />
+              </div>
+
+              <div className="border-t border-slate-700 pt-3 flex items-center justify-between text-[8px] font-pixel text-slate-400">
+                <span>SEAL: VERIFIED</span>
+                <span>CODE: AQ-{selectedBadge.id}-{Date.now().toString(36).substring(0, 6).toUpperCase()}</span>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <PixelButton
+                variant="gold"
+                size="md"
+                onClick={handleShareCert}
+              >
+                {copied ? <Check size={14} className="mr-1.5" /> : <Share2 size={14} className="mr-1.5" />}
+                {copied ? 'CERTIFICATE LINK COPIED!' : 'SHARE TO PORTFOLIO'}
+              </PixelButton>
+
+              <PixelButton
+                variant="outline"
+                size="md"
+                onClick={() => setSelectedBadge(null)}
+              >
+                CLOSE
+              </PixelButton>
+            </div>
+          </div>
+        </PixelModal>
+      )}
 
       {/* Edit Profile Modal */}
       <PixelModal

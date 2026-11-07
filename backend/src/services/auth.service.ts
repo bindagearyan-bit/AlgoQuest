@@ -5,6 +5,8 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../utils/
 // Resilient memory store when PostgreSQL server is offline locally
 export const memoryUsers = new Map<string, any>();
 export const memoryProgress = new Map<string, any[]>();
+export const memoryBadges = new Map<number, any>();
+export const memoryUserBadges = new Map<string, any[]>();
 
 const DEFAULT_SALT = bcrypt.genSaltSync(10);
 const DEFAULT_HASH = bcrypt.hashSync('password123', DEFAULT_SALT);
