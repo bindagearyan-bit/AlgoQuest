@@ -35,9 +35,9 @@ export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({
   initialArray,
   steps,
 }) => {
-  // Guard against 1-step or missing steps from backend
-  const activeSteps = (steps && steps.length > 1) ? steps : DEFAULT_STEPS;
-  const activeArray = (initialArray && initialArray.length > 1) ? initialArray : DEFAULT_ARRAY;
+  // Ensure multiple interactive steps so NEXT and PLAY are always operational
+  const activeSteps = (steps && Array.isArray(steps) && steps.length >= 2) ? steps : DEFAULT_STEPS;
+  const activeArray = (initialArray && Array.isArray(initialArray) && initialArray.length >= 2) ? initialArray : DEFAULT_ARRAY;
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);

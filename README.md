@@ -1,41 +1,107 @@
 # AlgoQuest 🎮⚔️
 
-**AlgoQuest** is a full-stack, retro pixel-art Data Structures & Algorithms (DSA) learning platform inspired by 16-bit RPG overworlds and gamified Duolingo-style progression.
+**AlgoQuest** is a full-stack, retro pixel-art Data Structures & Algorithms (DSA) learning platform inspired by university syllabi, 16-bit RPG overworlds, and gamified Duolingo-style progression.
 
 ---
 
 ## 🌟 Key Features
 
-1. **🗺️ World Map (Curriculum Progression View)**
-   - Structured curriculum organized into **6 Biome Sectors** spanning Foundations to Advanced Algorithms:
-     - **Level 1: Foundations Island (Beginner Village):** Complexity, Big-O, Arrays, Two-Pointer, Prefix Sum, Recursion.
-     - **Level 2: Linear Structures Citadel (Central Castle):** Linked Lists, Sentinels, Stacks, Queues, Deque, Hashing, Heaps.
-     - **Level 3: Non-Linear Floating Isles (Sky Windmills):** Binary Trees, BST, Self-Balancing AVL Trees, Tries, Disjoint Sets, Segment Trees.
-     - **Level 4: Graph Glacier Fortress (Snow Mountain):** BFS, DFS, Shortest Paths, Topological Sort, Dijkstra, Bellman-Ford, MST.
-     - **Level 5: Inferno Volcano Keep (Lava Realm):** Binary Search over answer space, Greedy, Backtracking, 1D/2D Dynamic Programming.
-     - **Level 6: Skyward Sanctuary (Celestial Spire):** KMP, Rabin-Karp, Network Max-Flow, Bitmask DP, and Grandmaster Final Boss.
-   - Clean, high-readability responsive List View displaying status tags (`CONQUERED`, `ACTIVE EXPEDITION`, `SEALED`), stage counts, and one-click entry into active sublevels.
+### 1. 🗺️ Syllabus-Driven Curriculum (6 Units • 54 Sublevels • 432 Stages)
+Structured directly from university Data Structures syllabi and segmented across **3 Adaptive Difficulty Tiers** (`🟢 BEGINNER`, `🟡 INTERMEDIATE`, `🔴 ADVANCED`):
 
-2. **⚔️ 8-Stage Dungeon Gauntlet**
-   Every topic is mastered through an 8-stage interactive pipeline:
-   - **Stage 1 (Theory):** ELI5 conceptual mechanics, key invariants, time/space complexity bounds.
-   - **Stage 2 (Visualization):** Interactive step-by-step memory buffer visualizer (e.g. 8-step dual-pointer convergence with neon RAM highlights).
-   - **Stage 3 (Dry Run):** Trace table inspection stepping through iteration loops and variable states without compiling.
-   - **Stage 4 (Guided Code):** Fill-in-the-blank code implementation with real-time test bench validation.
-   - **Stage 5 (Easy Problem):** LeetCode-style starter code challenge with unit test evaluation.
-   - **Stage 6 (Medium Problem):** Algorithmic problem with edge case constraints and complexity benchmarks.
-   - **Stage 7 (Stage Quiz):** Multiple-choice conceptual mastery check with heart stake penalties.
-   - **Stage 8 (Boss Gauntlet):** Epic battle against the sector boss in the dark obsidian arena.
+- **Unit 1: Basics of Data Structures (Level 1: Foundations Island)**
+  - 1.1: Concept & Need of Data Structures `🟢 Beginner`
+  - 1.2: Abstract Data Types (ADTs) `🟢 Beginner`
+  - 1.3: Types of Data Structures (Linear vs Non-Linear) `🟢 Beginner`
+  - 1.4: Operations on Data Structures `🟢 Beginner`
+  - 1.5: Time Complexity & Big-O Notation `🟡 Intermediate`
+  - 1.6: Space Complexity Analysis `🟡 Intermediate`
+  - 1.7: BOSS: Foundations Guardian `🔴 Advanced`
 
-3. **💻 Code Execution & Visual Debugger**
-   - **Editor:** Monaco Editor (VS Code engine) styled as a retro pixel terminal.
-   - **Languages:** C, C++, Java, and Python with live execution benchmarks.
-   - **Synchronized Debugger Console:** Displays active code lines, memory buffers, and action logs.
+- **Unit 2: Searching & Sorting (Level 2: Searching & Sorting Citadel)**
+  - 2.1: Linear Search `🟢 Beginner`
+  - 2.2: Binary Search (Iterative & Recursive) `🟢 Beginner`
+  - 2.3: Sentinel Search & Fibonacci Search `🟡 Intermediate`
+  - 2.4: Hashing & Collision Resolution `🟡 Intermediate`
+  - 2.5: Bubble, Selection & Insertion Sort `🟢 Beginner`
+  - 2.6: Merge Sort `🟡 Intermediate`
+  - 2.7: Quick Sort `🟡 Intermediate`
+  - 2.8: Radix Sort, Tim Sort & Shell Sort `🔴 Advanced`
+  - 2.9: BOSS: Sort Master Trial `🔴 Advanced`
 
-4. **🛡️ Resilient Offline Architecture**
-   - Seamless dual-mode database engine: connects to PostgreSQL via Prisma ORM when available, and automatically falls back to an in-memory cache when offline with zero downtime.
-   - Instant authentication and progression tracking without database connection failures.
-   - Pre-configured hero profile ready out-of-the-box (`aryan` / `bindagearyan@gmail.com`).
+- **Unit 3: Stacks & Queues (Level 3: Stacks & Queues Sanctuary)**
+  - 3.1: Stack Definition & Array Representation `🟢 Beginner`
+  - 3.2: Stack ADT & Overflow/Underflow Conditions `🟢 Beginner`
+  - 3.3: Stack Applications: Reversing a List & Parentheses Matching `🟡 Intermediate`
+  - 3.4: Polish Notation: Infix to Postfix & Evaluation `🔴 Advanced`
+  - 3.5: Queue Definition & Array Representation `🟢 Beginner`
+  - 3.6: Queue ADT & Operations `🟢 Beginner`
+  - 3.7: Linear Queue vs Circular Queue `🟡 Intermediate`
+  - 3.8: Priority Queue & Deque (Double-Ended Queue) `🔴 Advanced`
+  - 3.9: BOSS: Fortress Keeper `🔴 Advanced`
+
+- **Unit 4: Linked Lists (Level 4: Linked Structures Labyrinth)**
+  - 4.1: Linked List Terminologies & Memory Structure `🟢 Beginner`
+  - 4.2: Singly Linked List: Insertion, Deletion & Traversal `🟢 Beginner`
+  - 4.3: Doubly Linked List Operations `🟡 Intermediate`
+  - 4.4: Circular Linked List Operations `🟡 Intermediate`
+  - 4.5: Linked Representation of Stack & Queue `🟡 Intermediate`
+  - 4.6: Dynamic Storage Management `🔴 Advanced`
+  - 4.7: Memory Efficient Doubly Linked List (XOR Linked List) `🔴 Advanced`
+  - 4.8: Unrolled Linked List `🔴 Advanced`
+  - 4.9: Skip List `🔴 Advanced`
+  - 4.10: BOSS: Chain Breaker `🔴 Advanced`
+
+- **Unit 5: Trees (Level 5: Arboretum of Trees)**
+  - 5.1: Tree Terminologies & Traversals Concept `🟢 Beginner`
+  - 5.2: Types of Trees `🟢 Beginner`
+  - 5.3: Recursive Traversals: Inorder, Preorder, Postorder `🟡 Intermediate`
+  - 5.4: Binary Search Trees (BST): Insertion, Deletion, Search `🟡 Intermediate`
+  - 5.5: Expression Trees `🟡 Intermediate`
+  - 5.6: AVL Trees: Rotations & Balancing `🔴 Advanced`
+  - 5.7: B-Tree & B+ Tree Concepts `🔴 Advanced`
+  - 5.8: Heaps: Max-Heap & Min-Heap Operations `🔴 Advanced`
+  - 5.9: Heap Sort Algorithm `🔴 Advanced`
+  - 5.10: BOSS: Forest Ancient `🔴 Advanced`
+
+- **Unit 6: Graphs & Sparse Matrices (Level 6: Graph Glacier)**
+  - 6.1: Graph Theory Basics & Terminologies `🟢 Beginner`
+  - 6.2: Storage Representation: Adjacency Matrix & Adjacency List `🟡 Intermediate`
+  - 6.3: Basic Graph Manipulation: Add/Remove Vertex & Edge `🟡 Intermediate`
+  - 6.4: Breadth-First Search (BFS) Traversal `🔴 Advanced`
+  - 6.5: Depth-First Search (DFS) Traversal `🔴 Advanced`
+  - 6.6: Introduction to Sparse Matrix `🔴 Advanced`
+  - 6.7: Sparse Matrix Linked Representation `🔴 Advanced`
+  - 6.8: Transpose of Sparse Matrix `🔴 Advanced`
+  - 6.9: BOSS: Glacier Oracle `🔴 Advanced`
+
+---
+
+### 2. ⚔️ Strict 8-Stage Progression Cycle
+Every single one of the 54 sublevels is mastered through an 8-stage interactive pipeline:
+1. **Stage 1 (Theory):** ELI5 analogies, key invariants, Big-O time and auxiliary space bounds.
+2. **Stage 2 (Visualization):** Dedicated interactive visual debugger (Array, Sorting, Linked List, Stack/Queue, Tree, and Graph) with multi-step stepping and play controls.
+3. **Stage 3 (Dry Run):** Trace table inspection stepping through iteration loops and variable states without compiling.
+4. **Stage 4 (Guided Code):** Fill-in-the-blank code implementation with real-time test bench validation.
+5. **Stage 5 (Easy Problem):** Algorithmic starter code challenge with unit test evaluation.
+6. **Stage 6 (Medium Problem):** In-depth problem with edge case constraints and complexity benchmarks.
+7. **Stage 7 (Stage Quiz):** Multiple-choice conceptual mastery check with heart stake penalties.
+8. **Stage 8 (Boss Trial):** Sector boss challenge in the dark dungeon arena.
+
+---
+
+### 3. 🎯 Adaptive Tier Engine & Placement Quiz
+- **🟢 Beginner Tier:** Direct access to Unit 1 (Sublevel 1.1) onwards with zero friction.
+- **🟡 Intermediate Tier:** 10-question algorithmic placement test dynamically unlocking Level 2 or Level 3 entry points.
+- **🔴 Advanced Tier:** Advanced placement test unlocking Level 4, 5, or 6 entry points.
+- **World Map Tier Filtering:** One-click filter pills (`ALL TIERS`, `🟢 BEG`, `🟡 INT`, `🔴 ADV`) for focused curriculum studying.
+
+---
+
+### 4. 🛡️ Resilient Offline Architecture
+- Dual-mode database engine: connects to PostgreSQL via Prisma ORM when available, and automatically falls back to an in-memory cache when offline with zero downtime.
+- Seamless authentication and progression tracking without database connection failures.
+- Pre-configured hero profile ready out-of-the-box (`bindagearyan@gmail.com` / `aryan` / `password123`).
 
 ---
 
@@ -53,7 +119,7 @@ algoquest/
 - **Framework:** Next.js 14+ (App Router, Server & Client Components)
 - **Styling:** Tailwind CSS (Custom retro pixel tokens and 16-bit color palettes)
 - **State Management:** Zustand (`useUserStore`, `useStageStore`)
-- **Data Fetching:** TanStack Query (React Query v5) with live caching and optimistic updates
+- **Data Fetching:** TanStack Query (React Query v5) with live caching
 - **Forms & Validation:** React Hook Form + Zod
 - **Animations:** Framer Motion (page transitions, XP counters, confetti bursts)
 - **Fonts:** `Press Start 2P`, `Pixelify Sans`, `Nunito`
@@ -62,7 +128,7 @@ algoquest/
 ### Backend Stack
 - **Runtime:** Node.js 18+ with TypeScript (strict mode)
 - **Framework:** Express.js (Modular MVC: Routes → Controllers → Services → Prisma)
-- **Database & ORM:** PostgreSQL + Prisma ORM (6 Levels, 50+ Sublevels, 400+ Stages)
+- **Database & ORM:** PostgreSQL + Prisma ORM (6 Units, 54 Sublevels, 432 Stages)
 - **Cache & Rate Limiting:** Redis with in-memory fallback
 - **Auth:** JWT Access (15m) + Refresh (7d) tokens with bcryptjs hashing
 - **Execution:** Judge0 Code Engine
@@ -99,13 +165,12 @@ npm install
 npm run build
 npm run dev
 ```
-Backend API will start on `http://localhost:5000`.
 
-### 2. Frontend Server
+### 2. Frontend Application
 ```bash
 cd frontend
 npm install
 npm run build
-npm start
+npm run dev
 ```
-Frontend Web App will be live on `http://localhost:3000`.
+Visit `http://localhost:3000` in your browser.

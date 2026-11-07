@@ -14,6 +14,12 @@ enum SkillLevel {
   ADVANCED
 }
 
+enum Tier {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
 enum League {
   BRONZE
   SILVER
@@ -79,6 +85,7 @@ model Sublevel {
   levelId                Int
   title                  String
   orderIndex             Int
+  tier                   Tier           @default(BEGINNER)
   prerequisiteSublevelId Int?
   level                  Level          @relation(fields: [levelId], references: [id], onDelete: Cascade)
   stages                 Stage[]

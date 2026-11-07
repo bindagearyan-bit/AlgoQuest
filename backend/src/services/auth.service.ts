@@ -37,8 +37,8 @@ memoryProgress.set(DEFAULT_USER.id, [
     isCompleted: false,
     sublevel: {
       id: 1,
-      title: 'Complexity & Big-O',
-      level: { id: 1, title: 'Foundations Island (Beginner Village)' },
+      title: 'Concept & Need of Data Structures',
+      level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
     },
   },
 ]);

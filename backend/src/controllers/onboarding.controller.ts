@@ -116,10 +116,10 @@ export class OnboardingController {
 
       let levelTitle =
         targetLevelOrder === 4
-          ? 'Level 4: Graph Traversal & Network Flow'
+          ? 'Level 4: Linked Structures Labyrinth (Stone Ruins) — Linked Lists'
           : targetLevelOrder === 2
-          ? 'Level 2: Linear Data Structures'
-          : 'Level 1: Foundations & Core Mechanics';
+          ? 'Level 2: Searching & Sorting Citadel (Central Castle) — Searching & Sorting'
+          : 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures';
 
       let targetSublevelId = (targetLevelOrder - 1) * 10 + 1;
 

@@ -56,11 +56,24 @@ export default function SublevelOverviewPage() {
 
         {/* Sublevel Header Card */}
         <PixelCard variant="parchment">
-          <div className="flex items-center gap-2 mb-1">
-            <MapPin size={14} className="text-[#2E7D32]" />
-            <span className="font-pixel text-[9px] text-[#2E7D32] uppercase">
-              ISLAND SECTOR EXPEDITION
-            </span>
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <div className="flex items-center gap-2">
+              <MapPin size={14} className="text-[#2E7D32]" />
+              <span className="font-pixel text-[9px] text-[#2E7D32] uppercase">
+                ISLAND SECTOR EXPEDITION
+              </span>
+            </div>
+            {sublevel.tier && (
+              <span className={`font-pixel text-[8px] px-2 py-0.5 rounded border ${
+                sublevel.tier === 'ADVANCED'
+                  ? 'bg-rose-100 text-rose-800 border-rose-300'
+                  : sublevel.tier === 'INTERMEDIATE'
+                  ? 'bg-amber-100 text-amber-800 border-amber-300'
+                  : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+              }`}>
+                {sublevel.tier === 'ADVANCED' ? '🔴 ADVANCED' : sublevel.tier === 'INTERMEDIATE' ? '🟡 INTERMEDIATE' : '🟢 BEGINNER'}
+              </span>
+            )}
           </div>
           <h1 className="font-pixel text-sm sm:text-lg text-[#1A2744] mb-2">
             {sublevel.title}
