@@ -59,37 +59,9 @@ export default function MainDashboardPage() {
             </Link>
             <Link href="/roadmap">
               <PixelButton variant="gold" size="lg">
-                <Compass size={14} className="mr-1.5" /> OVERWORLD MAP
+                <Compass size={14} className="mr-1.5" /> WORLD MAP
               </PixelButton>
             </Link>
-          </div>
-        </div>
-
-        {/* Mini Panoramic Pixel Art Floating Island Graphic */}
-        <div className="relative z-10 flex flex-col items-center shrink-0">
-          <motion.div
-            animate={{ y: [-4, 4, -4] }}
-            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-          >
-            <svg width="220" height="130" viewBox="0 0 220 130" fill="none">
-              {/* Island Base with Waterfall */}
-              <path d="M20,50 Q110,25 200,50 L175,100 Q110,120 45,100 Z" fill="#2E7D32" stroke="#1B2A4A" strokeWidth="3" />
-              <rect x="30" y="42" width="160" height="14" rx="7" fill="#4CAF50" />
-              <rect x="105" y="50" width="10" height="65" fill="#00E5FF" opacity="0.9" />
-              <rect x="108" y="50" width="4" height="65" fill="#E0F7FA" />
-              {/* Village Cottage & Trees */}
-              <rect x="45" y="28" width="26" height="18" fill="#8D6E63" stroke="#1B2A4A" strokeWidth="2" />
-              <polygon points="40,28 58,14 76,28" fill="#FBC02D" stroke="#1B2A4A" strokeWidth="2" />
-              <polygon points="140,42 148,15 156,42" fill="#1B5E20" stroke="#1B2A4A" strokeWidth="1.5" />
-            </svg>
-          </motion.div>
-
-          {/* Hero Avatar on Top */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 flex flex-col items-center">
-            <span className="text-2xl animate-bounce">🧙‍♂️</span>
-            <span className="font-pixel text-[8px] bg-[#1B2A4A] text-[#FFD54F] px-1.5 py-0.5 rounded border border-[#FFD54F]">
-              LVL {user?.streakCount ? Math.floor(user.streakCount / 3) + 1 : 1}
-            </span>
           </div>
         </div>
       </div>
