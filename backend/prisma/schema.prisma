@@ -20,6 +20,12 @@ enum Tier {
   ADVANCED
 }
 
+enum SublevelType {
+  THEORETICAL
+  HYBRID
+  CODE_BASED
+}
+
 enum League {
   BRONZE
   SILVER
@@ -67,6 +73,7 @@ model User {
   submissions     Submission[]
   achievements    UserAchievement[]
   quizAttempts    QuizAttempt[]
+  userBadges      UserBadge[]
 
   @@index([email])
   @@index([xp])
@@ -86,11 +93,13 @@ model Sublevel {
   title                  String
   orderIndex             Int
   tier                   Tier           @default(BEGINNER)
+  sublevelType           SublevelType   @default(CODE_BASED)
   prerequisiteSublevelId Int?
   level                  Level          @relation(fields: [levelId], references: [id], onDelete: Cascade)
   stages                 Stage[]
   problems               Problem[]
   userProgress           UserProgress[]
+  badge                  Badge?
 
   @@index([levelId, orderIndex])
 }
@@ -143,6 +152,31 @@ model UserProgress {
   @@unique([userId, sublevelId])
 }
 
+model Badge {
+  id          Int         @id @default(autoincrement())
+  sublevelId  Int         @unique
+  title       String
+  description String
+  iconSvg     String
+  tier        Tier
+  xpReward    Int         @default(500)
+  sublevel    Sublevel    @relation(fields: [sublevelId], references: [id], onDelete: Cascade)
+  userBadges  UserBadge[]
+}
+
+model UserBadge {
+  id               String   @id @default(uuid())
+  userId           String
+  badgeId          Int
+  earnedAt         DateTime @default(now())
+  score            Int      @default(100)
+  timeTakenMinutes Int      @default(15)
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge            Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
 model Submission {
   id        String   @id @default(uuid())
   userId    String
@@ -178,4 +212,3 @@ model QuizAttempt {
   attemptedAt DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-

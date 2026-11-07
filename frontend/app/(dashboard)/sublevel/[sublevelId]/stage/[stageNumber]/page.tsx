@@ -12,6 +12,7 @@ import { GuidedCodeStage } from '@/components/stages/GuidedCodeStage';
 import { ProblemStage } from '@/components/stages/ProblemStage';
 import { QuizStage } from '@/components/stages/QuizStage';
 import { LevelUpModal } from '@/components/gamification/LevelUpModal';
+import { BadgeCelebrationModal } from '@/components/gamification/BadgeCelebrationModal';
 import { ArrowLeft } from 'lucide-react';
 
 export default function DynamicStagePage() {
@@ -32,12 +33,24 @@ export default function DynamicStagePage() {
   } = useStage(sublevelId, stageNumber);
 
   const [showCelebration, setShowCelebration] = useState(false);
+  const [badgeAward, setBadgeAward] = useState<any>(null);
   const [xpAwarded, setXpAwarded] = useState(10);
+
+  const sublevelType = stage?.sublevel?.sublevelType || 'CODE_BASED';
+  const maxStage = sublevelType === 'THEORETICAL' ? 3 : sublevelType === 'HYBRID' ? 5 : 8;
 
   const handleStageComplete = async () => {
     try {
       const res = await completeStage();
       setXpAwarded(res?.xpGained || 10);
+      if (res?.badgeAwarded || res?.isSublevelCompleted || stageNumber >= maxStage) {
+        setBadgeAward(res?.badgeAwarded || {
+          title: 'Sector Pioneer',
+          description: `Successfully conquered ${stage?.sublevel?.title || 'this sector'} across all adaptive stages.`,
+          xpReward: res?.bonusXp || 500,
+          tier: stage?.sublevel?.tier || 'BEGINNER',
+        });
+      }
       setShowCelebration(true);
     } catch {
       setXpAwarded(10);
@@ -47,7 +60,7 @@ export default function DynamicStagePage() {
 
   const handleCelebrationContinue = () => {
     setShowCelebration(false);
-    if (stageNumber < 8) {
+    if (stageNumber < maxStage) {
       router.push(`/sublevel/${sublevelId}/stage/${stageNumber + 1}`);
     } else {
       router.push(`/sublevel/${sublevelId}`);
@@ -95,7 +108,7 @@ export default function DynamicStagePage() {
         </Link>
 
         <span className="font-pixel text-[10px] bg-white/80 text-[#1B2A4A] px-3 py-1.5 rounded-full border-2 border-[#1B2A4A]">
-          STAGE {stageNumber} OF 8
+          STAGE {stageNumber} OF {maxStage}
         </span>
       </div>
 
@@ -159,13 +172,22 @@ export default function DynamicStagePage() {
         )}
       </div>
 
-      {/* Victory Level Up Modal */}
-      <LevelUpModal
-        isOpen={showCelebration}
-        onClose={handleCelebrationContinue}
-        xpGained={xpAwarded}
-        newLevelTitle={`Stage ${stageNumber} Conquered!`}
-      />
+      {/* Victory Celebration Modal */}
+      {badgeAward ? (
+        <BadgeCelebrationModal
+          isOpen={showCelebration}
+          badge={badgeAward}
+          sublevelTitle={stage?.sublevel?.title || 'This Sector'}
+          onContinue={handleCelebrationContinue}
+        />
+      ) : (
+        <LevelUpModal
+          isOpen={showCelebration}
+          onClose={handleCelebrationContinue}
+          xpGained={xpAwarded}
+          newLevelTitle={`Stage ${stageNumber} Conquered!`}
+        />
+      )}
     </BiomeBackground>
   );
 }

@@ -79,7 +79,7 @@ export default function SublevelOverviewPage() {
             {sublevel.title}
           </h1>
           <p className="font-body text-xs sm:text-sm text-slate-700 leading-relaxed">
-            Sequential progression is mandatory. Step through all 8 stages from conceptual fundamentals to the island boss battle.
+            Sequential progression is mandatory. Step through all {stages.length} stages from conceptual fundamentals to completion.
           </p>
         </PixelCard>
 
