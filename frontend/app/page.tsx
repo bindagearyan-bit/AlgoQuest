@@ -81,23 +81,23 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        {/* 16-Bit Floating Island Overworld Showcase Banner */}
+        {/* 16-Bit Floating Island Hero Showcase Banner */}
         <div className="w-full max-w-4xl rounded-2xl border-4 border-[#3b4261] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(80,120,255,0.25)] mb-14 relative aspect-[16/9] group">
           <Image
-            src="/map.png"
-            alt="AlgoQuest Overworld Map"
+            src="/images/hero-banner.png"
+            alt="AlgoQuest Floating Isles"
             fill
             priority
             className="object-cover group-hover:scale-105 transition-transform duration-700"
             style={{ imageRendering: 'pixelated' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-between p-6">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end justify-between p-6">
             <div className="text-left">
               <span className="font-pixel text-[9px] text-[#FFD54F] bg-[#1A2744]/90 px-2.5 py-1 rounded border border-[#FFD54F] mb-1 inline-block">
-                OVERWORLD MAP ENGINE
+                WORLD EXPEDITION CURRICULUM
               </span>
               <h3 className="font-pixel text-xs sm:text-sm text-white drop-shadow-[2px_2px_0_#000]">
-                Explore 6 Floating Island Biomes
+                Explore 6 Biomes & 48 Algorithmic Sublevels
               </h3>
             </div>
             <Link href="/signup">

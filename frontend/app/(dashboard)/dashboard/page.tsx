@@ -8,7 +8,6 @@ import { useUser } from '@/lib/hooks/useUser';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelProgressBar } from '@/components/ui/PixelProgressBar';
-import { InteractiveOverworldMap } from '@/components/world/InteractiveOverworldMap';
 import { Swords, Flame, Trophy, Play, CheckCircle2, Compass, MapPin, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
