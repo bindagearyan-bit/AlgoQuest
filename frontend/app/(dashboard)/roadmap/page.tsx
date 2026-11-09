@@ -1,20 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { roadmapApi } from '@/lib/api/roadmap';
+import { useUser } from '@/lib/hooks/useUser';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
-import { Lock, Play, Compass, CheckCircle2, ChevronRight, Swords, Sparkles, Filter, Layers } from 'lucide-react';
+import { Lock, Play, Compass, CheckCircle2, ChevronRight, Swords, Sparkles, Shield, Trophy } from 'lucide-react';
 
 export default function RoadmapPage() {
+  const { user } = useUser();
+  const activeTier: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' = user?.selectedLevel || 'BEGINNER';
+
   const { data: levels, isLoading } = useQuery({
     queryKey: ['levels'],
     queryFn: () => roadmapApi.getLevels(),
   });
-
-  const [selectedTier, setSelectedTier] = useState<'ALL' | 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'>('ALL');
 
   // University Syllabus 6-Level / 54-Sublevel fallback
   const activeLevels = levels || [
@@ -25,13 +27,13 @@ export default function RoadmapPage() {
       icon: '🏡',
       description: 'Unit 1: Data structure fundamentals, ADTs, linear vs non-linear classifications, Big-O asymptotic analysis.',
       sublevels: [
-        { id: 1, title: 'Concept & Need of Data Structures', tier: 'BEGINNER', status: 'UNLOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 2, title: 'Abstract Data Types (ADTs)', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 3, title: 'Types of Data Structures', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 4, title: 'Operations on Data Structures', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 5, title: 'Time Complexity & Big-O Notation', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 6, title: 'Space Complexity Analysis', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 7, title: 'BOSS: Foundations Guardian', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 1, title: 'Concept & Need of Data Structures', tier: 'BEGINNER', status: 'UNLOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 2, title: 'Abstract Data Types (ADTs)', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 3, title: 'Types of Data Structures', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 4, title: 'Operations on Data Structures', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 5, title: 'Time Complexity & Big-O Notation', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
+        { id: 6, title: 'Space Complexity Analysis', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
+        { id: 7, title: 'BOSS: Foundations Guardian', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
       ],
     },
     {
@@ -60,11 +62,11 @@ export default function RoadmapPage() {
       description: 'Unit 3: LIFO stacks, overflow/underflow, bracket balancing, infix to postfix shunting yard, FIFO queues, circular buffers, and priority queues.',
       sublevels: [
         { id: 21, title: 'Stack Definition & Array Representation', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 22, title: 'Stack ADT & Overflow/Underflow Conditions', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 22, title: 'Stack ADT & Overflow/Underflow Conditions', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
         { id: 23, title: 'Stack Applications: Reversing a List & Parentheses Matching', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 24, title: 'Polish Notation: Infix to Postfix & Evaluation', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 25, title: 'Queue Definition & Array Representation', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 26, title: 'Queue ADT & Operations', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 26, title: 'Queue ADT & Operations', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
         { id: 27, title: 'Linear Queue vs Circular Queue', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 28, title: 'Priority Queue & Deque (Double-Ended Queue)', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 29, title: 'BOSS: Fortress Keeper', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
@@ -77,15 +79,15 @@ export default function RoadmapPage() {
       icon: '⛓️',
       description: 'Unit 4: Dynamic node linking, singly/doubly/circular lists, dynamic storage allocation, XOR linked lists, unrolled lists, and skip lists.',
       sublevels: [
-        { id: 31, title: 'Linked List Terminologies & Memory Structure', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 31, title: 'Linked List Terminologies & Memory Structure', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
         { id: 32, title: 'Singly Linked List: Insertion, Deletion & Traversal', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 33, title: 'Doubly Linked List Operations', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 34, title: 'Circular Linked List Operations', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 35, title: 'Linked Representation of Stack & Queue', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 36, title: 'Dynamic Storage Management', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 37, title: 'Memory Efficient Doubly Linked List (XOR Linked List)', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 38, title: 'Unrolled Linked List', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 39, title: 'Skip List', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 36, title: 'Dynamic Storage Management', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 37, title: 'Memory Efficient Doubly Linked List (XOR Linked List)', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
+        { id: 38, title: 'Unrolled Linked List', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
+        { id: 39, title: 'Skip List', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
         { id: 40, title: 'BOSS: Chain Breaker', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
       ],
     },
@@ -96,13 +98,13 @@ export default function RoadmapPage() {
       icon: '🌲',
       description: 'Unit 5: Non-linear hierarchical trees, inorder/preorder/postorder traversals, BST operations, AVL balance factors, B/B+ trees, heaps, and heap sort.',
       sublevels: [
-        { id: 41, title: 'Tree Terminologies & Traversals Concept', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 42, title: 'Types of Trees', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 41, title: 'Tree Terminologies & Traversals Concept', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 42, title: 'Types of Trees', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
         { id: 43, title: 'Recursive Traversals: Inorder, Preorder, Postorder', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 44, title: 'Binary Search Trees (BST): Insertion, Deletion, Search', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 45, title: 'Expression Trees', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 45, title: 'Expression Trees', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
         { id: 46, title: 'AVL Trees: Rotations & Balancing', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 47, title: 'B-Tree & B+ Tree Concepts', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 47, title: 'B-Tree & B+ Tree Concepts', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
         { id: 48, title: 'Heaps: Max-Heap & Min-Heap Operations', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 49, title: 'Heap Sort Algorithm', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 50, title: 'BOSS: Forest Ancient', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
@@ -115,13 +117,13 @@ export default function RoadmapPage() {
       icon: '❄️',
       description: 'Unit 6: Graph theory, adjacency representations, BFS/DFS traversals, and memory-efficient sparse matrix representations and transpose.',
       sublevels: [
-        { id: 51, title: 'Graph Theory Basics & Terminologies', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 51, title: 'Graph Theory Basics & Terminologies', tier: 'BEGINNER', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
         { id: 52, title: 'Storage Representation: Adjacency Matrix & Adjacency List', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 53, title: 'Basic Graph Manipulation: Add/Remove Vertex & Edge', tier: 'INTERMEDIATE', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 54, title: 'Breadth-First Search (BFS) Traversal', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 55, title: 'Depth-First Search (DFS) Traversal', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 56, title: 'Introduction to Sparse Matrix', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
-        { id: 57, title: 'Sparse Matrix Linked Representation', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
+        { id: 56, title: 'Introduction to Sparse Matrix', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 3 },
+        { id: 57, title: 'Sparse Matrix Linked Representation', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 5 },
         { id: 58, title: 'Transpose of Sparse Matrix', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
         { id: 59, title: 'BOSS: Glacier Oracle', tier: 'ADVANCED', status: 'LOCKED', currentStage: 1, stagesCount: 8 },
       ],
@@ -154,6 +156,19 @@ export default function RoadmapPage() {
     }
   };
 
+  // Calculate total and completed sublevels for current tier
+  let totalTierSublevels = 0;
+  let completedTierSublevels = 0;
+
+  activeLevels.forEach((lvl: any) => {
+    (lvl.sublevels || []).forEach((sub: any) => {
+      if (sub.tier === activeTier) {
+        totalTierSublevels++;
+        if (sub.status === 'COMPLETED') completedTierSublevels++;
+      }
+    });
+  });
+
   return (
     <div className="relative min-h-[calc(100vh-64px)] w-full bg-gradient-to-b from-[#F3C8DD] via-[#C7D3F5] to-[#FCE4C8] flex flex-col justify-between overflow-x-hidden">
       {/* Upper Control Bar */}
@@ -167,26 +182,27 @@ export default function RoadmapPage() {
             WORLD MAP
           </h1>
           <p className="font-body text-xs sm:text-sm text-slate-700 mt-1 max-w-xl">
-            6 Academic Units • 54 Topic Sublevels • 432 Strict 8-Stage Progression Trials across all difficulty tiers.
+            Currently displaying <span className="font-semibold text-[#1A2744]">{activeTier}</span> syllabus. Complete all {activeTier.toLowerCase()} sectors to graduate to the next tier!
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-3">
-          {/* Adaptive Tier Filter Pills */}
-          <div className="flex items-center gap-1 bg-white/85 p-1 rounded-xl border-2 border-[#1B2A4A] shadow-sm">
-            {(['ALL', 'BEGINNER', 'INTERMEDIATE', 'ADVANCED'] as const).map((tier) => (
-              <button
-                key={tier}
-                onClick={() => setSelectedTier(tier)}
-                className={`font-pixel text-[8px] sm:text-[9px] px-2.5 py-1.5 rounded-lg transition-all ${
-                  selectedTier === tier
-                    ? 'bg-[#1B2A4A] text-[#FFD54F] shadow-sm'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                {tier === 'ALL' ? 'ALL TIERS' : tier === 'BEGINNER' ? '🟢 BEG' : tier === 'INTERMEDIATE' ? '🟡 INT' : '🔴 ADV'}
-              </button>
-            ))}
+          {/* Active Tier Fixed Badge (Locked to User Tier - No manual switcher) */}
+          <div className="flex items-center gap-2 bg-white/90 px-3.5 py-2 rounded-xl border-2 border-[#1B2A4A] shadow-sm">
+            <span className="font-pixel text-[8px] sm:text-[9px] text-[#1B2A4A] uppercase">
+              EXPEDITION TIER:
+            </span>
+            <span
+              className={`font-pixel text-[8px] sm:text-[9px] px-2.5 py-1 rounded-md border ${
+                activeTier === 'ADVANCED'
+                  ? 'bg-rose-100 text-rose-800 border-rose-300'
+                  : activeTier === 'INTERMEDIATE'
+                  ? 'bg-amber-100 text-amber-800 border-amber-300'
+                  : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+              }`}
+            >
+              {activeTier === 'ADVANCED' ? '🔴 ADVANCED' : activeTier === 'INTERMEDIATE' ? '🟡 INTERMEDIATE' : '🟢 BEGINNER'}
+            </span>
           </div>
 
           <Link href="/dashboard">
@@ -197,13 +213,39 @@ export default function RoadmapPage() {
         </div>
       </div>
 
-      {/* Main List Progression across all 6 Biome Levels */}
+      {/* Tier Progress Milestone Banner */}
+      <div className="relative z-25 max-w-5xl mx-auto w-full px-4 sm:px-6">
+        <div className="bg-[#1B2A4A] text-white p-3 sm:p-4 rounded-2xl border-2 border-[#FFD54F] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3 text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-[#FFD54F] flex items-center justify-center text-[#1B2A4A] shrink-0 font-pixel text-xs">
+              ★
+            </div>
+            <div>
+              <h3 className="font-pixel text-[10px] sm:text-xs text-[#FFD54F]">
+                {activeTier} SECTORS PROGRESS: {completedTierSublevels} / {totalTierSublevels} CLEARED
+              </h3>
+              <p className="font-body text-xs text-slate-300 mt-0.5">
+                {completedTierSublevels >= totalTierSublevels && totalTierSublevels > 0
+                  ? `All ${activeTier} sectors conquered! Ready for graduation!`
+                  : `Clear all ${totalTierSublevels} ${activeTier.toLowerCase()} sectors to unlock the next tier!`}
+              </p>
+            </div>
+          </div>
+
+          <div className="w-full sm:w-48 bg-slate-800 rounded-full h-3 border border-slate-600 overflow-hidden shrink-0">
+            <div
+              className="bg-[#7FFFD4] h-full transition-all duration-500"
+              style={{ width: `${totalTierSublevels > 0 ? (completedTierSublevels / totalTierSublevels) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Main List Progression across all 6 Biome Levels - Strictly Filtered to activeTier */}
       <div className="relative z-20 max-w-5xl mx-auto w-full px-4 sm:px-6 py-6 space-y-8 flex-1">
         {activeLevels.map((lvl: any) => {
-          const filteredSublevels = (lvl.sublevels || []).filter((sub: any) => {
-            if (selectedTier === 'ALL') return true;
-            return sub.tier === selectedTier;
-          });
+          // Strictly show ONLY sublevels belonging to the user's active tier!
+          const filteredSublevels = (lvl.sublevels || []).filter((sub: any) => sub.tier === activeTier);
 
           if (filteredSublevels.length === 0) return null;
 
@@ -231,7 +273,7 @@ export default function RoadmapPage() {
                 </div>
 
                 <div className="self-end sm:self-center font-pixel text-[9px] text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-300">
-                  {filteredSublevels.length} SUBLEVELS
+                  {filteredSublevels.length} {activeTier} TOPICS
                 </div>
               </div>
 
@@ -248,75 +290,60 @@ export default function RoadmapPage() {
                         isCompleted
                           ? 'bg-emerald-50/90 border-emerald-400 shadow-sm'
                           : isUnlocked
-                          ? 'bg-white border-[#FFD54F] shadow-[3px_3px_0_#1B2A4A] hover:-translate-y-0.5 ring-2 ring-[#FFD54F]/40'
-                          : 'bg-slate-100/80 border-slate-300 opacity-60'
+                          ? 'bg-white border-[#FFB300] shadow-[3px_3px_0_#1B2A4A] hover:-translate-y-0.5'
+                          : 'bg-slate-100/70 border-slate-200 opacity-60'
                       }`}
                     >
                       <div>
-                        {/* Header: Status + Tier Badge */}
-                        <div className="flex justify-between items-center mb-2 gap-2">
-                          <span
-                            className={`font-pixel text-[8px] uppercase ${
-                              isCompleted
-                                ? 'text-emerald-700 font-bold'
-                                : isUnlocked
-                                ? 'text-amber-700 font-bold'
-                                : 'text-slate-400'
-                            }`}
-                          >
-                            {isCompleted ? '✓ CONQUERED' : isUnlocked ? '★ CURRENT EXPEDITION' : '🔒 SEALED'}
+                        {/* Top Meta info */}
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <span className="font-pixel text-[8px] text-slate-500">
+                            ID: {sub.id}
                           </span>
-
                           {renderTierBadge(sub.tier)}
                         </div>
 
-                        <h3 className="font-pixel text-[10px] sm:text-[11px] text-[#1A2744] leading-snug mb-3">
+                        {/* Title */}
+                        <h3 className="font-pixel text-xs text-[#1A2744] mb-2 leading-tight">
                           {sub.title}
                         </h3>
 
-                        {/* 8-Stage Progress Meter */}
-                        <div className="mb-3">
-                          <div className="flex justify-between items-center text-[8px] font-pixel text-slate-500 mb-1">
-                            <span>PROGRESS</span>
-                            <span>{isCompleted ? '8/8' : isUnlocked ? `${sub.currentStage || 1}/8` : '0/8'}</span>
-                          </div>
-                          <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                            <div
-                              className={`h-full transition-all duration-300 ${
-                                isCompleted
-                                  ? 'bg-emerald-500'
-                                  : isUnlocked
-                                  ? 'bg-[#FFD54F]'
-                                  : 'bg-slate-300'
-                              }`}
-                              style={{
-                                width: isCompleted
-                                  ? '100%'
-                                  : isUnlocked
-                                  ? `${((sub.currentStage || 1) / 8) * 100}%`
-                                  : '0%',
-                              }}
-                            />
-                          </div>
-                        </div>
+                        {sub.concepts && (
+                          <p className="font-body text-xs text-slate-600 line-clamp-2 mb-3">
+                            {sub.concepts}
+                          </p>
+                        )}
                       </div>
 
-                      <div className="pt-2">
-                        {isUnlocked ? (
+                      {/* Bottom Action Footer */}
+                      <div className="flex items-center justify-between pt-3 border-t border-slate-200/60 mt-2">
+                        <span className="font-pixel text-[8px] text-slate-500">
+                          {isCompleted
+                            ? 'CONQUERED ★'
+                            : isUnlocked
+                            ? `STAGE ${sub.currentStage || 1}/${sub.stagesCount || 8}`
+                            : 'SEALED'}
+                        </span>
+
+                        {isUnlocked && (
                           <Link href={`/sublevel/${sub.id}`}>
-                            <PixelButton variant="mint" size="sm" fullWidth>
-                              ENTER QUEST <Play size={10} className="ml-1 fill-current" />
+                            <PixelButton variant="mint" size="sm">
+                              ENTER <Play size={10} className="ml-1 fill-current" />
                             </PixelButton>
                           </Link>
-                        ) : isCompleted ? (
+                        )}
+
+                        {isCompleted && (
                           <Link href={`/sublevel/${sub.id}`}>
-                            <PixelButton variant="outline" size="sm" fullWidth>
-                              REVIEW EXPEDITION
+                            <PixelButton variant="outline" size="sm">
+                              REVIEW
                             </PixelButton>
                           </Link>
-                        ) : (
-                          <div className="w-full py-2 text-center text-[9px] font-pixel text-slate-400 bg-slate-200/60 rounded-lg flex items-center justify-center gap-1.5 border border-slate-300/60">
-                            <Lock size={12} /> SEALED
+                        )}
+
+                        {!isUnlocked && !isCompleted && (
+                          <div className="flex items-center text-slate-400 text-xs gap-1 font-pixel text-[8px]">
+                            <Lock size={12} /> LOCKED
                           </div>
                         )}
                       </div>
@@ -329,15 +356,8 @@ export default function RoadmapPage() {
         })}
       </div>
 
-      {/* Cloud Bank Decorative Bottom Footer */}
-      <div className="relative w-full h-16 pointer-events-none select-none mt-8">
-        <svg viewBox="0 0 1200 60" className="w-full h-full preserve-3d" preserveAspectRatio="none">
-          <path
-            d="M0,60 L0,30 Q90,5 180,30 Q270,55 360,25 Q450,5 540,30 Q630,55 720,25 Q810,5 900,30 Q1050,55 1200,30 L1200,60 Z"
-            fill="#FFFFFF"
-          />
-        </svg>
-      </div>
+      {/* Bottom Scenic Clouds Grounding Frame */}
+      <div className="relative z-10 w-full h-12 bg-gradient-to-t from-white/90 via-white/50 to-transparent pointer-events-none" />
     </div>
   );
 }
