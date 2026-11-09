@@ -1,6 +1,6 @@
 import prisma from '../config/prisma';
 import { memoryUsers, memoryProgress, memoryBadges, memoryUserBadges } from './auth.service';
-import { getSublevelById, SublevelType } from '../data/curriculumCatalog';
+import { getSublevelById, getAllSublevels, SublevelType } from '../data/curriculumCatalog';
 
 const XP_MAP: Record<string, number> = {
   THEORY: 10,
@@ -70,6 +70,14 @@ export class StageService {
 
     const totalXpToAdd = xpGained + bonusXp;
 
+    let tierPromoted: {
+      fromTier: string;
+      toTier: string;
+      title: string;
+      message: string;
+      bonusGems: number;
+    } | null = null;
+
     // 1. Try Prisma Database Update (only if DB connection did not fail)
     if (isDbAvailable) {
       try {
@@ -85,13 +93,8 @@ export class StageService {
 
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (user) {
-        const updatedUser = await prisma.user.update({
-          where: { id: userId },
-          data: {
-            xp: { increment: totalXpToAdd },
-            streakCount: Math.max(1, user.streakCount),
-          },
-        });
+        const userTier = (user.selectedLevel || 'BEGINNER') as 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+        const allTierSublevels = getAllSublevels().filter((s) => s.tier === userTier);
 
         const nextStageNumber = stageNumber < maxStage ? stageNumber + 1 : null;
         let updatedProgress = progress;
@@ -101,6 +104,41 @@ export class StageService {
             where: { id: progress.id },
             data: { isCompleted: true, currentStage: maxStage },
           });
+
+          // Check Tier Graduation
+          const completedList = await prisma.userProgress.findMany({
+            where: { userId, isCompleted: true },
+            select: { sublevelId: true },
+          });
+          const completedSublevelIds = new Set(completedList.map((item) => item.sublevelId));
+          completedSublevelIds.add(sublevelId);
+
+          const hasCompletedAllInTier =
+            allTierSublevels.length > 0 && allTierSublevels.every((s) => completedSublevelIds.has(s.id));
+
+          if (hasCompletedAllInTier) {
+            let nextTier: 'INTERMEDIATE' | 'ADVANCED' | null = null;
+            if (userTier === 'BEGINNER') nextTier = 'INTERMEDIATE';
+            else if (userTier === 'INTERMEDIATE') nextTier = 'ADVANCED';
+
+            if (nextTier) {
+              await prisma.user.update({
+                where: { id: userId },
+                data: {
+                  selectedLevel: nextTier,
+                  gems: { increment: 100 },
+                },
+              });
+
+              tierPromoted = {
+                fromTier: userTier,
+                toTier: nextTier,
+                title: `Graduated to ${nextTier} Tier!`,
+                message: `Congratulations Hero! You have conquered all ${userTier} sectors across the realm. The ${nextTier} expedition is now unlocked (+100 💎 bonus)!`,
+                bonusGems: 100,
+              };
+            }
+          }
 
           // Award Badge in DB
           if (badgeAwarded) {
@@ -139,6 +177,26 @@ export class StageService {
           });
         }
 
+        const updatedUser = await prisma.user.update({
+          where: { id: userId },
+          data: {
+            xp: { increment: totalXpToAdd },
+            streakCount: Math.max(1, user.streakCount),
+          },
+        });
+
+        let nextSublevelUnlocked: number | null = null;
+        if (isSublevelCompleted) {
+          const currentIndex = allTierSublevels.findIndex((s) => s.id === sublevelId);
+          if (currentIndex !== -1 && currentIndex < allTierSublevels.length - 1) {
+            nextSublevelUnlocked = allTierSublevels[currentIndex + 1].id;
+          } else if (tierPromoted) {
+            const promotedTier = tierPromoted.toTier;
+            const nextTierSubs = getAllSublevels().filter((s) => s.tier === promotedTier);
+            nextSublevelUnlocked = nextTierSubs[0]?.id || null;
+          }
+        }
+
         return {
           success: true,
           stageNumber,
@@ -152,8 +210,9 @@ export class StageService {
           hearts: updatedUser.hearts,
           nextStageNumber,
           isSublevelCompleted,
-          nextSublevelUnlocked: isSublevelCompleted ? sublevelId + 1 : null,
+          nextSublevelUnlocked,
           badgeAwarded,
+          tierPromoted,
           progress: {
             id: updatedProgress.id,
             userId: updatedProgress.userId,
@@ -176,10 +235,14 @@ export class StageService {
       xp: 0,
       streakCount: 1,
       hearts: 5,
+      gems: 100,
+      selectedLevel: 'BEGINNER',
     };
     memUser.xp = (memUser.xp || 0) + totalXpToAdd;
     memUser.streakCount = Math.max(1, memUser.streakCount || 1);
-    memoryUsers.set(userId, memUser);
+
+    const userTier = (memUser.selectedLevel || 'BEGINNER') as 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+    const allTierSublevels = getAllSublevels().filter((s) => s.tier === userTier);
 
     const progs = memoryProgress.get(userId) || [];
     let p = progs.find((item: any) => item.sublevelId === sublevelId);
@@ -198,6 +261,34 @@ export class StageService {
       p.isCompleted = true;
       p.currentStage = maxStage;
 
+      // Check Tier Graduation in memory
+      const completedSublevelIds = new Set(
+        progs.filter((item: any) => item.isCompleted).map((item: any) => item.sublevelId)
+      );
+      completedSublevelIds.add(sublevelId);
+
+      const hasCompletedAllInTier =
+        allTierSublevels.length > 0 && allTierSublevels.every((s) => completedSublevelIds.has(s.id));
+
+      if (hasCompletedAllInTier) {
+        let nextTier: 'INTERMEDIATE' | 'ADVANCED' | null = null;
+        if (userTier === 'BEGINNER') nextTier = 'INTERMEDIATE';
+        else if (userTier === 'INTERMEDIATE') nextTier = 'ADVANCED';
+
+        if (nextTier) {
+          memUser.selectedLevel = nextTier;
+          memUser.gems = (memUser.gems || 0) + 100;
+
+          tierPromoted = {
+            fromTier: userTier,
+            toTier: nextTier,
+            title: `Graduated to ${nextTier} Tier!`,
+            message: `Congratulations Hero! You have conquered all ${userTier} sectors across the realm. The ${nextTier} expedition is now unlocked (+100 💎 bonus)!`,
+            bonusGems: 100,
+          };
+        }
+      }
+
       // Record Badge in memory
       if (badgeAwarded) {
         const uBadges = memoryUserBadges.get(userId) || [];
@@ -215,9 +306,23 @@ export class StageService {
     } else if (stageNumber === p.currentStage) {
       p.currentStage = stageNumber + 1;
     }
+
+    memoryUsers.set(userId, memUser);
     memoryProgress.set(userId, progs);
 
     const nextStageNumber = stageNumber < maxStage ? stageNumber + 1 : null;
+
+    let nextSublevelUnlocked: number | null = null;
+    if (isSublevelCompleted) {
+      const currentIndex = allTierSublevels.findIndex((s) => s.id === sublevelId);
+      if (currentIndex !== -1 && currentIndex < allTierSublevels.length - 1) {
+        nextSublevelUnlocked = allTierSublevels[currentIndex + 1].id;
+      } else if (tierPromoted) {
+        const promotedTier = tierPromoted.toTier;
+        const nextTierSubs = getAllSublevels().filter((s) => s.tier === promotedTier);
+        nextSublevelUnlocked = nextTierSubs[0]?.id || null;
+      }
+    }
 
     return {
       success: true,
@@ -232,8 +337,9 @@ export class StageService {
       hearts: memUser.hearts,
       nextStageNumber,
       isSublevelCompleted,
-      nextSublevelUnlocked: isSublevelCompleted ? sublevelId + 1 : null,
+      nextSublevelUnlocked,
       badgeAwarded,
+      tierPromoted,
       progress: {
         id: p.id || `prog_${userId}_${sublevelId}`,
         userId,

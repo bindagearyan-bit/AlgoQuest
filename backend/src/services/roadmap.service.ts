@@ -1,5 +1,5 @@
 import prisma from '../config/prisma';
-import { memoryProgress } from './auth.service';
+import { memoryUsers, memoryProgress } from './auth.service';
 import {
   CURRICULUM_CATALOG,
   getSublevelById,
@@ -101,86 +101,113 @@ function buildAdaptiveStagesList(subDef: SublevelDefinition, currentStage: numbe
 
 export class RoadmapService {
   async getLevels(userId?: string) {
+    // 0. Resolve active tier for this user
+    let activeTier: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' = 'BEGINNER';
+    let isDbAvailable = true;
+
+    if (userId) {
+      try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user?.selectedLevel) {
+          activeTier = user.selectedLevel as any;
+        }
+      } catch {
+        isDbAvailable = false;
+        const memUser = memoryUsers.get(userId) || memoryUsers.get('user_default_aryan');
+        if (memUser?.selectedLevel) {
+          activeTier = memUser.selectedLevel;
+        }
+      }
+    } else {
+      const defaultUser = memoryUsers.get('user_default_aryan');
+      if (defaultUser?.selectedLevel) {
+        activeTier = defaultUser.selectedLevel;
+      }
+    }
+
     // 1. Try Prisma DB
-    try {
-      const levels = await prisma.level.findMany({
-        orderBy: { orderIndex: 'asc' },
-        include: {
-          sublevels: {
-            orderBy: { orderIndex: 'asc' },
-            include: {
-              stages: {
-                select: {
-                  id: true,
-                  stageNumber: true,
-                  stageType: true,
-                  title: true,
+    if (isDbAvailable) {
+      try {
+        const levels = await prisma.level.findMany({
+          orderBy: { orderIndex: 'asc' },
+          include: {
+            sublevels: {
+              where: { tier: activeTier },
+              orderBy: { orderIndex: 'asc' },
+              include: {
+                stages: {
+                  select: {
+                    id: true,
+                    stageNumber: true,
+                    stageType: true,
+                    title: true,
+                  },
+                  orderBy: { stageNumber: 'asc' },
                 },
-                orderBy: { stageNumber: 'asc' },
               },
             },
           },
-        },
-      });
+        });
 
-      if (levels && levels.length > 0) {
-        let userProgressMap = new Map<number, { currentStage: number; isCompleted: boolean }>();
-        if (userId) {
-          const progress = await prisma.userProgress.findMany({
-            where: { userId },
-          });
-          progress.forEach((p) => {
-            userProgressMap.set(p.sublevelId, {
-              currentStage: p.currentStage,
-              isCompleted: p.isCompleted,
+        if (levels && levels.length > 0) {
+          let userProgressMap = new Map<number, { currentStage: number; isCompleted: boolean }>();
+          if (userId) {
+            const progress = await prisma.userProgress.findMany({
+              where: { userId },
             });
-          });
-        }
+            progress.forEach((p) => {
+              userProgressMap.set(p.sublevelId, {
+                currentStage: p.currentStage,
+                isCompleted: p.isCompleted,
+              });
+            });
+          }
 
-        let previousSublevelCompleted = true;
+          let previousSublevelCompleted = true;
 
-        return levels.map((lvl) => {
-          const sublevels = lvl.sublevels.map((sub, index) => {
-            const userProgress = userProgressMap.get(sub.id);
-            const isFirst = lvl.orderIndex === 1 && index === 0;
+          return levels.map((lvl) => {
+            const tierSublevels = lvl.sublevels.filter((sub: any) => (sub.tier || 'BEGINNER') === activeTier);
+            const sublevels = tierSublevels.map((sub) => {
+              const userProgress = userProgressMap.get(sub.id);
 
-            let status: 'LOCKED' | 'UNLOCKED' | 'COMPLETED' = 'LOCKED';
-            if (userProgress?.isCompleted) {
-              status = 'COMPLETED';
-            } else if (isFirst || userProgress || previousSublevelCompleted) {
-              status = 'UNLOCKED';
-            } else {
-              status = 'LOCKED';
-            }
+              let status: 'LOCKED' | 'UNLOCKED' | 'COMPLETED' = 'LOCKED';
+              if (userProgress?.isCompleted) {
+                status = 'COMPLETED';
+              } else if (userProgress || previousSublevelCompleted) {
+                status = 'UNLOCKED';
+              } else {
+                status = 'LOCKED';
+              }
 
-            previousSublevelCompleted = userProgress?.isCompleted ?? false;
+              previousSublevelCompleted = userProgress?.isCompleted ?? false;
+
+              return {
+                id: sub.id,
+                levelId: sub.levelId,
+                title: sub.title,
+                orderIndex: sub.orderIndex,
+                tier: (sub as any).tier || activeTier,
+                sublevelType: (sub as any).sublevelType || 'CODE_BASED',
+                status,
+                currentStage: userProgress ? userProgress.currentStage : 1,
+                stagesCount: sub.stages.length,
+                stages: sub.stages,
+              };
+            });
 
             return {
-              id: sub.id,
-              levelId: sub.levelId,
-              title: sub.title,
-              orderIndex: sub.orderIndex,
-              tier: (sub as any).tier || 'BEGINNER',
-              sublevelType: (sub as any).sublevelType || 'CODE_BASED',
-              status,
-              currentStage: userProgress ? userProgress.currentStage : 1,
-              stagesCount: sub.stages.length,
-              stages: sub.stages,
+              id: lvl.id,
+              title: lvl.title,
+              orderIndex: lvl.orderIndex,
+              icon: lvl.icon,
+              description: (lvl as any).description || '',
+              sublevels,
             };
           });
-
-          return {
-            id: lvl.id,
-            title: lvl.title,
-            orderIndex: lvl.orderIndex,
-            icon: lvl.icon,
-            description: (lvl as any).description || '',
-            sublevels,
-          };
-        });
+        }
+      } catch {
+        // Offline fallback
       }
-    } catch {
-      // Offline fallback
     }
 
     // 2. High-fidelity Offline Curriculum Catalog with Memory Progress
@@ -196,14 +223,14 @@ export class RoadmapService {
     let previousSublevelCompleted = true;
 
     return CURRICULUM_CATALOG.map((lvl) => {
-      const sublevels = lvl.sublevels.map((sub, idx) => {
+      const tierSublevels = lvl.sublevels.filter((sub) => sub.tier === activeTier);
+      const sublevels = tierSublevels.map((sub) => {
         const uProg = progressMap.get(sub.id);
-        const isFirst = lvl.orderIndex === 1 && idx === 0;
 
         let status: 'LOCKED' | 'UNLOCKED' | 'COMPLETED' = 'LOCKED';
         if (uProg?.isCompleted) {
           status = 'COMPLETED';
-        } else if (isFirst || uProg || previousSublevelCompleted) {
+        } else if (uProg || previousSublevelCompleted) {
           status = 'UNLOCKED';
         } else {
           status = 'LOCKED';
