@@ -3,7 +3,9 @@
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useQueryClient } from '@tanstack/react-query';
 import { useStage } from '@/lib/hooks/useStage';
+import { useUserStore } from '@/lib/store/userStore';
 import { BiomeBackground } from '@/components/layout/BiomeBackground';
 import { TheoryStage } from '@/components/stages/TheoryStage';
 import { VisualizationStage } from '@/components/stages/VisualizationStage';
@@ -13,11 +15,14 @@ import { ProblemStage } from '@/components/stages/ProblemStage';
 import { QuizStage } from '@/components/stages/QuizStage';
 import { LevelUpModal } from '@/components/gamification/LevelUpModal';
 import { BadgeCelebrationModal } from '@/components/gamification/BadgeCelebrationModal';
+import { TierPromotionModal, TierPromotedData } from '@/components/gamification/TierPromotionModal';
 import { ArrowLeft } from 'lucide-react';
 
 export default function DynamicStagePage() {
   const params = useParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const { user, setUser } = useUserStore();
 
   const sublevelId = parseInt(params.sublevelId as string, 10);
   const stageNumber = parseInt(params.stageNumber as string, 10);
@@ -35,6 +40,8 @@ export default function DynamicStagePage() {
   const [showCelebration, setShowCelebration] = useState(false);
   const [badgeAward, setBadgeAward] = useState<any>(null);
   const [xpAwarded, setXpAwarded] = useState(10);
+  const [tierPromotion, setTierPromotion] = useState<TierPromotedData | null>(null);
+  const [showTierModal, setShowTierModal] = useState(false);
 
   const sublevelType = stage?.sublevel?.sublevelType || 'CODE_BASED';
   const maxStage = sublevelType === 'THEORETICAL' ? 3 : sublevelType === 'HYBRID' ? 5 : 8;
@@ -43,6 +50,21 @@ export default function DynamicStagePage() {
     try {
       const res = await completeStage();
       setXpAwarded(res?.xpGained || 10);
+
+      if (res?.tierPromoted) {
+        setTierPromotion(res.tierPromoted);
+        if (user) {
+          setUser({
+            ...user,
+            selectedLevel: res.tierPromoted.toTier,
+            gems: (user.gems || 0) + (res.tierPromoted.bonusGems || 100),
+          });
+        }
+        queryClient.invalidateQueries({ queryKey: ['levels'] });
+        queryClient.invalidateQueries({ queryKey: ['userProgress'] });
+        queryClient.invalidateQueries({ queryKey: ['me'] });
+      }
+
       if (res?.badgeAwarded || res?.isSublevelCompleted || stageNumber >= maxStage) {
         setBadgeAward(res?.badgeAwarded || {
           title: 'Sector Pioneer',
@@ -60,6 +82,11 @@ export default function DynamicStagePage() {
 
   const handleCelebrationContinue = () => {
     setShowCelebration(false);
+    if (tierPromotion) {
+      setShowTierModal(true);
+      return;
+    }
+
     if (stageNumber < maxStage) {
       router.push(`/sublevel/${sublevelId}/stage/${stageNumber + 1}`);
     } else {
@@ -188,6 +215,16 @@ export default function DynamicStagePage() {
           newLevelTitle={`Stage ${stageNumber} Conquered!`}
         />
       )}
+
+      {/* Tier Promotion Celebration Modal */}
+      <TierPromotionModal
+        isOpen={showTierModal}
+        data={tierPromotion}
+        onClose={() => {
+          setShowTierModal(false);
+          router.push('/roadmap');
+        }}
+      />
     </BiomeBackground>
   );
 }

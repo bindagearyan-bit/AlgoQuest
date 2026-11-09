@@ -116,12 +116,16 @@ Every completed sublevel awards a unique **Algorithmic Medal of Honor**:
 
 ---
 
-### 5. 🎯 Adaptive Tier Engine & World Map
+### 5. 🎯 Locked Tier Expedition & Automatic Graduation Engine
 
-- **🟢 Beginner Tier:** Direct access from Unit 1 (Sublevel 1.1) onward.
-- **🟡 Intermediate Tier:** 10-question placement quiz unlocking Level 2 or Level 3 entry points.
-- **🔴 Advanced Tier:** Algorithmic placement quiz unlocking Level 4, 5, or 6 entry points.
-- **World Map Navigation:** Clean, organized list view with instant tier filtering (`ALL TIERS`, `🟢 BEG`, `🟡 INT`, `🔴 ADV`), removing cluttered image backgrounds for focused curriculum progression.
+- **Tier Selection at Login & Signup:** When creating an account or logging in, heroes choose their active expedition tier (`🟢 BEGINNER`, `🟡 INTERMEDIATE`, `🔴 ADVANCED`) with a single click.
+- **Locked World Map View:** The World Map (`/roadmap`) is strictly locked to the hero's selected tier. Manual tier filters are removed so learners embark on an immersive, distraction-free syllabus path tailored to their exact level across all 6 Units.
+- **Progress Milestone Tracking:** Live progress indicators track sectors conquered vs total sectors in the active tier (e.g. `0 / 16 BEGINNER SECTORS CLEARED`).
+- **Sequential Unlocking:** The first sector of the hero's tier unlocks automatically; subsequent sectors unlock sequentially as previous sectors are conquered.
+- **Automatic Tier Graduation:** Once a hero conquers all sectors of their active tier (e.g. completing all Beginner topics across all 6 Units):
+  - **Auto-Promotion:** The engine automatically graduates the account to the next tier (`BEGINNER` → `INTERMEDIATE` → `ADVANCED`).
+  - **Graduation Bonus:** Grants an immediate **+100 Gems Bonus 💎**.
+  - **Celebration Modal:** Triggers the animated **Tier Promotion Modal** with confetti, golden trophy, and direct launch into the newly unlocked sector map.
 
 ---
 
