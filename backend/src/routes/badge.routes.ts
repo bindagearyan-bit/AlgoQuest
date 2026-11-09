@@ -14,3 +14,4 @@ router.get('/earned', authGuard, badgeController.getEarnedBadges);
 router.get('/:id/share', badgeController.getSharePayload);
 
 export default router;
+

@@ -1009,3 +1009,4 @@ export const LEVEL_5_DATA: LevelDefinition = {
 
 fs.writeFileSync(path.join(dataDir, 'curriculumLevel5.ts'), level5Content, 'utf-8');
 console.log('Successfully written curriculumLevel5.ts (10 Sublevels)!');
+

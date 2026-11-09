@@ -142,3 +142,4 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
     </div>
   );
 };
+
