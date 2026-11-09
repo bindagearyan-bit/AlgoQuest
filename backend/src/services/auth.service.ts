@@ -199,7 +199,7 @@ export class AuthService {
     };
   }
 
-  async login(data: { email: string; password: string }) {
+  async login(data: { email: string; password: string; selectedLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' }) {
     let user: any = null;
 
     try {
@@ -234,6 +234,20 @@ export class AuthService {
     const isMatch = await bcrypt.compare(data.password, user.passwordHash);
     if (!isMatch) {
       throw new Error('Invalid email or password');
+    }
+
+    // Update selected level if explicitly passed
+    if (data.selectedLevel) {
+      user.selectedLevel = data.selectedLevel;
+      try {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { selectedLevel: data.selectedLevel },
+        });
+      } catch {
+        // DB offline fallback
+      }
+      memoryUsers.set(user.id, user);
     }
 
     const payload = { userId: user.id, email: user.email, username: user.username };

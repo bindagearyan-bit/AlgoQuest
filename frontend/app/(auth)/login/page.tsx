@@ -11,6 +11,7 @@ import { SkylineBackground } from '@/components/layout/SkylineBackground';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelInput } from '@/components/ui/PixelInput';
+import { Shield, Compass, Flame } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -23,6 +24,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'>('BEGINNER');
 
   const {
     register,
@@ -39,6 +41,7 @@ export default function LoginPage() {
       await authApi.login({
         email: data.email,
         password: data.password,
+        selectedLevel: selectedTier,
       });
       router.push('/dashboard');
     } catch (err: any) {
@@ -97,6 +100,56 @@ export default function LoginPage() {
                 error={errors.password?.message}
               />
 
+              {/* 3 Difficulty Options to Enter */}
+              <div>
+                <label className="block font-pixel text-[10px] text-[#1A2744] uppercase mb-2">
+                  SELECT YOUR EXPEDITION TIER:
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTier('BEGINNER')}
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl border-2 transition-all ${
+                      selectedTier === 'BEGINNER'
+                        ? 'bg-emerald-50 border-[#2E7D32] shadow-[2px_2px_0_#2E7D32]'
+                        : 'bg-white border-slate-200 hover:border-slate-300 opacity-60'
+                    }`}
+                  >
+                    <Shield size={16} className="text-emerald-600 mb-1" />
+                    <span className="font-pixel text-[8px] text-[#1A2744]">BEGINNER</span>
+                    <span className="font-body text-[9px] text-slate-500">Tier 1</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTier('INTERMEDIATE')}
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl border-2 transition-all ${
+                      selectedTier === 'INTERMEDIATE'
+                        ? 'bg-amber-50 border-[#FFB300] shadow-[2px_2px_0_#FFB300]'
+                        : 'bg-white border-slate-200 hover:border-slate-300 opacity-60'
+                    }`}
+                  >
+                    <Compass size={16} className="text-amber-600 mb-1" />
+                    <span className="font-pixel text-[8px] text-[#1A2744]">INTERMEDIATE</span>
+                    <span className="font-body text-[9px] text-slate-500">Tier 2</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTier('ADVANCED')}
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl border-2 transition-all ${
+                      selectedTier === 'ADVANCED'
+                        ? 'bg-rose-50 border-[#D32F2F] shadow-[2px_2px_0_#D32F2F]'
+                        : 'bg-white border-slate-200 hover:border-slate-300 opacity-60'
+                    }`}
+                  >
+                    <Flame size={16} className="text-rose-600 mb-1" />
+                    <span className="font-pixel text-[8px] text-[#1A2744]">ADVANCED</span>
+                    <span className="font-body text-[9px] text-slate-500">Tier 3</span>
+                  </button>
+                </div>
+              </div>
+
               <div className="pt-2">
                 <PixelButton
                   type="submit"
@@ -105,16 +158,21 @@ export default function LoginPage() {
                   fullWidth
                   disabled={isLoading}
                 >
-                  {isLoading ? 'VERIFYING CREDENTIALS...' : 'ENTER DUNGEON'}
+                  {isLoading ? 'VERIFYING CREDENTIALS...' : `ENTER AS ${selectedTier}`}
                 </PixelButton>
               </div>
             </form>
 
-            <div className="mt-6 text-center text-xs font-body text-slate-600">
-              New to AlgoQuest?{' '}
-              <Link href="/signup" className="font-pixel text-[11px] text-[#8B7FD9] underline">
-                Create Account
-              </Link>
+            <div className="mt-6 text-center">
+              <p className="font-body text-xs text-[#1A2744]/70">
+                New to the guild?{' '}
+                <Link
+                  href="/signup"
+                  className="font-pixel text-[10px] text-[#8B7FD9] hover:underline"
+                >
+                  Enlist Here
+                </Link>
+              </p>
             </div>
           </PixelCard>
         </div>
@@ -122,4 +180,3 @@ export default function LoginPage() {
     </SkylineBackground>
   );
 }
-

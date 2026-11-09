@@ -30,6 +30,7 @@ export default function SignupPage() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'>('BEGINNER');
 
   const {
     register,
@@ -47,8 +48,9 @@ export default function SignupPage() {
         email: data.email,
         username: data.username,
         password: data.password,
+        selectedLevel: selectedTier,
       });
-      router.push('/select-path');
+      router.push('/dashboard');
     } catch (err: any) {
       const msg = err.response?.data?.message || err.message || 'Signup failed. Please try again.';
       const cleanMsg =
@@ -120,6 +122,53 @@ export default function SignupPage() {
                 {...register('confirmPassword')}
                 error={errors.confirmPassword?.message}
               />
+
+              {/* 3 Difficulty Options to Start */}
+              <div>
+                <label className="block font-pixel text-[10px] text-[#1A2744] uppercase mb-2">
+                  STARTING EXPEDITION TIER:
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTier('BEGINNER')}
+                    className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all ${
+                      selectedTier === 'BEGINNER'
+                        ? 'bg-emerald-50 border-[#2E7D32] shadow-[2px_2px_0_#2E7D32]'
+                        : 'bg-white border-slate-200 hover:border-slate-300 opacity-60'
+                    }`}
+                  >
+                    <span className="font-pixel text-[8px] text-[#1A2744]">🟢 BEG</span>
+                    <span className="font-body text-[9px] text-slate-500">Tier 1</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTier('INTERMEDIATE')}
+                    className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all ${
+                      selectedTier === 'INTERMEDIATE'
+                        ? 'bg-amber-50 border-[#FFB300] shadow-[2px_2px_0_#FFB300]'
+                        : 'bg-white border-slate-200 hover:border-slate-300 opacity-60'
+                    }`}
+                  >
+                    <span className="font-pixel text-[8px] text-[#1A2744]">🟡 INT</span>
+                    <span className="font-body text-[9px] text-slate-500">Tier 2</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTier('ADVANCED')}
+                    className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all ${
+                      selectedTier === 'ADVANCED'
+                        ? 'bg-rose-50 border-[#D32F2F] shadow-[2px_2px_0_#D32F2F]'
+                        : 'bg-white border-slate-200 hover:border-slate-300 opacity-60'
+                    }`}
+                  >
+                    <span className="font-pixel text-[8px] text-[#1A2744]">🔴 ADV</span>
+                    <span className="font-body text-[9px] text-slate-500">Tier 3</span>
+                  </button>
+                </div>
+              </div>
 
               <div className="pt-2">
                 <PixelButton

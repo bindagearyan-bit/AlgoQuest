@@ -11,7 +11,7 @@ export const authApi = {
     return res.data;
   },
 
-  login: async (data: { email: string; password: string }) => {
+  login: async (data: { email: string; password: string; selectedLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' }) => {
     const res = await api.post('/auth/login', data);
     if (res.data?.data?.accessToken) {
       Cookies.set('access_token', res.data.data.accessToken, { expires: 1 });
