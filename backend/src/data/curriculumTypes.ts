@@ -56,6 +56,18 @@ export interface SublevelDefinition {
       codeSnippet: string;
       timeComplexity: string;
       spaceComplexity: string;
+      formalDefinition?: string;
+      realLifeAnalogy?: {
+        title?: string;
+        scenario: string;
+        physicalSteps: string[];
+        keyInsight: string;
+      };
+      thingsToRemember?: {
+        goldenRules: string[];
+        productionUses: string[];
+        interviewTraps: string[];
+      };
     };
     visualization?: {
       initialArray: number[];
