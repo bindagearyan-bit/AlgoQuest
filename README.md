@@ -129,7 +129,25 @@ Every completed sublevel awards a unique **Algorithmic Medal of Honor**:
 
 ---
 
-### 6. 🛡️ Resilient Dual-Mode Architecture
+### 6. 📖 Multi-Page Theory Engine with Real-Life Analogies & Memorization Rules
+
+- **Interactive 3-Page Codex Stepper:** Every theory stage is broken into three structured interactive pages:
+  - **Page 1: 📜 Core Concepts & Mechanics:** Formal definitions, operational mechanics, and high-contrast Big-O Time & Space complexity badges.
+  - **Page 2: 🌍 Everyday Real-Life Analogy (Zero Code):** Tangible, intuitive physical scenarios from daily human life (car dashboards for ADTs, cafeteria tray springs for Stacks, supermarket lines for Queues, train couplers for Linked Lists, dictionary lookups for Binary Search).
+  - **Page 3: 🧠 What You Must Remember & Exam Traps:** Golden invariants to memorize, production software applications, and deceptive exam/interview pitfalls.
+- **Illuminated Codex Theme:** Replaces low-contrast grey backgrounds with an illuminated midnight slate grimoire (`#0B1020` with `#FFD54F` gold and `#38BDF8` cyan trim), guaranteeing crisp readability on all devices.
+
+---
+
+### 7. 🔮 Gamified Arcane Quiz Arena & Strict XP Reward Integrity
+
+- **Arcane Quiz Gauntlet:** Engaging RPG battle styling with streak combos (`🔥 2X COMBO STREAK`) and interactive rune cards (`[A]`, `[B]`, `[C]`, `[D]`).
+- **Deep Explanatory Feedback:** Instant analysis breaking down why the right answer is correct and dissecting why distractors are traps.
+- **100% XP Reward Precision:** Exact 1:1 alignment between on-screen action buttons (`COMPLETE QUIZ (+25 XP)`, `SUBMIT QUEST (+30/+50/+100 XP)`, `I UNDERSTAND (+10 XP)`), backend execution, and player profile XP balances.
+
+---
+
+### 8. 🛡️ Resilient Dual-Mode Architecture
 
 - **Automatic Database Fallback:** Connects to PostgreSQL via Prisma ORM when available, and automatically falls back to an in-memory cache when offline with zero downtime.
 - **State Synchronization:** Fully synchronized with TanStack Query cache invalidations across user progress, roadmap levels, and badge state.
