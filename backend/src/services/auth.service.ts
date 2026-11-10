@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import bcrypt from 'bcryptjs';
 import prisma from '../config/prisma';
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../utils/jwt';
@@ -7,6 +9,54 @@ export const memoryUsers = new Map<string, any>();
 export const memoryProgress = new Map<string, any[]>();
 export const memoryBadges = new Map<number, any>();
 export const memoryUserBadges = new Map<string, any[]>();
+
+const DATA_DIR = path.resolve(process.cwd(), 'data');
+const STATE_FILE = path.join(DATA_DIR, 'user_state.json');
+
+export function saveStateToDisk() {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    const payload = {
+      users: Array.from(memoryUsers.entries()),
+      progress: Array.from(memoryProgress.entries()),
+      userBadges: Array.from(memoryUserBadges.entries()),
+      updatedAt: new Date().toISOString(),
+    };
+    fs.writeFileSync(STATE_FILE, JSON.stringify(payload, null, 2), 'utf-8');
+  } catch {
+    // Non-blocking fallback
+  }
+}
+
+export function loadStateFromDisk(): boolean {
+  try {
+    if (fs.existsSync(STATE_FILE)) {
+      const raw = fs.readFileSync(STATE_FILE, 'utf-8');
+      const payload = JSON.parse(raw);
+      if (Array.isArray(payload.users)) {
+        for (const [k, v] of payload.users) {
+          memoryUsers.set(k, v);
+        }
+      }
+      if (Array.isArray(payload.progress)) {
+        for (const [k, v] of payload.progress) {
+          memoryProgress.set(k, v);
+        }
+      }
+      if (Array.isArray(payload.userBadges)) {
+        for (const [k, v] of payload.userBadges) {
+          memoryUserBadges.set(k, v);
+        }
+      }
+      return true;
+    }
+  } catch {
+    // Fall back to seed defaults
+  }
+  return false;
+}
 
 const DEFAULT_SALT = bcrypt.genSaltSync(10);
 const DEFAULT_HASH = bcrypt.hashSync('password123', DEFAULT_SALT);
@@ -29,21 +79,74 @@ const DEFAULT_USER = {
   updatedAt: new Date(),
 };
 
-memoryUsers.set(DEFAULT_USER.id, DEFAULT_USER);
-memoryProgress.set(DEFAULT_USER.id, [
-  {
-    id: 'prog_default_1',
-    userId: DEFAULT_USER.id,
-    sublevelId: 1,
-    currentStage: 2,
-    isCompleted: false,
-    sublevel: {
-      id: 1,
-      title: 'Concept & Need of Data Structures',
-      level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
+// Initialize from persistent disk state or seed defaults
+const isStateLoaded = loadStateFromDisk();
+
+if (!isStateLoaded || !memoryUsers.has(DEFAULT_USER.id)) {
+  memoryUsers.set(DEFAULT_USER.id, DEFAULT_USER);
+  memoryProgress.set(DEFAULT_USER.id, [
+    {
+      id: 'prog_default_1',
+      userId: DEFAULT_USER.id,
+      sublevelId: 1,
+      currentStage: 3,
+      isCompleted: true, // Sublevel 1: Concept & Need is COMPLETED!
+      sublevel: {
+        id: 1,
+        title: 'Concept & Need of Data Structures',
+        level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
+      },
     },
-  },
-]);
+    {
+      id: 'prog_default_2',
+      userId: DEFAULT_USER.id,
+      sublevelId: 2,
+      currentStage: 3,
+      isCompleted: true, // Sublevel 2: ADTs is COMPLETED!
+      sublevel: {
+        id: 2,
+        title: 'Abstract Data Types (ADTs)',
+        level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
+      },
+    },
+    {
+      id: 'prog_default_3',
+      userId: DEFAULT_USER.id,
+      sublevelId: 3,
+      currentStage: 1,
+      isCompleted: false, // Sublevel 3: Types of DS is UNLOCKED & in progress!
+      sublevel: {
+        id: 3,
+        title: 'Types of Data Structures',
+        level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
+      },
+    },
+  ]);
+  saveStateToDisk();
+} else {
+  // If state was loaded, guarantee invariant that Sublevel 1 is completed if Sublevel 2 is completed
+  const aryanProgs = memoryProgress.get(DEFAULT_USER.id) || [];
+  const prog2 = aryanProgs.find((p: any) => p.sublevelId === 2);
+  let prog1 = aryanProgs.find((p: any) => p.sublevelId === 1);
+
+  if (prog2?.isCompleted) {
+    if (!prog1) {
+      prog1 = {
+        id: 'prog_default_1',
+        userId: DEFAULT_USER.id,
+        sublevelId: 1,
+        currentStage: 3,
+        isCompleted: true,
+      };
+      aryanProgs.push(prog1);
+    } else {
+      prog1.isCompleted = true;
+      prog1.currentStage = 3;
+    }
+    memoryProgress.set(DEFAULT_USER.id, aryanProgs);
+    saveStateToDisk();
+  }
+}
 
 export class AuthService {
   async signup(data: { email: string; username: string; password: string; selectedLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' }) {
@@ -168,11 +271,12 @@ export class AuthService {
             isCompleted: false,
             sublevel: {
               id: 1,
-              title: 'Asymptotic Analysis & Big-O',
-              level: { id: 1, title: 'Foundations & Core Mechanics' },
+              title: 'Concept & Need of Data Structures',
+              level: { id: 1, title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures' },
             },
           },
         ]);
+        saveStateToDisk();
       }
     }
 
@@ -248,6 +352,7 @@ export class AuthService {
         // DB offline fallback
       }
       memoryUsers.set(user.id, user);
+      saveStateToDisk();
     }
 
     const payload = { userId: user.id, email: user.email, username: user.username };

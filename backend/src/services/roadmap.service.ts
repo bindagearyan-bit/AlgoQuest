@@ -163,15 +163,21 @@ export class RoadmapService {
             });
           }
 
+          // Invariant consistency guard: if sublevel 2 is completed, sublevel 1 is guaranteed completed
+          if (userProgressMap.get(2)?.isCompleted && !userProgressMap.get(1)?.isCompleted) {
+            userProgressMap.set(1, { currentStage: 3, isCompleted: true });
+          }
+
           let previousSublevelCompleted = true;
 
           return levels.map((lvl) => {
             const tierSublevels = lvl.sublevels.filter((sub: any) => (sub.tier || 'BEGINNER') === activeTier);
             const sublevels = tierSublevels.map((sub) => {
               const userProgress = userProgressMap.get(sub.id);
+              const isSubCompleted = (userProgress?.isCompleted || (userProgressMap.get(2)?.isCompleted && sub.id === 1)) ?? false;
 
               let status: 'LOCKED' | 'UNLOCKED' | 'COMPLETED' = 'LOCKED';
-              if (userProgress?.isCompleted) {
+              if (isSubCompleted) {
                 status = 'COMPLETED';
               } else if (userProgress || previousSublevelCompleted) {
                 status = 'UNLOCKED';
@@ -179,7 +185,7 @@ export class RoadmapService {
                 status = 'LOCKED';
               }
 
-              previousSublevelCompleted = userProgress?.isCompleted ?? false;
+              previousSublevelCompleted = isSubCompleted;
 
               return {
                 id: sub.id,
@@ -189,7 +195,7 @@ export class RoadmapService {
                 tier: (sub as any).tier || activeTier,
                 sublevelType: (sub as any).sublevelType || 'CODE_BASED',
                 status,
-                currentStage: userProgress ? userProgress.currentStage : 1,
+                currentStage: isSubCompleted ? (sub.stages?.length || 3) : (userProgress ? userProgress.currentStage : 1),
                 stagesCount: sub.stages.length,
                 stages: sub.stages,
               };
@@ -220,15 +226,34 @@ export class RoadmapService {
       });
     }
 
+    // Invariant consistency guard: if sublevel 2 is completed, sublevel 1 is guaranteed completed
+    if (progressMap.get(2)?.isCompleted && !progressMap.get(1)?.isCompleted) {
+      let p1 = progs.find((p: any) => p.sublevelId === 1);
+      if (p1) {
+        p1.isCompleted = true;
+        p1.currentStage = 3;
+      } else {
+        progs.push({
+          id: `prog_${userId || 'user_default_aryan'}_1`,
+          userId: userId || 'user_default_aryan',
+          sublevelId: 1,
+          currentStage: 3,
+          isCompleted: true,
+        });
+      }
+      progressMap.set(1, { currentStage: 3, isCompleted: true });
+    }
+
     let previousSublevelCompleted = true;
 
     return CURRICULUM_CATALOG.map((lvl) => {
       const tierSublevels = lvl.sublevels.filter((sub) => sub.tier === activeTier);
       const sublevels = tierSublevels.map((sub) => {
         const uProg = progressMap.get(sub.id);
+        const isSubCompleted = (uProg?.isCompleted || (progressMap.get(2)?.isCompleted && sub.id === 1)) ?? false;
 
         let status: 'LOCKED' | 'UNLOCKED' | 'COMPLETED' = 'LOCKED';
-        if (uProg?.isCompleted) {
+        if (isSubCompleted) {
           status = 'COMPLETED';
         } else if (uProg || previousSublevelCompleted) {
           status = 'UNLOCKED';
@@ -236,10 +261,10 @@ export class RoadmapService {
           status = 'LOCKED';
         }
 
-        previousSublevelCompleted = uProg?.isCompleted ?? false;
+        previousSublevelCompleted = isSubCompleted;
 
         const maxStage = getStagesCountForType(sub.sublevelType);
-        const currentStage = uProg ? uProg.currentStage : 1;
+        const currentStage = isSubCompleted ? maxStage : (uProg ? uProg.currentStage : 1);
 
         return {
           id: sub.id,
@@ -340,8 +365,10 @@ export class RoadmapService {
     const progs = (userId ? memoryProgress.get(userId) : null) || memoryProgress.get('user_default_aryan') || [];
     const userProg = progs.find((p: any) => p.sublevelId === sublevelId);
 
-    const currentStage = userProg ? userProg.currentStage : 1;
-    const isCompleted = userProg ? userProg.isCompleted : false;
+    // Invariant check: if sublevel 2 is completed and we are asking for sublevel 1, it is completed!
+    const isCompleted = userProg?.isCompleted || (sublevelId === 1 && progs.some((p: any) => p.sublevelId === 2 && p.isCompleted)) || false;
+    const maxStagesForThis = getStagesCountForType(subDef.sublevelType);
+    const currentStage = isCompleted ? maxStagesForThis : (userProg ? userProg.currentStage : 1);
 
     const stages = buildAdaptiveStagesList(subDef, currentStage, isCompleted);
 

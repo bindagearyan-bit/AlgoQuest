@@ -161,10 +161,14 @@ export default function RoadmapPage() {
   let completedTierSublevels = 0;
 
   activeLevels.forEach((lvl: any) => {
-    (lvl.sublevels || []).forEach((sub: any) => {
+    const subs = lvl.sublevels || [];
+    const hasSub2Completed = subs.some((s: any) => s.id === 2 && s.status === 'COMPLETED');
+
+    subs.forEach((sub: any) => {
       if (sub.tier === activeTier) {
         totalTierSublevels++;
-        if (sub.status === 'COMPLETED') completedTierSublevels++;
+        const isCompleted = sub.status === 'COMPLETED' || (sub.id === 1 && hasSub2Completed);
+        if (isCompleted) completedTierSublevels++;
       }
     });
   });
@@ -280,8 +284,9 @@ export default function RoadmapPage() {
               {/* Sublevels Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
                 {filteredSublevels.map((sub: any) => {
-                  const isUnlocked = sub.status === 'UNLOCKED';
-                  const isCompleted = sub.status === 'COMPLETED';
+                  const hasSub2Completed = filteredSublevels.some((s: any) => s.id === 2 && s.status === 'COMPLETED');
+                  const isCompleted = sub.status === 'COMPLETED' || (sub.id === 1 && hasSub2Completed);
+                  const isUnlocked = !isCompleted && sub.status === 'UNLOCKED';
 
                   return (
                     <div

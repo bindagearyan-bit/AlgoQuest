@@ -1,5 +1,5 @@
 import prisma from '../config/prisma';
-import { memoryUsers, memoryProgress, memoryBadges, memoryUserBadges } from './auth.service';
+import { memoryUsers, memoryProgress, memoryBadges, memoryUserBadges, saveStateToDisk } from './auth.service';
 import { getSublevelById, getAllSublevels, SublevelType } from '../data/curriculumCatalog';
 
 const XP_MAP: Record<string, number> = {
@@ -346,6 +346,7 @@ export class StageService {
 
     memoryUsers.set(userId, memUser);
     memoryProgress.set(userId, progs);
+    saveStateToDisk();
 
     const nextStageNumber = stageNumber < maxStage ? stageNumber + 1 : null;
 
