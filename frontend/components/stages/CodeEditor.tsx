@@ -10,12 +10,14 @@ interface CodeEditorProps {
   onRun?: () => void;
   onSubmit?: () => void;
   isRunning?: boolean;
+  submitLabel?: string;
 }
 
 export const CodeEditor: React.FC<CodeEditorProps> = ({
   onRun,
   onSubmit,
   isRunning = false,
+  submitLabel = 'SUBMIT QUEST',
 }) => {
   const { activeLanguage, setLanguage, codeByLanguage, setCode } = useStageStore();
 
@@ -79,7 +81,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
               disabled={isRunning}
             >
               <CheckCircle size={12} className="mr-1" />
-              SUBMIT QUEST
+              {submitLabel}
             </PixelButton>
           )}
         </div>

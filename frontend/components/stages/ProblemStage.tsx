@@ -123,6 +123,13 @@ export const ProblemStage: React.FC<ProblemStageProps> = ({
           onRun={runCode}
           onSubmit={submitQuest}
           isRunning={isRunning || isCompleting}
+          submitLabel={
+            isBoss
+              ? 'SUBMIT QUEST (+100 XP)'
+              : stageType === 'MEDIUM_PROBLEM'
+              ? 'SUBMIT QUEST (+50 XP)'
+              : 'SUBMIT QUEST (+30 XP)'
+          }
         />
 
         {/* Execution Output Console */}

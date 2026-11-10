@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '@/lib/utils/cn';
 
 interface PixelCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'parchment' | 'navy' | 'dungeon' | 'gold' | 'white' | 'blue' | 'pink' | 'mint';
+  variant?: 'parchment' | 'navy' | 'dungeon' | 'gold' | 'white' | 'blue' | 'pink' | 'mint' | 'codex';
   showDots?: boolean;
 }
 
@@ -41,6 +41,9 @@ export const PixelCard: React.FC<PixelCardProps> = ({
     // Golden reward HUD
     gold:
       'bg-[rgba(255,249,230,0.9)] backdrop-blur-md text-[#1A2744] border-[3px] border-[#FFB300] ring-2 ring-[#FFD54F] shadow-[4px_4px_0px_#FFB300]',
+    // Illuminated Royal Codex / Grimoire HUD - ultra-high contrast & rich aesthetics
+    codex:
+      'bg-[rgba(11,18,36,0.96)] backdrop-blur-xl text-[#F8FAFC] border-[3px] border-[#FFD54F] ring-2 ring-[#38BDF8]/40 shadow-[0_12px_40px_rgba(0,0,0,0.5),4px_4px_0px_#1B2A4A]',
   };
 
   return (

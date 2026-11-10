@@ -39,14 +39,16 @@ export const DryRunStage: React.FC<DryRunStageProps> = ({
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      <PixelCard variant="blue">
+      <PixelCard variant="codex">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-[#8B7FD9] flex items-center justify-center text-white border-2 border-[#1A2744]">
+          <div className="w-10 h-10 rounded-xl bg-[#38BDF8] flex items-center justify-center text-[#0B1020] border-2 border-white font-bold shadow-[2px_2px_0_#1B2A4A]">
             <Table size={20} />
           </div>
           <div>
-            <span className="font-pixel text-[10px] text-[#8B7FD9]">STAGE 3: DRY RUN INSPECTION</span>
-            <h2 className="font-pixel text-sm sm:text-base text-[#1A2744] mt-0.5">{title}</h2>
+            <span className="font-pixel text-[10px] text-[#38BDF8] tracking-wider uppercase">
+              STAGE 3: DRY RUN INSPECTION
+            </span>
+            <h2 className="font-pixel text-sm sm:text-base text-[#FFD54F] mt-0.5">{title}</h2>
           </div>
         </div>
 
