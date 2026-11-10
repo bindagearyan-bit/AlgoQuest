@@ -26,14 +26,51 @@ function getMaxStageForType(type?: SublevelType | string): number {
   }
 }
 
+function getStageTypeForSublevelAndStage(sublevelType: SublevelType, stageNumber: number): string {
+  if (sublevelType === 'THEORETICAL') {
+    if (stageNumber === 1) return 'THEORY';
+    if (stageNumber === 2) return 'QUIZ';
+    return 'MINI_BOSS';
+  }
+  if (sublevelType === 'HYBRID') {
+    if (stageNumber === 1) return 'THEORY';
+    if (stageNumber === 2) return 'VISUALIZATION';
+    if (stageNumber === 3) return 'DRY_RUN';
+    if (stageNumber === 4) return 'QUIZ';
+    return 'BOSS';
+  }
+  switch (stageNumber) {
+    case 1:
+      return 'THEORY';
+    case 2:
+      return 'VISUALIZATION';
+    case 3:
+      return 'DRY_RUN';
+    case 4:
+      return 'GUIDED_CODE';
+    case 5:
+      return 'EASY_PROBLEM';
+    case 6:
+      return 'MEDIUM_PROBLEM';
+    case 7:
+      return 'QUIZ';
+    case 8:
+      return 'BOSS';
+    default:
+      return 'THEORY';
+  }
+}
+
 export class StageService {
   async completeStage(userId: string, sublevelId: number, stageNumber: number) {
     const sublevelDef = getSublevelById(sublevelId);
     const sublevelType: SublevelType = (sublevelDef?.sublevelType as SublevelType) || 'CODE_BASED';
     const maxStage = getMaxStageForType(sublevelType);
 
+    // Accurately determine stage type based on curriculum adaptive rules
+    const resolvedStageType = getStageTypeForSublevelAndStage(sublevelType, stageNumber);
     let stage: any = null;
-    let xpGained = 10;
+    let xpGained = XP_MAP[resolvedStageType] || 10;
 
     let isDbAvailable = true;
     try {
@@ -46,8 +83,8 @@ export class StageService {
         },
         include: { sublevel: true },
       });
-      if (stage) {
-        xpGained = XP_MAP[stage.stageType] || 10;
+      if (stage && stage.stageType) {
+        xpGained = XP_MAP[stage.stageType] || xpGained;
       }
     } catch {
       isDbAvailable = false;
@@ -200,7 +237,7 @@ export class StageService {
         return {
           success: true,
           stageNumber,
-          stageType: stage?.stageType || 'THEORY',
+          stageType: stage?.stageType || resolvedStageType,
           sublevelType,
           maxStage,
           xpGained,
@@ -327,7 +364,7 @@ export class StageService {
     return {
       success: true,
       stageNumber,
-      stageType: stage?.stageType || (stageNumber === 1 ? 'THEORY' : 'VISUALIZATION'),
+      stageType: stage?.stageType || resolvedStageType,
       sublevelType,
       maxStage,
       xpGained,

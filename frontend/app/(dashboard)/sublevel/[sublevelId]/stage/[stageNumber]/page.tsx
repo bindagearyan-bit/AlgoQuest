@@ -49,17 +49,20 @@ export default function DynamicStagePage() {
   const handleStageComplete = async () => {
     try {
       const res = await completeStage();
-      setXpAwarded(res?.xpGained || 10);
+      const earnedXp = res?.xpGained || 10;
+      setXpAwarded(earnedXp);
+
+      if (user) {
+        setUser({
+          ...user,
+          xp: res?.totalXp !== undefined ? res.totalXp : (user.xp || 0) + earnedXp,
+          selectedLevel: res?.tierPromoted ? res.tierPromoted.toTier : user.selectedLevel,
+          gems: (user.gems || 0) + (res?.tierPromoted?.bonusGems || 0),
+        });
+      }
 
       if (res?.tierPromoted) {
         setTierPromotion(res.tierPromoted);
-        if (user) {
-          setUser({
-            ...user,
-            selectedLevel: res.tierPromoted.toTier,
-            gems: (user.gems || 0) + (res.tierPromoted.bonusGems || 100),
-          });
-        }
         queryClient.invalidateQueries({ queryKey: ['levels'] });
         queryClient.invalidateQueries({ queryKey: ['userProgress'] });
         queryClient.invalidateQueries({ queryKey: ['me'] });
