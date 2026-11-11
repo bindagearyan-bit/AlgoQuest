@@ -16,6 +16,7 @@ import { QuizStage } from '@/components/stages/QuizStage';
 import { LevelUpModal } from '@/components/gamification/LevelUpModal';
 import { BadgeCelebrationModal } from '@/components/gamification/BadgeCelebrationModal';
 import { TierPromotionModal, TierPromotedData } from '@/components/gamification/TierPromotionModal';
+import { getPixelBadgeBySublevelId } from '@/lib/data/pixelBadgeCatalog';
 import { ArrowLeft } from 'lucide-react';
 
 export default function DynamicStagePage() {
@@ -69,7 +70,8 @@ export default function DynamicStagePage() {
       }
 
       if (res?.badgeAwarded || res?.isSublevelCompleted || stageNumber >= maxStage) {
-        setBadgeAward(res?.badgeAwarded || {
+        const catalogBadge = getPixelBadgeBySublevelId(sublevelId);
+        setBadgeAward(res?.badgeAwarded || catalogBadge || {
           title: 'Sector Pioneer',
           description: `Successfully conquered ${stage?.sublevel?.title || 'this sector'} across all adaptive stages.`,
           xpReward: res?.bonusXp || 500,

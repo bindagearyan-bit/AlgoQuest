@@ -7,6 +7,8 @@ import { roadmapApi } from '@/lib/api/roadmap';
 import { useUser } from '@/lib/hooks/useUser';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
+import { PixelBadge } from '@/components/ui/PixelBadge';
+import { getPixelBadgeBySublevelId } from '@/lib/data/pixelBadgeCatalog';
 import { Lock, Play, Compass, CheckCircle2, ChevronRight, Swords, Sparkles, Shield, Trophy } from 'lucide-react';
 
 export default function RoadmapPage() {
@@ -283,10 +285,11 @@ export default function RoadmapPage() {
 
               {/* Sublevels Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
-                {filteredSublevels.map((sub: any) => {
-                  const hasSub2Completed = filteredSublevels.some((s: any) => s.id === 2 && s.status === 'COMPLETED');
-                  const isCompleted = sub.status === 'COMPLETED' || (sub.id === 1 && hasSub2Completed);
-                  const isUnlocked = !isCompleted && sub.status === 'UNLOCKED';
+                {filteredSublevels.map((sub: any, subIndex: number) => {
+                  const hasLaterCompleted = filteredSublevels.slice(subIndex + 1).some((s: any) => s.status === 'COMPLETED');
+                  const isCompleted = sub.status === 'COMPLETED' || hasLaterCompleted;
+                  const isUnlocked = !isCompleted && (sub.status === 'UNLOCKED' || subIndex === 0 || (subIndex > 0 && (filteredSublevels[subIndex - 1].status === 'COMPLETED' || filteredSublevels.slice(subIndex).some((s: any) => s.status === 'COMPLETED'))));
+                  const badgeInfo = getPixelBadgeBySublevelId(sub.id);
 
                   return (
                     <div
@@ -305,13 +308,29 @@ export default function RoadmapPage() {
                           <span className="font-pixel text-[8px] text-slate-500">
                             ID: {sub.id}
                           </span>
-                          {renderTierBadge(sub.tier)}
+                          <div className="flex items-center gap-1.5">
+                            {renderTierBadge(sub.tier)}
+                          </div>
                         </div>
 
-                        {/* Title */}
-                        <h3 className="font-pixel text-xs text-[#1A2744] mb-2 leading-tight">
-                          {sub.title}
-                        </h3>
+                        {/* Title & Badge Thumbnail */}
+                        <div className="flex items-start justify-between gap-3 mb-2">
+                          <h3 className="font-pixel text-xs text-[#1A2744] leading-tight flex-1">
+                            {sub.title}
+                          </h3>
+                          {badgeInfo && (
+                            <div className="shrink-0 -mt-1 scale-90 sm:scale-100">
+                              <PixelBadge
+                                size="sm"
+                                title={badgeInfo.title}
+                                tier={badgeInfo.tier}
+                                isEarned={isCompleted}
+                                iconSvg={badgeInfo.iconSvg}
+                                showDetails={false}
+                              />
+                            </div>
+                          )}
+                        </div>
 
                         {sub.concepts && (
                           <p className="font-body text-xs text-slate-600 line-clamp-2 mb-3">

@@ -9,6 +9,7 @@ import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelModal } from '@/components/ui/PixelModal';
 import { PixelInput } from '@/components/ui/PixelInput';
 import { PixelBadge } from '@/components/ui/PixelBadge';
+import { PIXEL_BADGE_CATALOG, getPixelBadgeBySublevelId } from '@/lib/data/pixelBadgeCatalog';
 import {
   Flame,
   Zap,
@@ -31,10 +32,35 @@ export default function ProfilePage() {
     queryFn: () => userApi.getStats(),
   });
 
-  const { data: badgesList = [] } = useQuery({
+  const { data: fetchedBadges = [] } = useQuery({
     queryKey: ['allBadges'],
     queryFn: () => badgeApi.getAllBadges(),
   });
+
+  const badgesList: BadgeItem[] =
+    fetchedBadges.length > 0
+      ? fetchedBadges.map((b) => {
+          const px = getPixelBadgeBySublevelId(b.sublevelId || b.id);
+          return {
+            ...b,
+            title: px?.title || b.title,
+            description: px?.description || b.description,
+            iconSvg: px?.iconSvg || b.iconSvg,
+            tier: px?.tier || b.tier,
+          };
+        })
+      : PIXEL_BADGE_CATALOG.map((px) => ({
+          id: px.sublevelId,
+          sublevelId: px.sublevelId,
+          levelId: Math.floor((px.sublevelId - 1) / 10) + 1,
+          title: px.title,
+          description: px.description,
+          iconSvg: px.iconSvg,
+          xpReward: px.xpReward,
+          tier: px.tier,
+          isEarned: false,
+          earnedAt: null,
+        }));
 
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [newUsername, setNewUsername] = useState('');

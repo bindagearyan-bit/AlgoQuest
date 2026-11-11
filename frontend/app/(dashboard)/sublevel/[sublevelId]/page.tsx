@@ -8,6 +8,8 @@ import { roadmapApi } from '@/lib/api/roadmap';
 import { BiomeBackground } from '@/components/layout/BiomeBackground';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
+import { PixelBadge } from '@/components/ui/PixelBadge';
+import { getPixelBadgeBySublevelId } from '@/lib/data/pixelBadgeCatalog';
 import { Check, Lock, Play, ArrowLeft, Sparkles, MapPin } from 'lucide-react';
 
 export default function SublevelOverviewPage() {
@@ -32,6 +34,8 @@ export default function SublevelOverviewPage() {
 
   const sublevel = data?.sublevel || { title: 'Asymptotic Analysis & Big-O' };
   const stages = data?.stages || [];
+  const pixelBadge = getPixelBadgeBySublevelId(sublevelId);
+  const isAllConquered = stages.length > 0 && stages.every((s: any) => s.status === 'COMPLETED');
 
   return (
     <BiomeBackground biome={biomeLevel}>
@@ -56,31 +60,49 @@ export default function SublevelOverviewPage() {
 
         {/* Sublevel Header Card */}
         <PixelCard variant="parchment">
-          <div className="flex items-center justify-between gap-2 mb-1">
-            <div className="flex items-center gap-2">
-              <MapPin size={14} className="text-[#2E7D32]" />
-              <span className="font-pixel text-[9px] text-[#2E7D32] uppercase">
-                ISLAND SECTOR EXPEDITION
-              </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center justify-between gap-2 mb-1">
+                <div className="flex items-center gap-2">
+                  <MapPin size={14} className="text-[#2E7D32]" />
+                  <span className="font-pixel text-[9px] text-[#2E7D32] uppercase">
+                    ISLAND SECTOR EXPEDITION
+                  </span>
+                </div>
+                {sublevel.tier && (
+                  <span className={`font-pixel text-[8px] px-2 py-0.5 rounded border ${
+                    sublevel.tier === 'ADVANCED'
+                      ? 'bg-rose-100 text-rose-800 border-rose-300'
+                      : sublevel.tier === 'INTERMEDIATE'
+                      ? 'bg-amber-100 text-amber-800 border-amber-300'
+                      : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                  }`}>
+                    {sublevel.tier === 'ADVANCED' ? '🔴 ADVANCED' : sublevel.tier === 'INTERMEDIATE' ? '🟡 INTERMEDIATE' : '🟢 BEGINNER'}
+                  </span>
+                )}
+              </div>
+              <h1 className="font-pixel text-sm sm:text-lg text-[#1A2744] mb-2">
+                {sublevel.title}
+              </h1>
+              <p className="font-body text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Sequential progression is mandatory. Step through all {stages.length} stages from conceptual fundamentals to completion.
+              </p>
             </div>
-            {sublevel.tier && (
-              <span className={`font-pixel text-[8px] px-2 py-0.5 rounded border ${
-                sublevel.tier === 'ADVANCED'
-                  ? 'bg-rose-100 text-rose-800 border-rose-300'
-                  : sublevel.tier === 'INTERMEDIATE'
-                  ? 'bg-amber-100 text-amber-800 border-amber-300'
-                  : 'bg-emerald-100 text-emerald-800 border-emerald-300'
-              }`}>
-                {sublevel.tier === 'ADVANCED' ? '🔴 ADVANCED' : sublevel.tier === 'INTERMEDIATE' ? '🟡 INTERMEDIATE' : '🟢 BEGINNER'}
-              </span>
+
+            {pixelBadge && (
+              <div className="shrink-0 flex items-center justify-center sm:pl-4 sm:border-l border-slate-300/60">
+                <PixelBadge
+                  size="md"
+                  title={pixelBadge.title}
+                  tier={pixelBadge.tier}
+                  isEarned={isAllConquered}
+                  iconSvg={pixelBadge.iconSvg}
+                  xpReward={pixelBadge.xpReward}
+                  showDetails={true}
+                />
+              </div>
             )}
           </div>
-          <h1 className="font-pixel text-sm sm:text-lg text-[#1A2744] mb-2">
-            {sublevel.title}
-          </h1>
-          <p className="font-body text-xs sm:text-sm text-slate-700 leading-relaxed">
-            Sequential progression is mandatory. Step through all {stages.length} stages from conceptual fundamentals to completion.
-          </p>
         </PixelCard>
 
         {/* 8-Stage Trail */}
