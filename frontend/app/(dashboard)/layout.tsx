@@ -20,9 +20,9 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen w-full overflow-x-hidden flex flex-col bg-slate-50">
       <TopNavBar />
-      <main className="flex-1 w-full">{children}</main>
+      <main className="flex-1 w-full overflow-x-hidden">{children}</main>
     </div>
   );
 }
