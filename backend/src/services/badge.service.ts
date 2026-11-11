@@ -1,6 +1,7 @@
 import prisma from '../config/prisma';
-import { memoryUserBadges } from './auth.service';
+import { memoryUserBadges, memoryProgress } from './auth.service';
 import { getAllSublevels } from '../data/curriculumCatalog';
+import { getPixelBadgeBySublevelId } from '../data/pixelBadgeCatalog';
 
 export class BadgeService {
   async getAllBadges(userId?: string) {
@@ -25,20 +26,27 @@ export class BadgeService {
         memBadges.forEach((ub: any) => {
           earnedBadgesMap.set(ub.sublevelId, ub);
         });
+        const memProgs = memoryProgress.get(userId) || [];
+        memProgs.forEach((p: any) => {
+          if (p.isCompleted && !earnedBadgesMap.has(p.sublevelId)) {
+            earnedBadgesMap.set(p.sublevelId, { earnedAt: new Date() });
+          }
+        });
       }
     }
 
     return allSubs.map((sub) => {
       const earned = earnedBadgesMap.get(sub.id);
+      const pixelBadge = getPixelBadgeBySublevelId(sub.id);
       return {
         id: sub.id,
         sublevelId: sub.id,
         levelId: sub.levelId,
-        title: sub.badge.title,
-        description: sub.badge.description,
-        iconSvg: sub.badge.iconSvg,
-        xpReward: sub.badge.xpReward,
-        tier: sub.tier,
+        title: pixelBadge?.title || sub.badge.title,
+        description: pixelBadge?.description || sub.badge.description,
+        iconSvg: pixelBadge?.iconSvg || sub.badge.iconSvg,
+        xpReward: pixelBadge?.xpReward || sub.badge.xpReward,
+        tier: pixelBadge?.tier || sub.tier,
         isEarned: !!earned,
         earnedAt: earned ? earned.earnedAt : null,
       };
@@ -71,16 +79,19 @@ export class BadgeService {
     }
 
     const memBadges = memoryUserBadges.get(userId) || [];
-    return memBadges.map((ub: any) => ({
-      id: ub.id,
-      title: ub.badge.title,
-      description: ub.badge.description,
-      iconSvg: ub.badge.iconSvg,
-      xpReward: ub.badge.xpReward,
-      tier: 'BEGINNER',
-      sublevelId: ub.sublevelId,
-      earnedAt: ub.earnedAt,
-    }));
+    return memBadges.map((ub: any) => {
+      const pixelBadge = getPixelBadgeBySublevelId(ub.sublevelId);
+      return {
+        id: ub.id,
+        title: pixelBadge?.title || ub.badge.title,
+        description: pixelBadge?.description || ub.badge.description,
+        iconSvg: pixelBadge?.iconSvg || ub.badge.iconSvg,
+        xpReward: pixelBadge?.xpReward || ub.badge.xpReward,
+        tier: pixelBadge?.tier || 'BEGINNER',
+        sublevelId: ub.sublevelId,
+        earnedAt: ub.earnedAt,
+      };
+    });
   }
 
   async getSharePayload(badgeId: number, userId?: string) {
@@ -91,14 +102,16 @@ export class BadgeService {
       throw new Error('Badge not found in curriculum');
     }
 
+    const pixelBadge = getPixelBadgeBySublevelId(sub.id);
+
     return {
       badge: {
         id: sub.id,
-        title: sub.badge.title,
-        description: sub.badge.description,
-        iconSvg: sub.badge.iconSvg,
-        xpReward: sub.badge.xpReward,
-        tier: sub.tier,
+        title: pixelBadge?.title || sub.badge.title,
+        description: pixelBadge?.description || sub.badge.description,
+        iconSvg: pixelBadge?.iconSvg || sub.badge.iconSvg,
+        xpReward: pixelBadge?.xpReward || sub.badge.xpReward,
+        tier: pixelBadge?.tier || sub.tier,
       },
       sublevelTitle: sub.title,
       certificateCode: `AQ-CERT-${sub.id}-${Date.now().toString(36).toUpperCase()}`,

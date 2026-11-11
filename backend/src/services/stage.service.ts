@@ -1,6 +1,7 @@
 import prisma from '../config/prisma';
 import { memoryUsers, memoryProgress, memoryBadges, memoryUserBadges, saveStateToDisk } from './auth.service';
 import { getSublevelById, getAllSublevels, SublevelType } from '../data/curriculumCatalog';
+import { getPixelBadgeBySublevelId } from '../data/pixelBadgeCatalog';
 
 const XP_MAP: Record<string, number> = {
   THEORY: 10,
@@ -95,13 +96,17 @@ export class StageService {
     let bonusXp = 0;
 
     // Check Badge awarding on completion
-    if (isSublevelCompleted && sublevelDef?.badge) {
-      bonusXp = sublevelDef.badge.xpReward || 500;
+    const pixelBadge = getPixelBadgeBySublevelId(sublevelId);
+    if (isSublevelCompleted && (pixelBadge || sublevelDef?.badge)) {
+      const activeB = pixelBadge || sublevelDef?.badge;
+      bonusXp = activeB?.xpReward || 500;
       badgeAwarded = {
-        title: sublevelDef.badge.title,
-        description: sublevelDef.badge.description,
-        iconSvg: sublevelDef.badge.iconSvg,
+        title: activeB?.title || 'Sector Conqueror',
+        description: activeB?.description || 'Conquered all adaptive stages in this sector.',
+        iconSvg: activeB?.iconSvg || '',
         xpReward: bonusXp,
+        tier: pixelBadge?.tier || sublevelDef?.tier || 'BEGINNER',
+        sublevelId,
       };
     }
 

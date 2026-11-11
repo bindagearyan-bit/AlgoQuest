@@ -8,6 +8,7 @@ import {
   LevelDefinition,
   SublevelType,
 } from '../data/curriculumCatalog';
+import { getPixelBadgeBySublevelId } from '../data/pixelBadgeCatalog';
 
 export interface SublevelItem {
   id: number;
@@ -198,6 +199,7 @@ export class RoadmapService {
                 currentStage: isSubCompleted ? (sub.stages?.length || 3) : (userProgress ? userProgress.currentStage : 1),
                 stagesCount: sub.stages.length,
                 stages: sub.stages,
+                badge: getPixelBadgeBySublevelId(sub.id),
               };
             });
 
@@ -277,7 +279,7 @@ export class RoadmapService {
           status,
           currentStage,
           stagesCount: maxStage,
-          badge: sub.badge,
+          badge: getPixelBadgeBySublevelId(sub.id) || sub.badge,
         };
       });
 
