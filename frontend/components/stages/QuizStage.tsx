@@ -141,19 +141,19 @@ export const QuizStage: React.FC<QuizStageProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Main Illuminated Quiz Card */}
-      <PixelCard variant="codex" className="overflow-hidden">
+      {/* Main Overworld Parchment Quiz Card */}
+      <PixelCard variant="parchment" className="overflow-hidden">
         {/* Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#2A375E] gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b-2 border-[#1B2A4A]/15 gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#8B7FD9] to-[#6366F1] flex items-center justify-center text-white border-2 border-white shadow-[2px_2px_0_#1B2A4A] shrink-0">
-              <HelpCircle size={22} className="text-white drop-shadow-md" />
+            <div className="w-11 h-11 rounded-xl bg-[#FFD54F] flex items-center justify-center text-[#1B2A4A] border-2 border-[#1B2A4A] shadow-[2px_2px_0_#1B2A4A] shrink-0">
+              <HelpCircle size={22} className="text-[#1B2A4A]" />
             </div>
             <div>
-              <span className="font-pixel text-[9px] text-[#38BDF8] tracking-wider uppercase">
-                ARCANE ORACLE TRIAL
+              <span className="font-pixel text-[9px] text-[#2E7D32] tracking-wider uppercase">
+                OVERWORLD ORACLE TRIAL
               </span>
-              <h2 className="font-pixel text-xs sm:text-sm text-[#FFD54F] mt-0.5">
+              <h2 className="font-pixel text-xs sm:text-sm text-[#1A2744] mt-0.5">
                 QUESTION {currentIdx + 1} OF {questions.length}
               </h2>
             </div>
@@ -161,13 +161,13 @@ export const QuizStage: React.FC<QuizStageProps> = ({
 
           <div className="flex items-center gap-2 self-start sm:self-center">
             {streak > 1 && (
-              <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-pixel text-[8px] animate-pulse">
-                <Flame size={12} className="text-amber-400 fill-amber-400" />
+              <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FFF9E6] text-[#B45309] border-2 border-[#FFB300] font-pixel text-[8px] animate-pulse">
+                <Flame size={12} className="text-orange-500 fill-orange-500" />
                 <span>{streak}X STREAK!</span>
               </div>
             )}
 
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#131D38] border border-[#2B3B66] text-rose-400 font-pixel text-[9px]">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-700 font-pixel text-[9px] shadow-sm">
               <span>❤️</span>
               <span>{hearts} HEARTS</span>
             </div>
@@ -175,14 +175,14 @@ export const QuizStage: React.FC<QuizStageProps> = ({
         </div>
 
         {/* Question Text Box */}
-        <div className="my-5 p-5 sm:p-6 rounded-2xl bg-[#121B35] border-2 border-[#38BDF8]/40 shadow-inner">
-          <div className="flex items-center gap-2 mb-2 text-[#38BDF8]">
-            <Zap size={14} className="animate-spin" />
+        <div className="my-5 p-4 sm:p-6 rounded-2xl bg-[#EAF4FC] border-2 border-[#1B2A4A] shadow-[3px_3px_0_#1B2A4A]">
+          <div className="flex items-center gap-2 mb-2 text-[#0288D1]">
+            <Zap size={14} className="fill-[#0288D1]" />
             <span className="font-pixel text-[9px] uppercase tracking-wider">
               TRIAL CHALLENGE PROMPT:
             </span>
           </div>
-          <p className="font-pixel text-xs sm:text-sm text-[#F8FAFC] leading-relaxed tracking-wide">
+          <p className="font-pixel text-xs sm:text-sm text-[#1A2744] leading-relaxed tracking-wide">
             {currentQ.question}
           </p>
         </div>
@@ -194,17 +194,17 @@ export const QuizStage: React.FC<QuizStageProps> = ({
             const isCorrect = idx === currentQ.correctAnswer;
 
             let cardTheme =
-              'bg-[#101930] border-[#233258] hover:border-[#38BDF8] text-[#E2E8F0] hover:bg-[#14203D]';
+              'bg-white border-2 border-[#1B2A4A]/25 hover:border-[#1B2A4A] text-[#1A2744] hover:bg-[#FFFDF2] shadow-[2px_2px_0_rgba(27,42,74,0.08)]';
 
             if (answerState === 'CORRECT' && isCorrect) {
               cardTheme =
-                'bg-emerald-950/40 border-2 border-emerald-400 text-emerald-200 font-bold shadow-[0_0_20px_rgba(52,211,153,0.3)]';
+                'bg-emerald-50 border-2 border-[#2E7D32] text-[#145A32] font-bold shadow-[3px_3px_0_#2E7D32]';
             } else if (answerState === 'WRONG' && isSelected) {
               cardTheme =
-                'bg-rose-950/40 border-2 border-rose-500 text-rose-200 font-bold shadow-[0_0_20px_rgba(244,63,94,0.3)]';
+                'bg-rose-50 border-2 border-rose-500 text-rose-900 font-bold shadow-[3px_3px_0_#E11D48]';
             } else if (isSelected) {
               cardTheme =
-                'bg-[#38BDF8]/15 border-2 border-[#38BDF8] text-white font-bold shadow-[0_0_15px_rgba(56,189,248,0.3)]';
+                'bg-[#FFF9E6] border-2 border-[#1B2A4A] ring-2 ring-[#FFD54F] text-[#1A2744] font-bold shadow-[3px_3px_0_#1B2A4A]';
             }
 
             return (
@@ -212,13 +212,17 @@ export const QuizStage: React.FC<QuizStageProps> = ({
                 key={idx}
                 onClick={() => handleSelect(idx)}
                 disabled={answerState !== 'IDLE'}
-                className={`w-full p-4 rounded-xl border transition-all text-left flex items-start gap-3.5 ${cardTheme}`}
+                className={`w-full p-3.5 sm:p-4 rounded-xl transition-all text-left flex items-start gap-3.5 ${cardTheme}`}
               >
                 <div
-                  className={`w-7 h-7 rounded-lg font-pixel text-[10px] flex items-center justify-center shrink-0 border ${
-                    isSelected
-                      ? 'bg-[#38BDF8] text-[#080E1E] border-white font-bold'
-                      : 'bg-[#182444] text-[#38BDF8] border-[#2C3E6E]'
+                  className={`w-7 h-7 rounded-lg font-pixel text-[10px] flex items-center justify-center shrink-0 border-2 ${
+                    answerState === 'CORRECT' && isCorrect
+                      ? 'bg-[#2E7D32] text-white border-[#145A32]'
+                      : answerState === 'WRONG' && isSelected
+                      ? 'bg-rose-500 text-white border-rose-700'
+                      : isSelected
+                      ? 'bg-[#FFD54F] text-[#1B2A4A] border-[#1B2A4A] font-bold'
+                      : 'bg-[#EAF4FC] text-[#1B2A4A] border-[#1B2A4A]/30'
                   }`}
                 >
                   {optionRunes[idx]}
@@ -240,28 +244,28 @@ export const QuizStage: React.FC<QuizStageProps> = ({
               exit={{ opacity: 0 }}
               className={`p-4 rounded-2xl border-2 mb-6 ${
                 answerState === 'CORRECT'
-                  ? 'bg-emerald-950/30 border-emerald-500/50 text-emerald-200'
-                  : 'bg-rose-950/30 border-rose-500/50 text-rose-200'
+                  ? 'bg-emerald-50 border-[#2E7D32] text-[#145A32]'
+                  : 'bg-rose-50 border-rose-400 text-rose-900'
               }`}
             >
               <div className="flex items-center gap-2 mb-1.5 font-pixel text-[10px]">
                 {answerState === 'CORRECT' ? (
                   <>
-                    <CheckCircle2 size={16} className="text-emerald-400" />
-                    <span className="text-emerald-400 uppercase tracking-wider">
+                    <CheckCircle2 size={16} className="text-[#2E7D32]" />
+                    <span className="text-[#2E7D32] uppercase tracking-wider">
                       MAGICAL INSIGHT VERIFIED!
                     </span>
                   </>
                 ) : (
                   <>
-                    <AlertTriangle size={16} className="text-rose-400" />
-                    <span className="text-rose-400 uppercase tracking-wider">
+                    <AlertTriangle size={16} className="text-rose-600" />
+                    <span className="text-rose-700 uppercase tracking-wider">
                       ARCHITECTURAL MISTAKE EXPLAINED:
                     </span>
                   </>
                 )}
               </div>
-              <p className="font-body text-xs sm:text-sm leading-relaxed text-[#F1F5F9]">
+              <p className="font-body text-xs sm:text-sm leading-relaxed text-[#1A2744]">
                 {explanation}
               </p>
             </motion.div>
@@ -269,8 +273,8 @@ export const QuizStage: React.FC<QuizStageProps> = ({
         </AnimatePresence>
 
         {/* Bottom Action Footer */}
-        <div className="pt-4 border-t border-[#2A375E] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="font-pixel text-[9px] text-slate-400">
+        <div className="pt-4 border-t-2 border-[#1B2A4A]/15 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span className="font-pixel text-[9px] text-slate-600">
             {answerState === 'IDLE'
               ? 'Select an option and confirm your verdict'
               : answerState === 'CORRECT'

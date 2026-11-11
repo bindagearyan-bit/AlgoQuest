@@ -89,13 +89,13 @@ export const ProblemStage: React.FC<ProblemStageProps> = ({
       )}
 
       {/* Problem Header */}
-      <PixelCard variant={isBoss ? 'dungeon' : 'white'}>
+      <PixelCard variant={isBoss ? 'gold' : 'parchment'}>
         <div className="flex items-center gap-3 mb-4">
           <div
-            className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 ${
+            className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 border-[#1B2A4A] shadow-[2px_2px_0_#1B2A4A] ${
               isBoss
-                ? 'bg-[#FF2FD4] text-white border-white shadow-[0_0_15px_#FF2FD4]'
-                : 'bg-[#8B7FD9] text-white border-[#1A2744]'
+                ? 'bg-[#FF6FA0] text-white'
+                : 'bg-[#8B7FD9] text-white'
             }`}
           >
             <Swords size={24} />
@@ -103,17 +103,17 @@ export const ProblemStage: React.FC<ProblemStageProps> = ({
           <div>
             <span
               className={`font-pixel text-[10px] tracking-wider uppercase ${
-                isBoss ? 'text-[#00F0FF]' : 'text-[#8B7FD9]'
+                isBoss ? 'text-[#B45309]' : 'text-[#2E7D32]'
               }`}
             >
               {stageType.replace('_', ' ')} : ARENA BATTLE
             </span>
-            <h2 className="font-pixel text-sm sm:text-base mt-0.5">{title}</h2>
+            <h2 className="font-pixel text-sm sm:text-base text-[#1A2744] mt-0.5">{title}</h2>
           </div>
         </div>
 
         {/* Description */}
-        <p className="font-body text-sm sm:text-base opacity-90 leading-relaxed mb-6">
+        <p className="font-body text-sm sm:text-base text-[#1A2744] leading-relaxed mb-6">
           {content.description ||
             'Given a sorted array of integers nums and an integer target, return indices of the two numbers such that they add up to target. Maintain O(N) time and O(1) space.'}
         </p>

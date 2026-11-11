@@ -371,24 +371,24 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      {/* High-Contrast Illuminated Grimoire Card */}
-      <PixelCard variant="codex" className="overflow-hidden">
+      {/* Warm Overworld Parchment Codex Card */}
+      <PixelCard variant="parchment" className="overflow-hidden">
         {/* Top Header & Breadcrumb Nav */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#2A375E] gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b-2 border-[#1B2A4A]/15 gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#1E40AF] flex items-center justify-center text-white border-2 border-white shadow-[2px_2px_0_#1B2A4A] shrink-0">
-              <BookOpen size={22} className="text-white drop-shadow-md" />
+            <div className="w-11 h-11 rounded-xl bg-[#FFD54F] flex items-center justify-center text-[#1B2A4A] border-2 border-[#1B2A4A] shadow-[2px_2px_0_#1B2A4A] shrink-0">
+              <BookOpen size={22} className="text-[#1B2A4A]" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-pixel text-[9px] text-[#38BDF8] tracking-wider uppercase">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-pixel text-[9px] text-[#2E7D32] tracking-wider uppercase">
                   STAGE 1: THEORY FOUNDATIONS
                 </span>
-                <span className="font-pixel text-[8px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                  ILLUMINATED CODEX
+                <span className="font-pixel text-[8px] px-2 py-0.5 rounded bg-emerald-100 text-[#1B4D2E] border border-[#2E7D32]">
+                  FIELD GUIDE
                 </span>
               </div>
-              <h1 className="font-pixel text-sm sm:text-base text-[#FFD54F] tracking-wide mt-0.5">
+              <h1 className="font-pixel text-sm sm:text-base text-[#1A2744] tracking-wide mt-0.5">
                 {title}
               </h1>
             </div>
@@ -396,8 +396,8 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
 
           {/* Stepper Status Pill */}
           <div className="flex items-center gap-2 self-start sm:self-center">
-            <div className="flex items-center bg-[#131D38] px-3 py-1.5 rounded-xl border border-[#2B3B66]">
-              <span className="font-pixel text-[9px] text-[#38BDF8]">
+            <div className="flex items-center bg-[#EAF4FC] px-3 py-1.5 rounded-xl border-2 border-[#1B2A4A]">
+              <span className="font-pixel text-[9px] text-[#1B2A4A]">
                 PAGE {currentPage} OF {totalPages}
               </span>
             </div>
@@ -405,13 +405,13 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
         </div>
 
         {/* 3-Step Interactive Page Tabs */}
-        <div className="grid grid-cols-3 gap-2 my-5 bg-[#080E1E] p-1.5 rounded-xl border border-[#1E294B]">
+        <div className="grid grid-cols-3 gap-2 my-5 bg-[#EAF4FC]/70 p-1.5 rounded-xl border-2 border-[#1B2A4A]/20">
           <button
             onClick={() => setCurrentPage(1)}
             className={`py-2 px-2 sm:px-3 rounded-lg font-pixel text-[8px] sm:text-[9px] transition-all flex items-center justify-center gap-1.5 ${
               currentPage === 1
-                ? 'bg-[#38BDF8] text-[#080E1E] font-bold shadow-[0_0_12px_rgba(56,189,248,0.4)]'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#7FFFD4] text-[#1B2A4A] border-2 border-[#1B2A4A] font-bold shadow-[2px_2px_0_#1B2A4A]'
+                : 'text-[#1A2744]/75 hover:text-[#1A2744] hover:bg-white/60'
             }`}
           >
             <span>📜</span>
@@ -422,20 +422,20 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
             onClick={() => setCurrentPage(2)}
             className={`py-2 px-2 sm:px-3 rounded-lg font-pixel text-[8px] sm:text-[9px] transition-all flex items-center justify-center gap-1.5 ${
               currentPage === 2
-                ? 'bg-[#FFD54F] text-[#080E1E] font-bold shadow-[0_0_12px_rgba(255,213,79,0.4)]'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#FFD54F] text-[#1B2A4A] border-2 border-[#1B2A4A] font-bold shadow-[2px_2px_0_#1B2A4A]'
+                : 'text-[#1A2744]/75 hover:text-[#1A2744] hover:bg-white/60'
             }`}
           >
             <span>🌍</span>
-            <span className="truncate">2. Real Analogy</span>
+            <span className="truncate">2. Analogy</span>
           </button>
 
           <button
             onClick={() => setCurrentPage(3)}
             className={`py-2 px-2 sm:px-3 rounded-lg font-pixel text-[8px] sm:text-[9px] transition-all flex items-center justify-center gap-1.5 ${
               currentPage === 3
-                ? 'bg-[#4ADE80] text-[#080E1E] font-bold shadow-[0_0_12px_rgba(74,222,128,0.4)]'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#A5D6A7] text-[#1B2A4A] border-2 border-[#1B2A4A] font-bold shadow-[2px_2px_0_#1B2A4A]'
+                : 'text-[#1A2744]/75 hover:text-[#1A2744] hover:bg-white/60'
             }`}
           >
             <span>🧠</span>
@@ -444,7 +444,7 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
         </div>
 
         {/* Paginated Content Area */}
-        <div className="min-h-[380px]">
+        <div className="min-h-[360px]">
           <AnimatePresence mode="wait">
             {/* ================= PAGE 1: CORE CONCEPT & COMPLEXITY ================= */}
             {currentPage === 1 && (
@@ -457,43 +457,43 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                 className="space-y-4"
               >
                 {/* Formal Definition Banner */}
-                <div className="bg-[#121B35] p-5 rounded-2xl border-2 border-[#38BDF8]/40 shadow-inner">
+                <div className="bg-[#EAF4FC] p-4 sm:p-5 rounded-2xl border-2 border-[#1B2A4A] shadow-[3px_3px_0_#1B2A4A]">
                   <div className="flex items-center gap-2 mb-2.5">
-                    <Zap size={16} className="text-[#38BDF8] animate-pulse" />
-                    <span className="font-pixel text-[10px] text-[#38BDF8] uppercase tracking-wider">
+                    <Zap size={16} className="text-[#0288D1] fill-[#0288D1]" />
+                    <span className="font-pixel text-[10px] text-[#0288D1] uppercase tracking-wider">
                       Core Concept & Formal Blueprint:
                     </span>
                   </div>
-                  <p className="font-body text-sm sm:text-base text-[#F8FAFC] leading-relaxed">
+                  <p className="font-body text-sm sm:text-base text-[#1A2744] leading-relaxed font-semibold">
                     {formalDefinition}
                   </p>
                 </div>
 
                 {/* Computational Complexity Badges */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-                  <div className="p-4 rounded-xl bg-[#101930] border border-[#233258] flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400 shrink-0">
+                  <div className="p-4 rounded-xl bg-white border-2 border-[#2E7D32]/40 flex items-center gap-3 shadow-sm">
+                    <div className="w-9 h-9 rounded-lg bg-emerald-100 border border-[#2E7D32] flex items-center justify-center text-[#2E7D32] shrink-0">
                       <Clock size={18} />
                     </div>
                     <div>
-                      <span className="font-pixel text-[8px] text-emerald-400 uppercase block">
+                      <span className="font-pixel text-[8px] text-[#2E7D32] uppercase block">
                         TIME COMPLEXITY GUARANTEE
                       </span>
-                      <span className="font-mono text-xs sm:text-sm font-bold text-[#F8FAFC]">
+                      <span className="font-mono text-xs sm:text-sm font-bold text-[#1A2744]">
                         {content.timeComplexity || 'O(1) to O(N) access'}
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#101930] border border-[#233258] flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-sky-500/20 border border-sky-500/50 flex items-center justify-center text-sky-400 shrink-0">
+                  <div className="p-4 rounded-xl bg-white border-2 border-[#0288D1]/40 flex items-center gap-3 shadow-sm">
+                    <div className="w-9 h-9 rounded-lg bg-sky-100 border border-[#0288D1] flex items-center justify-center text-[#0288D1] shrink-0">
                       <HardDrive size={18} />
                     </div>
                     <div>
-                      <span className="font-pixel text-[8px] text-sky-400 uppercase block">
+                      <span className="font-pixel text-[8px] text-[#0288D1] uppercase block">
                         SPACE / MEMORY OVERHEAD
                       </span>
-                      <span className="font-mono text-xs sm:text-sm font-bold text-[#F8FAFC]">
+                      <span className="font-mono text-xs sm:text-sm font-bold text-[#1A2744]">
                         {content.spaceComplexity || 'O(N) contiguous / linked'}
                       </span>
                     </div>
@@ -502,14 +502,14 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
 
                 {/* Key Takeaways Checklist */}
                 {content.keyTakeaways && content.keyTakeaways.length > 0 && (
-                  <div className="p-4 rounded-2xl bg-[#0F172E] border border-[#23335A] space-y-2.5 mt-2">
-                    <span className="font-pixel text-[9px] text-[#FFD54F] uppercase tracking-wider block">
+                  <div className="p-4 rounded-2xl bg-white border-2 border-[#1B2A4A]/20 space-y-2.5 mt-2 shadow-sm">
+                    <span className="font-pixel text-[9px] text-[#B45309] uppercase tracking-wider block">
                       ARCHITECTURAL INVARIANTS:
                     </span>
                     <ul className="space-y-2">
                       {content.keyTakeaways.map((takeaway, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#E2E8F0] font-body leading-relaxed">
-                          <CheckCircle2 size={16} className="text-[#38BDF8] mt-0.5 shrink-0" />
+                        <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1A2744] font-body leading-relaxed">
+                          <CheckCircle2 size={16} className="text-[#2E7D32] mt-0.5 shrink-0" />
                           <span>{takeaway}</span>
                         </li>
                       ))}
@@ -530,26 +530,26 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                 className="space-y-4"
               >
                 {/* Analogy Story Box */}
-                <div className="bg-[#121B35] p-5 sm:p-6 rounded-2xl border-2 border-[#FFD54F]/40 shadow-inner space-y-3">
+                <div className="bg-[#FFF9E6] p-5 sm:p-6 rounded-2xl border-2 border-[#FFB300] shadow-[3px_3px_0_#FFB300] space-y-3">
                   <div className="flex items-center gap-2">
-                    <Compass size={18} className="text-[#FFD54F]" />
-                    <span className="font-pixel text-[10px] text-[#FFD54F] uppercase tracking-wider">
+                    <Compass size={18} className="text-[#B45309]" />
+                    <span className="font-pixel text-[10px] text-[#B45309] uppercase tracking-wider">
                       EVERYDAY PHYSICAL WORLD ANALOGY (ZERO CODE):
                     </span>
                   </div>
 
-                  <h3 className="font-pixel text-xs sm:text-sm text-white">
+                  <h3 className="font-pixel text-xs sm:text-sm text-[#1A2744]">
                     {analogy.title || 'Everyday Mental Model'}
                   </h3>
 
-                  <p className="font-body text-sm sm:text-base text-[#F8FAFC] leading-relaxed">
+                  <p className="font-body text-sm sm:text-base text-[#1A2744] leading-relaxed font-semibold">
                     {analogy.scenario}
                   </p>
                 </div>
 
                 {/* Physical Steps Breakdown */}
-                <div className="p-5 rounded-2xl bg-[#0F172E] border border-[#23335A] space-y-3">
-                  <span className="font-pixel text-[9px] text-[#38BDF8] uppercase tracking-wider block">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-[#1B2A4A]/20 space-y-3 shadow-sm">
+                  <span className="font-pixel text-[9px] text-[#0288D1] uppercase tracking-wider block">
                     PHYSICAL MECHANICS STEP-BY-STEP:
                   </span>
 
@@ -557,12 +557,12 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                     {analogy.physicalSteps.map((step, idx) => (
                       <div
                         key={idx}
-                        className="flex items-start gap-3 p-3 rounded-xl bg-[#141E3A] border border-[#263763]"
+                        className="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFC] border border-[#1B2A4A]/15"
                       >
-                        <div className="w-6 h-6 rounded-full bg-[#FFD54F] text-[#0B1020] font-pixel text-[10px] flex items-center justify-center shrink-0 font-bold">
+                        <div className="w-6 h-6 rounded-full bg-[#FFD54F] border border-[#1B2A4A] text-[#1A2744] font-pixel text-[10px] flex items-center justify-center shrink-0 font-bold">
                           {idx + 1}
                         </div>
-                        <p className="font-body text-xs sm:text-sm text-[#E2E8F0] leading-relaxed">
+                        <p className="font-body text-xs sm:text-sm text-[#1A2744] leading-relaxed">
                           {step}
                         </p>
                       </div>
@@ -571,10 +571,10 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                 </div>
 
                 {/* Key Insight Pill */}
-                <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-400/20 to-amber-500/10 border border-amber-400/40 flex items-start gap-3">
-                  <Lightbulb size={20} className="text-[#FFD54F] shrink-0 mt-0.5" />
-                  <p className="font-body text-xs sm:text-sm text-amber-200 leading-relaxed font-semibold">
-                    <span className="font-bold text-[#FFD54F]">THE CORE TAKEAWAY: </span>
+                <div className="p-4 rounded-xl bg-emerald-50 border-2 border-[#2E7D32] flex items-start gap-3 shadow-sm">
+                  <Lightbulb size={20} className="text-[#2E7D32] shrink-0 mt-0.5" />
+                  <p className="font-body text-xs sm:text-sm text-[#145A32] leading-relaxed font-semibold">
+                    <span className="font-bold text-[#2E7D32]">THE CORE TAKEAWAY: </span>
                     {analogy.keyInsight}
                   </p>
                 </div>
@@ -592,17 +592,17 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                 className="space-y-4"
               >
                 {/* Golden Rules */}
-                <div className="p-5 rounded-2xl bg-[#121B35] border-2 border-emerald-500/40 space-y-2.5">
+                <div className="p-5 rounded-2xl bg-emerald-50 border-2 border-[#2E7D32] space-y-2.5 shadow-sm">
                   <div className="flex items-center gap-2 mb-1">
-                    <Sparkles size={18} className="text-[#4ADE80]" />
-                    <span className="font-pixel text-[10px] text-[#4ADE80] uppercase tracking-wider">
+                    <Sparkles size={18} className="text-[#2E7D32]" />
+                    <span className="font-pixel text-[10px] text-[#2E7D32] uppercase tracking-wider">
                       GOLDEN INVARIANTS (NEVER FORGET):
                     </span>
                   </div>
                   <ul className="space-y-2">
                     {remember.goldenRules.map((rule, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#F8FAFC] font-body leading-relaxed">
-                        <span className="text-[#4ADE80] font-bold">▶</span>
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1A2744] font-body leading-relaxed">
+                        <span className="text-[#2E7D32] font-bold">▶</span>
                         <span>{rule}</span>
                       </li>
                     ))}
@@ -610,17 +610,17 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                 </div>
 
                 {/* Production Software Uses */}
-                <div className="p-5 rounded-2xl bg-[#0F172E] border border-[#23335A] space-y-2.5">
+                <div className="p-5 rounded-2xl bg-white border-2 border-[#0288D1]/40 space-y-2.5 shadow-sm">
                   <div className="flex items-center gap-2 mb-1">
-                    <Server size={18} className="text-[#38BDF8]" />
-                    <span className="font-pixel text-[10px] text-[#38BDF8] uppercase tracking-wider">
+                    <Server size={18} className="text-[#0288D1]" />
+                    <span className="font-pixel text-[10px] text-[#0288D1] uppercase tracking-wider">
                       WHERE IT IS USED IN REAL SOFTWARE:
                     </span>
                   </div>
                   <ul className="space-y-2">
                     {remember.productionUses.map((use, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#CBD5E1] font-body leading-relaxed">
-                        <CheckCircle2 size={16} className="text-[#38BDF8] shrink-0 mt-0.5" />
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1A2744] font-body leading-relaxed">
+                        <CheckCircle2 size={16} className="text-[#0288D1] shrink-0 mt-0.5" />
                         <span>{use}</span>
                       </li>
                     ))}
@@ -628,17 +628,17 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
                 </div>
 
                 {/* Exam & Interview Traps */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-rose-950/20 border-2 border-rose-500/40 space-y-2">
+                <div className="p-4 sm:p-5 rounded-2xl bg-rose-50 border-2 border-rose-400 space-y-2 shadow-sm">
                   <div className="flex items-center gap-2 mb-1">
-                    <ShieldAlert size={18} className="text-rose-400" />
-                    <span className="font-pixel text-[10px] text-rose-400 uppercase tracking-wider">
+                    <ShieldAlert size={18} className="text-rose-600" />
+                    <span className="font-pixel text-[10px] text-rose-700 uppercase tracking-wider">
                       EXAM & TECHNICAL INTERVIEW TRAPS:
                     </span>
                   </div>
                   <ul className="space-y-2">
                     {remember.interviewTraps.map((trap, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200 font-body leading-relaxed">
-                        <AlertTriangle size={16} className="text-rose-400 shrink-0 mt-0.5" />
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-rose-900 font-body leading-relaxed">
+                        <AlertTriangle size={16} className="text-rose-600 shrink-0 mt-0.5" />
                         <span>{trap}</span>
                       </li>
                     ))}
@@ -650,7 +650,7 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
         </div>
 
         {/* Bottom Pagination & Action Controls */}
-        <div className="mt-8 pt-5 border-t border-[#2A375E] flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-8 pt-5 border-t-2 border-[#1B2A4A]/15 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <PixelButton
               variant="outline"
@@ -663,7 +663,7 @@ export const TheoryStage: React.FC<TheoryStageProps> = ({
               PREV PAGE
             </PixelButton>
 
-            <span className="font-pixel text-[9px] text-slate-400 px-2">
+            <span className="font-pixel text-[9px] text-slate-600 px-2">
               PAGE {currentPage} / {totalPages}
             </span>
           </div>
