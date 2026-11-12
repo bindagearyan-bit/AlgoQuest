@@ -103,15 +103,17 @@ Every single one of the 54 sublevels is backed by hand-crafted, non-repetitive e
 
 ---
 
-### 4. 🏅 Hexagonal Pixel-Art Badge & Certificate System
+### 4. 🏅 16-Bit Pixel-Art Badge & Certificate System
 
-Every completed sublevel awards a unique **Algorithmic Medal of Honor**:
-- **Hexagonal Pixel Medals:** Custom SVG polygon clipping with scanlines, particle auras, and tier-reactive metallic borders:
-  - 🟢 **Beginner**: Mint Green (`#7FFFD4`) with emerald neon radiance.
-  - 🟡 **Intermediate**: Solar Amber (`#FFD54F`) with golden flares.
-  - 🔴 **Advanced / Boss**: Obsidian Crimson (`#FF6FA0`) with fiery glow.
-- **Completion Celebration Modal:** Completing the final stage triggers confetti bursts, reveals the unlocked badge, and grants **+500 Bonus XP**.
-- **Profile Showcase Grid:** View all 54 badges filtered by `ALL (54)`, `EARNED`, and `LOCKED`.
+Every completed sublevel awards a unique, hand-crafted **16-Bit Pixel-Art Medal of Honor**:
+- **54 Unique Blocky Pixel-Art Sprites (`pixelBadgeCatalog`):** Crisp SVG `<rect>` sprites (`shape-rendering="crispEdges"`) — one custom relic/artifact per curriculum topic (scrolls, magnifying glasses, balance scales, linked chains, AVL trees, DFS torches, boss crowns, and more).
+- **Arcade Octagonal Casings & CRT Aesthetics:** Stepped pixel-art octagonal bezels with subtle CRT vertical scanlines, 3D tilt hover physics, and `'Press Start 2P'` / `'Pixelify Sans'` typography:
+  - 🟢 **Beginner**: Meadow Mint (`#7FFFD4` / `#6FCF97`) with emerald radiance.
+  - 🟡 **Intermediate**: Sunset Gold (`#FFD93D` / `#FF8F00`) with golden flares.
+  - 🔴 **Advanced / Boss**: Dungeon Neon (`#FF2FD4` / `#00F0FF`) with cyber-crimson glow.
+  - 🔒 **Locked**: Deep Navy (`#1B2A4A`) silhouette casing with blocky pixel padlock.
+- **RPG Quest Complete Celebration Modal:** Completing the final stage triggers a deep navy & gold modal (`QUEST COMPLETE!`), 8-bit sparkle bursts, floating pixel badge reveal, **+500 Bonus XP**, and `[ EQUIP TO PROFILE ]` / `[ SHARE CERTIFICATE ]` actions.
+- **Profile Showcase Grid:** Filter all 54 medals across `ALL (54)`, `EARNED`, and `LOCKED`.
 - **Verifiable Certificates:** Clicking any earned medal opens the **Official Certificate of Mastery** with unique verification IDs (`AQ-CERT-XX-XXXX`) and one-click portfolio sharing.
 
 ---
@@ -129,27 +131,30 @@ Every completed sublevel awards a unique **Algorithmic Medal of Honor**:
 
 ---
 
-### 6. 📖 Multi-Page Theory Engine with Real-Life Analogies & Memorization Rules
+### 6. 📖 Overworld Parchment Stage Theme & 3-Page Theory Engine
 
 - **Interactive 3-Page Codex Stepper:** Every theory stage is broken into three structured interactive pages:
   - **Page 1: 📜 Core Concepts & Mechanics:** Formal definitions, operational mechanics, and high-contrast Big-O Time & Space complexity badges.
   - **Page 2: 🌍 Everyday Real-Life Analogy (Zero Code):** Tangible, intuitive physical scenarios from daily human life (car dashboards for ADTs, cafeteria tray springs for Stacks, supermarket lines for Queues, train couplers for Linked Lists, dictionary lookups for Binary Search).
   - **Page 3: 🧠 What You Must Remember & Exam Traps:** Golden invariants to memorize, production software applications, and deceptive exam/interview pitfalls.
-- **Illuminated Codex Theme:** Replaces low-contrast grey backgrounds with an illuminated midnight slate grimoire (`#0B1020` with `#FFD54F` gold and `#38BDF8` cyan trim), guaranteeing crisp readability on all devices.
+- **Warm Overworld Parchment Aesthetic:** Synchronized across `TheoryStage`, `DryRunStage`, `QuizStage`, and `ProblemStage` using crisp cream parchment surfaces (`#FFFDF5`), deep navy pixel borders (`#1B2A4A`), gold accents (`#FFF9E6` / `#FFD93D`), and sky highlights (`#EAF4FC`) to blend seamlessly with the sunlit pixel Biome & Skyline backdrops.
 
 ---
 
-### 7. 🔮 Gamified Arcane Quiz Arena & Strict XP Reward Integrity
+### 7. 🔮 Gamified Quiz Arena, Mobile Responsiveness & Strict XP Integrity
 
-- **Arcane Quiz Gauntlet:** Engaging RPG battle styling with streak combos (`🔥 2X COMBO STREAK`) and interactive rune cards (`[A]`, `[B]`, `[C]`, `[D]`).
-- **Deep Explanatory Feedback:** Instant analysis breaking down why the right answer is correct and dissecting why distractors are traps.
+- **Arcane Quiz Gauntlet:** Engaging RPG battle styling on crisp parchment panels with streak combos (`🔥 2X COMBO STREAK`), interactive rune cards (`[A]`, `[B]`, `[C]`, `[D]`), and instant explanatory feedback dissecting distractors.
+- **Mobile-First Responsive Viewport & HUD:**
+  - `1:1` viewport locking (`width=device-width, initial-scale=1`) and `overflow-x: hidden` guards eliminate right-edge clipping on `360px+` mobile screens.
+  - Compact mobile header showing Streak, Heart counter, XP, and Gems pills alongside a collapsible hamburger navigation drawer (`Menu` / `X`).
 - **100% XP Reward Precision:** Exact 1:1 alignment between on-screen action buttons (`COMPLETE QUIZ (+25 XP)`, `SUBMIT QUEST (+30/+50/+100 XP)`, `I UNDERSTAND (+10 XP)`), backend execution, and player profile XP balances.
 
 ---
 
-### 8. 🛡️ Resilient Dual-Mode Architecture
+### 8. 🛡️ Resilient Dual-Mode Architecture & Single-Tunnel Ngrok Proxy
 
-- **Automatic Database Fallback:** Connects to PostgreSQL via Prisma ORM when available, and automatically falls back to an in-memory cache when offline with zero downtime.
+- **Next.js Reverse Proxy & Open CORS:** Client-side API calls route through `/api/v1` and proxy cleanly via `frontend/next.config.js` rewrites (`/api/v1/:path*` → `http://localhost:5000/api/v1/:path*`), paired with `origin: true` CORS in Express so single-tunnel mobile deployments work smoothly with zero network errors for new signups and logins.
+- **Automatic Database Fallback:** Connects to PostgreSQL via Prisma ORM when available, and automatically falls back to local JSON/in-memory state when offline with zero downtime.
 - **State Synchronization:** Fully synchronized with TanStack Query cache invalidations across user progress, roadmap levels, and badge state.
 - **Pre-Configured Demo Account:** Ready-to-use testing profile (`bindagearyan@gmail.com` / `aryan` / `password123`).
 
@@ -161,7 +166,11 @@ Every completed sublevel awards a unique **Algorithmic Medal of Honor**:
 algoquest/
 ├── frontend/          # Next.js 14 App Router, TypeScript, Tailwind CSS, Zustand, TanStack Query
 ├── backend/           # Node.js, TypeScript, Express, Prisma ORM, Redis, Jest
-├── scripts/           # Curriculum data generation utilities
+├── scripts/           # Pixel badge generators, repo search & validation utilities
+├── adapters/          # Multi-agent configuration adapters
+├── .agent/            # GSD & workflow automation definitions
+├── .agents/           # Specialized agent roles & skills
+├── .gsd/              # Planning/execution templates & examples
 ├── .gitignore
 └── README.md
 ```
@@ -228,5 +237,15 @@ npm install
 npm run build
 npm run dev
 ```
+
+### 3. Temporary Mobile / External Testing (Single-Tunnel Ngrok)
+
+With both the backend (`5000`) and frontend (`3000`) servers running, expose port `3000`:
+
+```bash
+npx ngrok http 3000
+```
+
+Because `/api/v1/*` requests proxy automatically through Next.js to the backend, friends can register new accounts, log in, and play on mobile over the single generated HTTPS URL.
 
 Visit `http://localhost:3000` in your browser to start your quest!
