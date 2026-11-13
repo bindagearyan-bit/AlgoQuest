@@ -20,9 +20,9 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden flex flex-col bg-slate-50">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-gradient-to-b from-[#F3C8DD] via-[#C7D3F5] to-[#FCE4C8]">
       <TopNavBar />
-      <main className="flex-1 w-full overflow-x-hidden">{children}</main>
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
     </div>
   );
 }

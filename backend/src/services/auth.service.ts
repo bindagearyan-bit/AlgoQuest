@@ -11,6 +11,7 @@ export const memoryProgress = new Map<string, any[]>();
 export const memoryBadges = new Map<number, any>();
 export const memoryUserBadges = new Map<string, any[]>();
 export const memoryGameSessions = new Map<string, any[]>();
+export const memorySubmissions = new Map<string, any[]>();
 
 const DATA_DIR = process.env.VERCEL
   ? path.join(os.tmpdir(), 'algoquest_data')
@@ -27,6 +28,7 @@ export function saveStateToDisk() {
       progress: Array.from(memoryProgress.entries()),
       userBadges: Array.from(memoryUserBadges.entries()),
       gameSessions: Array.from(memoryGameSessions.entries()),
+      submissions: Array.from(memorySubmissions.entries()),
       updatedAt: new Date().toISOString(),
     };
     fs.writeFileSync(STATE_FILE, JSON.stringify(payload, null, 2), 'utf-8');
@@ -58,6 +60,11 @@ export function loadStateFromDisk(): boolean {
       if (Array.isArray(payload.gameSessions)) {
         for (const [k, v] of payload.gameSessions) {
           memoryGameSessions.set(k, v);
+        }
+      }
+      if (Array.isArray(payload.submissions)) {
+        for (const [k, v] of payload.submissions) {
+          memorySubmissions.set(k, v);
         }
       }
       return true;

@@ -16,6 +16,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   JUDGE0_API_URL: z.string().default('https://judge0-ce.p.rapidapi.com'),
   JUDGE0_API_KEY: z.string().default('dummy_key'),
+  JUDGE0_API_HOST: z.string().default('judge0-ce.p.rapidapi.com'),
 });
 
 const parsed = envSchema.safeParse(process.env);
