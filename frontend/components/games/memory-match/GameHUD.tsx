@@ -117,3 +117,4 @@ export const GameHUD: React.FC<GameHUDProps> = ({
     </div>
   );
 };
+

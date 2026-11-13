@@ -62,3 +62,4 @@ export const GameBoard: React.FC<GameBoardProps> = ({
     </div>
   );
 };
+

@@ -31,3 +31,4 @@ router.get('/memory-match/leaderboard', (req, res) => arcadeController.getLeader
 router.get('/memory-match/stats', (req, res) => arcadeController.getUserStats(req, res));
 
 export default router;
+

@@ -22,7 +22,7 @@ export class Judge0Service {
     }
 
     const testCases = problem.testCases;
-    const results = [];
+    const results: any[] = [];
     let allPassed = true;
 
     // Check if real Judge0 is configured

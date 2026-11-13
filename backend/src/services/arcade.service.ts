@@ -90,18 +90,18 @@ export class ArcadeService {
               where: {
                 userId_badgeId: {
                   userId,
-                  badgeId: dbBadge.id,
+                  badgeId: (dbBadge as any).id,
                 },
               },
             })
           );
 
           if (!existingUserBadge) {
-            const unlocked = await this.safeDb(() =>
+            const unlocked: any = await this.safeDb(() =>
               prisma.userBadge.create({
                 data: {
                   userId,
-                  badgeId: dbBadge.id,
+                  badgeId: (dbBadge as any).id,
                 },
               })
             );
@@ -192,7 +192,7 @@ export class ArcadeService {
 
   async getLeaderboard(gameType = 'MEMORY_MATCH_DS_ICONS', limit = 10) {
     try {
-      const topSessions = await this.safeDb(() =>
+      const topSessions: any = await this.safeDb(() =>
         prisma.gameSession.findMany({
           where: { gameType },
           orderBy: [
@@ -213,8 +213,8 @@ export class ArcadeService {
         })
       );
 
-      if (topSessions && topSessions.length > 0) {
-        return topSessions.map((s, idx) => ({
+      if (topSessions && Array.isArray(topSessions) && topSessions.length > 0) {
+        return topSessions.map((s: any, idx: number) => ({
           rank: idx + 1,
           id: s.id,
           username: s.user?.username || 'Hero',
@@ -263,22 +263,22 @@ export class ArcadeService {
 
   async getUserStats(userId: string, gameType = 'MEMORY_MATCH_DS_ICONS') {
     try {
-      const sessions = await this.safeDb(() =>
+      const dbSessions: any = await this.safeDb(() =>
         prisma.gameSession.findMany({
           where: { userId, gameType },
           orderBy: { score: 'desc' },
         })
       );
 
-      if (sessions && sessions.length > 0) {
-        const bestScore = sessions[0].score;
-        const bestTime = Math.min(...sessions.map((s) => s.timeElapsed));
-        const bestMoves = Math.min(...sessions.map((s) => s.moves));
+      if (dbSessions && Array.isArray(dbSessions) && dbSessions.length > 0) {
+        const bestScore = dbSessions[0].score;
+        const bestTime = Math.min(...dbSessions.map((s: any) => s.timeElapsed));
+        const bestMoves = Math.min(...dbSessions.map((s: any) => s.moves));
         return {
           bestScore,
           bestTime,
           bestMoves,
-          timesPlayed: sessions.length,
+          timesPlayed: dbSessions.length,
         };
       }
     } catch {

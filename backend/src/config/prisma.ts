@@ -5,15 +5,32 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-export const prisma =
-  global.prisma ||
-  new PrismaClient({
-    log: ['warn'],
-  });
+let prismaClientInstance: any;
 
-if (process.env.NODE_ENV !== 'production') {
-  global.prisma = prisma;
+try {
+  prismaClientInstance =
+    global.prisma ||
+    new PrismaClient({
+      log: ['warn'],
+    });
+
+  if (process.env.NODE_ENV !== 'production') {
+    global.prisma = prismaClientInstance;
+  }
+} catch (error) {
+  console.warn('[Prisma] Client initialization fallback:', error);
+  prismaClientInstance = new Proxy({}, {
+    get: () => {
+      return new Proxy({}, {
+        get: () => async () => {
+          throw new Error('Database offline; in-memory fallback active');
+        },
+      });
+    },
+  });
 }
 
-export default prisma;
+export const prisma = prismaClientInstance;
+export default prismaClientInstance;
+
 

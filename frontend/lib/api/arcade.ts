@@ -36,3 +36,4 @@ export const arcadeApi = {
     return res.data?.data || { bestScore: 0, bestTime: 0, bestMoves: 0, timesPlayed: 0 };
   },
 };
+

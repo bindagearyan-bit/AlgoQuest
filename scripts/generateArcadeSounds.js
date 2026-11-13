@@ -146,3 +146,4 @@ const sampleRate = 22050;
 }
 
 console.log('All 5 arcade audio WAV files generated successfully.');
+

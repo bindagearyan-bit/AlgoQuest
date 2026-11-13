@@ -49,3 +49,4 @@ export class ArcadeController {
 }
 
 export const arcadeController = new ArcadeController();
+

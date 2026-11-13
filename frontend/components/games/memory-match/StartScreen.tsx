@@ -111,3 +111,4 @@ export const StartScreen: React.FC<StartScreenProps> = ({
     </div>
   );
 };
+

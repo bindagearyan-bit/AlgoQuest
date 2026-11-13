@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import bcrypt from 'bcryptjs';
 import prisma from '../config/prisma';
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../utils/jwt';
@@ -11,7 +12,9 @@ export const memoryBadges = new Map<number, any>();
 export const memoryUserBadges = new Map<string, any[]>();
 export const memoryGameSessions = new Map<string, any[]>();
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
+const DATA_DIR = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'algoquest_data')
+  : path.resolve(process.cwd(), 'data');
 const STATE_FILE = path.join(DATA_DIR, 'user_state.json');
 
 export function saveStateToDisk() {
