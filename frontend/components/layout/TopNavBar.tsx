@@ -22,6 +22,7 @@ export const TopNavBar: React.FC = () => {
     { label: 'Squad', href: '/squad' },
     { label: 'Quests', href: '/goals' },
     { label: 'Tavern', href: '/discussion' },
+    { label: 'Arcade', href: '/arcade' },
   ];
 
   return (

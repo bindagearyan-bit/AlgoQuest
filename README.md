@@ -160,6 +160,22 @@ Every completed sublevel awards a unique, hand-crafted **16-Bit Pixel-Art Medal 
 
 ---
 
+### 9. 🕹️ AlgoQuest Arcade & "Memory Match: DS Icons" Mini-Game
+
+- **No-Code Cognitive Break Activity:** A retro Game Boy Advance / SNES style memory card matching mini-game located at `/arcade/memory-match` designed to reinforce core Data Structure vocabulary without writing code.
+- **6 Hand-Crafted 16-Bit Pixel Card Pairs (12 Cards):**
+  - `ARRAY`: Contiguous horizontal bar with indexed memory blocks `[1][2][3][4][5]`.
+  - `STACK`: LIFO plate tower with glowing top plate and push/pop direction arrow.
+  - `QUEUE`: FIFO queue with 4 pixel character sprites and directional dequeuing arrow.
+  - `LINKED LIST`: Dynamic pointer chains `[A] → [B] → [C]`.
+  - `TREE`: Hierarchical binary tree with root, branches, and leaf nodes.
+  - `GRAPH`: Non-linear network of vertices connected by undirected pixel edges.
+- **Dual-Engine 8-Bit Audio:** Synthesized instant Web Audio API chip square waves + PCM audio fallbacks for card flips, match chimes, error buzzers, and victory fanfares with persistent mute toggle.
+- **Scoring & Rewards:** Time and moves bonus scoring, +10 Participation XP, +25 Victory XP for finishing under 60 seconds, and the exclusive **Memory Maestro** pixel badge for completing the game in ≤12 moves.
+- **Arcade Tavern Hub & Dashboard Widget:** Complete `/arcade` showcase with personal best tracking, top 10 player leaderboard, and 1-click "Quick Break" launcher directly from the main dashboard.
+
+---
+
 ## 🚀 Architecture & Tech Stack
 
 ```
@@ -201,6 +217,8 @@ algoquest/
 - **Home / Landing Page:** [http://localhost:3000](http://localhost:3000)
 - **World Map:** [http://localhost:3000/roadmap](http://localhost:3000/roadmap)
 - **Main Dashboard:** [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
+- **Arcade Hub:** [http://localhost:3000/arcade](http://localhost:3000/arcade)
+- **Memory Match Mini-Game:** [http://localhost:3000/arcade/memory-match](http://localhost:3000/arcade/memory-match)
 - **Profile & Badge Showcase:** [http://localhost:3000/profile](http://localhost:3000/profile)
 - **Sublevel Stage Trail:** [http://localhost:3000/sublevel/1](http://localhost:3000/sublevel/1)
 - **Interactive Stage Visualizer:** [http://localhost:3000/sublevel/1/stage/2](http://localhost:3000/sublevel/1/stage/2)

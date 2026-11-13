@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useProgress } from '@/lib/hooks/useProgress';
@@ -8,8 +8,9 @@ import { useUser } from '@/lib/hooks/useUser';
 import { PixelCard } from '@/components/ui/PixelCard';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelProgressBar } from '@/components/ui/PixelProgressBar';
-import { Swords, Flame, Trophy, Play, CheckCircle2, Compass, MapPin, Sparkles } from 'lucide-react';
+import { Swords, Flame, Trophy, Play, CheckCircle2, Compass, MapPin, Sparkles, Gamepad2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { arcadeApi } from '@/lib/api/arcade';
 
 export default function MainDashboardPage() {
   const { user } = useUser();
@@ -21,6 +22,16 @@ export default function MainDashboardPage() {
   const sublevelTitle = activeProgress?.sublevel?.title || 'Concept & Need of Data Structures';
   const levelTitle = activeProgress?.sublevel?.level?.title || 'Level 1: Foundations Island (Beginner Village)';
   const totalStages = (activeProgress as any)?.maxStage || (activeProgress?.sublevel?.sublevelType === 'THEORETICAL' ? 3 : activeProgress?.sublevel?.sublevelType === 'HYBRID' ? 5 : 8);
+  const [arcadeBestScore, setArcadeBestScore] = useState<number>(0);
+
+  useEffect(() => {
+    arcadeApi
+      .getMemoryMatchStats()
+      .then((s) => {
+        if (s?.bestScore) setArcadeBestScore(s.bestScore);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
@@ -184,6 +195,38 @@ export default function MainDashboardPage() {
                 </div>
               </div>
             </div>
+          </PixelCard>
+
+          {/* Quick Break Arcade Widget */}
+          <PixelCard variant="gold">
+            <div className="flex items-center justify-between mb-3 border-b border-[#3E2723]/20 pb-2.5">
+              <div className="flex items-center gap-1.5">
+                <Gamepad2 className="w-4 h-4 text-[#8D5832]" />
+                <h3 className="font-pixel text-[10px] sm:text-xs text-[#1A2744] uppercase">
+                  QUICK BREAK ARCADE
+                </h3>
+              </div>
+              <span className="font-pixel text-[8px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-300">
+                +25 XP
+              </span>
+            </div>
+
+            <p className="font-body text-xs text-[#1A2744]/80 mb-3">
+              Refresh your brain with a 60-second Data Structure matching puzzle!
+            </p>
+
+            <div className="flex items-center justify-between bg-white/70 border border-[#1B2A4A]/20 p-2 rounded mb-3">
+              <span className="font-pixel text-[8px] text-slate-600">PERSONAL BEST:</span>
+              <span className="font-pixel text-[10px] text-[#E65100] font-bold">
+                {arcadeBestScore > 0 ? `${arcadeBestScore} PTS` : 'NEW'}
+              </span>
+            </div>
+
+            <Link href="/arcade/memory-match" className="block w-full">
+              <PixelButton variant="mint" size="sm" className="w-full text-[9px] py-2">
+                <Play size={12} className="mr-1 fill-current" /> PLAY MEMORY MATCH
+              </PixelButton>
+            </Link>
           </PixelCard>
 
           <PixelCard variant="white">
