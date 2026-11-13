@@ -1,10 +1,22 @@
 # AlgoQuest 🎮⚔️
 
-**AlgoQuest** is a full-stack, retro pixel-art Data Structures & Algorithms (DSA) learning platform inspired by university syllabi, 16-bit RPG overworlds, and gamified Duolingo-style progression.
+**AlgoQuest** is a production-grade, full-stack, retro pixel-art Data Structures & Algorithms (DSA) learning platform inspired by university syllabi, 16-bit RPG overworlds, and gamified Duolingo-style progression.
 
 ---
 
-## 🌟 Key Features
+## 🌐 Live Production Deployments
+
+AlgoQuest is deployed live on Vercel with dedicated production frontend and backend microservices:
+
+| Service | Live Production URL | Description |
+| :--- | :--- | :--- |
+| **Frontend Web App** | [https://algoquest-dsa.vercel.app](https://algoquest-dsa.vercel.app) | Next.js 14 App Router, Monaco Editor, Zustand, Framer Motion |
+| **Backend REST API** | [https://algoquest-api.vercel.app](https://algoquest-api.vercel.app) | Express, Prisma ORM, Judge0 Client, JWT Session Layer |
+| **API Health Check** | [https://algoquest-api.vercel.app/health](https://algoquest-api.vercel.app/health) | Live service status & timestamp ping |
+
+---
+
+## 🌟 Key Features & Architectural Modules
 
 ### 1. 🗺️ Syllabus-Driven Curriculum (6 Units • 54 Sublevels)
 
@@ -78,7 +90,39 @@ Structured directly from university Data Structures syllabi and segmented across
 
 ---
 
-### 2. 🧠 Adaptive Stage Engine
+### 2. ⚡ Judge0 Code Compiler Integration
+
+AlgoQuest features a native cloud compiler engine powered by Judge0:
+
+- **Supported Languages (Locked):**
+  - **C** (Judge0 ID 50, Monaco `c`)
+  - **C++** (Judge0 ID 54, Monaco `cpp`)
+  - **Java** (Judge0 ID 62, Monaco `java`)
+  - **Python 3** (Judge0 ID 71, Monaco `python`)
+- **Unscored Run Code (`POST /api/v1/judge0/run`):**
+  - Executes student code against public sample test cases.
+  - Zero heart consumption, zero XP change — safe for unlimited student experimentation.
+  - Returns formatted `stdout`, `stderr`, runtime milliseconds, memory usage, and execution status.
+- **Scored Submit Code (`POST /api/v1/judge0/execute`):**
+  - Executes against hidden and public test cases.
+  - Heart Gate: Consumes 1 heart upon failure; blocked if user has 0 hearts (practice run remains available).
+  - On full pass: Awards stage XP (+20 guided, +30 easy, +50 medium, +100 boss), advances user progress, and persists a `Submission` audit row.
+  - Redacts sensitive hidden test cases on failure to maintain academic integrity.
+- **Rate Limiting:**
+  - Enforced per-user rate limiting: max **20 runs/minute** and **10 submits/minute** (returns HTTP 429 when exceeded).
+- **Graceful Sandbox Fallback:**
+  - Automated local evaluation fallback prevents downtime or external API outages from halting student quest progress.
+
+---
+
+### 3. 📈 Vercel Analytics Integration
+
+- Installed and configured `@vercel/analytics` globally in `frontend/app/layout.tsx`.
+- Real-time privacy-friendly metrics for active users, geographic reach, route transitions, and quest retention directly visible in the Vercel Dashboard.
+
+---
+
+### 4. 🧠 Adaptive Stage Engine
 
 Sublevels dynamically scale their stage progression based on topic nature, eliminating unnecessary coding boilerplates for pure theory topics while preserving rigorous evaluation:
 
@@ -93,19 +137,10 @@ Dynamic progress meters reflect the exact stage denominator (`STAGE X OF 3`, `ST
 
 ---
 
-### 3. 💻 54 Unique Topic-Specific Code Challenges (C, C++, Java, Python)
-
-Every single one of the 54 sublevels is backed by hand-crafted, non-repetitive educational content:
-- **Language Support:** Complete code examples and starter solutions in **C, C++, Java, and Python**.
-- **Interactive Multi-Step Visualizers:** 4 to 7 operational steps with dual pointers, array boundaries, stack/queue memory columns, and stepping controls (Play, Pause, Step Next, Reset).
-- **Dry Run Trace Tables:** Variable and buffer inspection tables tracing line-by-line runtime states.
-- **Guided Code & Problems:** Fill-in-the-blank code prompts and algorithmic unit test suites.
-
----
-
-### 4. 🏅 16-Bit Pixel-Art Badge & Certificate System
+### 5. 🏅 16-Bit Pixel-Art Badge & Certificate System
 
 Every completed sublevel awards a unique, hand-crafted **16-Bit Pixel-Art Medal of Honor**:
+
 - **54 Unique Blocky Pixel-Art Sprites (`pixelBadgeCatalog`):** Crisp SVG `<rect>` sprites (`shape-rendering="crispEdges"`) — one custom relic/artifact per curriculum topic (scrolls, magnifying glasses, balance scales, linked chains, AVL trees, DFS torches, boss crowns, and more).
 - **Arcade Octagonal Casings & CRT Aesthetics:** Stepped pixel-art octagonal bezels with subtle CRT vertical scanlines, 3D tilt hover physics, and `'Press Start 2P'` / `'Pixelify Sans'` typography:
   - 🟢 **Beginner**: Meadow Mint (`#7FFFD4` / `#6FCF97`) with emerald radiance.
@@ -118,49 +153,7 @@ Every completed sublevel awards a unique, hand-crafted **16-Bit Pixel-Art Medal 
 
 ---
 
-### 5. 🎯 Locked Tier Expedition & Automatic Graduation Engine
-
-- **Tier Selection at Login & Signup:** When creating an account or logging in, heroes choose their active expedition tier (`🟢 BEGINNER`, `🟡 INTERMEDIATE`, `🔴 ADVANCED`) with a single click.
-- **Locked World Map View:** The World Map (`/roadmap`) is strictly locked to the hero's selected tier. Manual tier filters are removed so learners embark on an immersive, distraction-free syllabus path tailored to their exact level across all 6 Units.
-- **Progress Milestone Tracking:** Live progress indicators track sectors conquered vs total sectors in the active tier (e.g. `0 / 16 BEGINNER SECTORS CLEARED`).
-- **Sequential Unlocking:** The first sector of the hero's tier unlocks automatically; subsequent sectors unlock sequentially as previous sectors are conquered.
-- **Automatic Tier Graduation:** Once a hero conquers all sectors of their active tier (e.g. completing all Beginner topics across all 6 Units):
-  - **Auto-Promotion:** The engine automatically graduates the account to the next tier (`BEGINNER` → `INTERMEDIATE` → `ADVANCED`).
-  - **Graduation Bonus:** Grants an immediate **+100 Gems Bonus 💎**.
-  - **Celebration Modal:** Triggers the animated **Tier Promotion Modal** with confetti, golden trophy, and direct launch into the newly unlocked sector map.
-
----
-
-### 6. 📖 Overworld Parchment Stage Theme & 3-Page Theory Engine
-
-- **Interactive 3-Page Codex Stepper:** Every theory stage is broken into three structured interactive pages:
-  - **Page 1: 📜 Core Concepts & Mechanics:** Formal definitions, operational mechanics, and high-contrast Big-O Time & Space complexity badges.
-  - **Page 2: 🌍 Everyday Real-Life Analogy (Zero Code):** Tangible, intuitive physical scenarios from daily human life (car dashboards for ADTs, cafeteria tray springs for Stacks, supermarket lines for Queues, train couplers for Linked Lists, dictionary lookups for Binary Search).
-  - **Page 3: 🧠 What You Must Remember & Exam Traps:** Golden invariants to memorize, production software applications, and deceptive exam/interview pitfalls.
-- **Warm Overworld Parchment Aesthetic:** Synchronized across `TheoryStage`, `DryRunStage`, `QuizStage`, and `ProblemStage` using crisp cream parchment surfaces (`#FFFDF5`), deep navy pixel borders (`#1B2A4A`), gold accents (`#FFF9E6` / `#FFD93D`), and sky highlights (`#EAF4FC`) to blend seamlessly with the sunlit pixel Biome & Skyline backdrops.
-
----
-
-### 7. 🔮 Gamified Quiz Arena, Mobile Responsiveness & Strict XP Integrity
-
-- **Arcane Quiz Gauntlet:** Engaging RPG battle styling on crisp parchment panels with streak combos (`🔥 2X COMBO STREAK`), interactive rune cards (`[A]`, `[B]`, `[C]`, `[D]`), and instant explanatory feedback dissecting distractors.
-- **Mobile-First Responsive Viewport & HUD:**
-  - `1:1` viewport locking (`width=device-width, initial-scale=1`) and `overflow-x: hidden` guards eliminate right-edge clipping on `360px+` mobile screens.
-  - Compact mobile header showing Streak, Heart counter, XP, and Gems pills alongside a collapsible hamburger navigation drawer (`Menu` / `X`).
-- **100% XP Reward Precision:** Exact 1:1 alignment between on-screen action buttons (`COMPLETE QUIZ (+25 XP)`, `SUBMIT QUEST (+30/+50/+100 XP)`, `I UNDERSTAND (+10 XP)`), backend execution, and player profile XP balances.
-
----
-
-### 8. 🛡️ Resilient Dual-Mode Architecture & Single-Tunnel Ngrok Proxy
-
-- **Next.js Reverse Proxy & Open CORS:** Client-side API calls route through `/api/v1` and proxy cleanly via `frontend/next.config.js` rewrites (`/api/v1/:path*` → `http://localhost:5000/api/v1/:path*`), paired with `origin: true` CORS in Express so single-tunnel mobile deployments work smoothly with zero network errors for new signups and logins.
-- **Automatic Database Fallback:** Connects to PostgreSQL via Prisma ORM when available, and automatically falls back to local JSON/in-memory state when offline with zero downtime.
-- **State Synchronization:** Fully synchronized with TanStack Query cache invalidations across user progress, roadmap levels, and badge state.
-- **Pre-Configured Demo Account:** Ready-to-use testing profile (`bindagearyan@gmail.com` / `aryan` / `password123`).
-
----
-
-### 9. 🕹️ AlgoQuest Arcade & "Memory Match: DS Icons" Mini-Game
+### 6. 🕹️ AlgoQuest Arcade & "Memory Match: DS Icons" Mini-Game
 
 - **No-Code Cognitive Break Activity:** A retro Game Boy Advance / SNES style memory card matching mini-game located at `/arcade/memory-match` designed to reinforce core Data Structure vocabulary without writing code.
 - **6 Hand-Crafted 16-Bit Pixel Card Pairs (12 Cards):**
@@ -176,17 +169,49 @@ Every completed sublevel awards a unique, hand-crafted **16-Bit Pixel-Art Medal 
 
 ---
 
+### 7. 🎯 Locked Tier Expedition & Automatic Graduation Engine
+
+- **Tier Selection at Login & Signup:** When creating an account or logging in, heroes choose their active expedition tier (`🟢 BEGINNER`, `🟡 INTERMEDIATE`, `🔴 ADVANCED`) with a single click.
+- **Locked World Map View:** The World Map (`/roadmap`) is strictly locked to the hero's selected tier. Manual tier filters are removed so learners embark on an immersive, distraction-free syllabus path tailored to their exact level across all 6 Units.
+- **Progress Milestone Tracking:** Live progress indicators track sectors conquered vs total sectors in the active tier (e.g. `0 / 16 BEGINNER SECTORS CLEARED`).
+- **Sequential Unlocking:** The first sector of the hero's tier unlocks automatically; subsequent sectors unlock sequentially as previous sectors are conquered.
+- **Automatic Tier Graduation:** Once a hero conquers all sectors of their active tier (e.g. completing all Beginner topics across all 6 Units):
+  - **Auto-Promotion:** The engine automatically graduates the account to the next tier (`BEGINNER` → `INTERMEDIATE` → `ADVANCED`).
+  - **Graduation Bonus:** Grants an immediate **+100 Gems Bonus 💎**.
+  - **Celebration Modal:** Triggers the animated **Tier Promotion Modal** with confetti, golden trophy, and direct launch into the newly unlocked sector map.
+
+---
+
+### 8. 🎨 Overworld Parchment Theme & Mobile Viewport Containment
+
+- **Unified Overworld Parchment Design:** Synchronized across `TheoryStage`, `DryRunStage`, `QuizStage`, and `ProblemStage` using warm parchment surfaces (`variant="parchment"`), deep navy pixel borders (`#1B2A4A`), gold rings (`#FFD93D`), and sky highlights (`#EAF4FC`) matching the sunlit pixel Biome & Skyline backdrops.
+- **100% Seamless Pastel Gradient:** Replaced dull gray `bg-slate-50` with continuous pastel sunset gradients (`linear-gradient(180deg, #F3C8DD 0%, #C7D3F5 45%, #FCE4C8 100%)`) across all layouts.
+- **Mobile Viewport Lock:**
+  - Viewport metadata locked (`width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no`).
+  - Strict `width: 100%`, `max-width: 100vw`, and `overflow-x: hidden` constraints eliminate right-edge horizontal overflow and blank whitespace on mobile screens (`360px+`).
+  - Responsive header widgets with collapsible hamburger drawer (`Menu` / `X`) for seamless mobile navigation.
+
+---
+
+### 9. 🛡️ Resilient Dual-Mode Architecture & Offline Hero Cache
+
+- **Next.js Reverse Proxy:** Client-side API calls route via `/api/v1` and proxy through `frontend/next.config.js` rewrites to `https://algoquest-api.vercel.app/api/v1/:path*` (or local backend in development).
+- **Guaranteed Signup & Auth Integrity:** Offline disk-persisted cache in `backend/src/services/auth.service.ts` ensures accounts, sessions, progress, and badges persist even during transient external database connection limits.
+- **Zero Registration Downtime:** Anyone creating a new account or logging in is guaranteed a successful `HTTP 201 / 200` response with valid JWT access and refresh tokens.
+
+---
+
 ## 🚀 Architecture & Tech Stack
 
 ```
 algoquest/
-├── frontend/          # Next.js 14 App Router, TypeScript, Tailwind CSS, Zustand, TanStack Query
-├── backend/           # Node.js, TypeScript, Express, Prisma ORM, Redis, Jest
-├── scripts/           # Pixel badge generators, repo search & validation utilities
+├── frontend/          # Next.js 14 App Router, TypeScript, Tailwind CSS, Monaco Editor, Zustand, TanStack Query
+├── backend/           # Node.js, TypeScript, Express, Prisma ORM, Judge0 Service, Jest
+├── scripts/           # Pixel badge generators, curriculum generators, sound synthesis
 ├── adapters/          # Multi-agent configuration adapters
 ├── .agent/            # GSD & workflow automation definitions
 ├── .agents/           # Specialized agent roles & skills
-├── .gsd/              # Planning/execution templates & examples
+├── .gsd/              # Planning/execution templates & architecture specs
 ├── .gitignore
 └── README.md
 ```
@@ -194,35 +219,23 @@ algoquest/
 ### Frontend Stack
 
 - **Framework:** Next.js 14+ (App Router)
-- **Styling:** Tailwind CSS (Custom 16-bit retro pixel tokens)
+- **Editor:** Monaco Editor (`@monaco-editor/react`) for C, C++, Java, Python
+- **Analytics:** `@vercel/analytics`
+- **Styling:** Tailwind CSS (Custom 16-bit retro pixel design system tokens)
 - **State Management:** Zustand (`useUserStore`, `useStageStore`)
-- **Data Fetching:** TanStack Query (React Query v5) with live invalidation
+- **Data Fetching:** TanStack Query (React Query v5) with live cache invalidation
 - **Animations:** Framer Motion (page transitions, XP counters, confetti)
-- **Fonts:** `Press Start 2P`, `Pixelify Sans`, `Nunito`
+- **Fonts:** `Press Start 2P`, `Pixelify Sans`, `Nunito`, `Fira Code`
 - **Icons:** Lucide React
 
 ### Backend Stack
 
 - **Runtime:** Node.js 18+ with TypeScript (strict mode)
 - **Framework:** Express.js (Modular MVC architecture)
-- **Database & ORM:** PostgreSQL + Prisma ORM (6 Units, 54 Sublevels, Badges & Progress models)
-- **Testing:** Jest + Supertest (13 integration tests passing)
-- **Auth:** JWT Access + Refresh tokens with bcryptjs hashing
-- **Execution:** Judge0 Code Engine integration
-
----
-
-## 🔗 Live Application URLs
-
-- **Home / Landing Page:** [http://localhost:3000](http://localhost:3000)
-- **World Map:** [http://localhost:3000/roadmap](http://localhost:3000/roadmap)
-- **Main Dashboard:** [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
-- **Arcade Hub:** [http://localhost:3000/arcade](http://localhost:3000/arcade)
-- **Memory Match Mini-Game:** [http://localhost:3000/arcade/memory-match](http://localhost:3000/arcade/memory-match)
-- **Profile & Badge Showcase:** [http://localhost:3000/profile](http://localhost:3000/profile)
-- **Sublevel Stage Trail:** [http://localhost:3000/sublevel/1](http://localhost:3000/sublevel/1)
-- **Interactive Stage Visualizer:** [http://localhost:3000/sublevel/1/stage/2](http://localhost:3000/sublevel/1/stage/2)
-- **Backend API:** [http://localhost:5000](http://localhost:5000)
+- **Database & ORM:** PostgreSQL + Prisma ORM (6 Units, 54 Sublevels, Badges & Submissions models)
+- **Execution Engine:** Judge0 Cloud API + deterministic sandbox fallback
+- **Testing:** Jest + Supertest (unit & integration test suites)
+- **Auth:** JWT Access + Refresh tokens with bcryptjs password hashing
 
 ---
 
@@ -256,14 +269,18 @@ npm run build
 npm run dev
 ```
 
-### 3. Temporary Mobile / External Testing (Single-Tunnel Ngrok)
-
-With both the backend (`5000`) and frontend (`3000`) servers running, expose port `3000`:
+### 3. Deploying to Vercel
 
 ```bash
-npx ngrok http 3000
+# Deploy Backend API
+cd backend
+npx vercel --prod --yes
+
+# Deploy Frontend Web App
+cd ../frontend
+npx vercel --prod --yes
 ```
 
-Because `/api/v1/*` requests proxy automatically through Next.js to the backend, friends can register new accounts, log in, and play on mobile over the single generated HTTPS URL.
+---
 
-Visit `http://localhost:3000` in your browser to start your quest!
+*Master DSA through Quests — Built for engineering students and retro game enthusiasts.*
