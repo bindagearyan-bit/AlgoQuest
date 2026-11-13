@@ -74,6 +74,7 @@ model User {
   achievements    UserAchievement[]
   quizAttempts    QuizAttempt[]
   userBadges      UserBadge[]
+  gameSessions    GameSession[]
 
   @@index([email])
   @@index([xp])
@@ -211,4 +212,18 @@ model QuizAttempt {
   isPassed    Boolean
   attemptedAt DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model GameSession {
+  id          String   @id @default(uuid())
+  userId      String
+  gameType    String   // e.g. "MEMORY_MATCH_DS_ICONS"
+  score       Int
+  timeElapsed Int      // in seconds
+  moves       Int
+  xpEarned    Int
+  completedAt DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, gameType])
 }

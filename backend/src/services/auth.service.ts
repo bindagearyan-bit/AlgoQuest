@@ -9,6 +9,7 @@ export const memoryUsers = new Map<string, any>();
 export const memoryProgress = new Map<string, any[]>();
 export const memoryBadges = new Map<number, any>();
 export const memoryUserBadges = new Map<string, any[]>();
+export const memoryGameSessions = new Map<string, any[]>();
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const STATE_FILE = path.join(DATA_DIR, 'user_state.json');
@@ -22,6 +23,7 @@ export function saveStateToDisk() {
       users: Array.from(memoryUsers.entries()),
       progress: Array.from(memoryProgress.entries()),
       userBadges: Array.from(memoryUserBadges.entries()),
+      gameSessions: Array.from(memoryGameSessions.entries()),
       updatedAt: new Date().toISOString(),
     };
     fs.writeFileSync(STATE_FILE, JSON.stringify(payload, null, 2), 'utf-8');
@@ -48,6 +50,11 @@ export function loadStateFromDisk(): boolean {
       if (Array.isArray(payload.userBadges)) {
         for (const [k, v] of payload.userBadges) {
           memoryUserBadges.set(k, v);
+        }
+      }
+      if (Array.isArray(payload.gameSessions)) {
+        for (const [k, v] of payload.gameSessions) {
+          memoryGameSessions.set(k, v);
         }
       }
       return true;

@@ -7,6 +7,7 @@ import gamificationRoutes from './gamification.routes';
 import onboardingRoutes from './onboarding.routes';
 import judge0Routes from './judge0.routes';
 import badgeRoutes from './badge.routes';
+import arcadeRoutes from './arcade.routes';
 
 const router = Router();
 
@@ -18,6 +19,7 @@ router.use('/gamification', gamificationRoutes);
 router.use('/onboarding', onboardingRoutes);
 router.use('/judge0', judge0Routes);
 router.use('/badges', badgeRoutes);
+router.use('/arcade', arcadeRoutes);
 
 export default router;
 
