@@ -194,7 +194,7 @@ export default function DynamicStagePage() {
           />
         )}
 
-        {stageData.stageType === 'QUIZ' && (
+        {(stageData.stageType === 'QUIZ' || stageData.stageType === 'MINI_BOSS') && (
           <QuizStage
             title={stageData.title}
             content={stageData.contentJson}

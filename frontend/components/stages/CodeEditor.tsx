@@ -11,6 +11,13 @@ interface CodeEditorProps {
   onSubmit?: () => void;
   isRunning?: boolean;
   submitLabel?: string;
+  starterCode?: {
+    python?: string;
+    cpp?: string;
+    java?: string;
+    c?: string;
+    [key: string]: string | undefined;
+  };
 }
 
 export const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -18,6 +25,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   onSubmit,
   isRunning = false,
   submitLabel = 'SUBMIT QUEST',
+  starterCode,
 }) => {
   const { activeLanguage, setLanguage, codeByLanguage, setCode } = useStageStore();
 
@@ -30,13 +38,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const currentCode =
     codeByLanguage[activeLanguage] ||
+    starterCode?.[activeLanguage] ||
     (activeLanguage === 'python'
-      ? `class Solution:\n    def solve(self, nums: list[int], target: int) -> list[int]:\n        # Code your algorithm here\n        return [0, 1]`
+      ? `# Python 3 - Write your solution below\ndef solve():\n    # First-year DSA starter\n    pass\n`
       : activeLanguage === 'cpp'
-      ? `#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(vector<int>& nums, int target) {\n        return {0, 1};\n    }\n};`
+      ? `// C++ - Write your solution below\n#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    // First-year DSA starter\n    return 0;\n}\n`
       : activeLanguage === 'java'
-      ? `class Solution {\n    public int[] solve(int[] nums, int target) {\n        return new int[]{0, 1};\n    }\n}`
-      : `int* solve(int* nums, int numsSize, int target, int* returnSize) {\n    *returnSize = 2;\n    return 0;\n}`);
+      ? `// Java - Write your solution below\nimport java.util.*;\n\npublic class Solution {\n    public static void main(String[] args) {\n        // First-year DSA starter\n    }\n}\n`
+      : `/* C - Write your solution below */\n#include <stdio.h>\n\nint main() {\n    /* First-year DSA starter */\n    return 0;\n}\n`);
 
   return (
     <div className="w-full rounded-2xl bg-[#09081f] border-2 border-[#00F0FF]/40 shadow-[0_0_20px_rgba(0,240,255,0.15)] overflow-hidden flex flex-col">

@@ -115,11 +115,12 @@ export const ProblemStage: React.FC<ProblemStageProps> = ({
         {/* Description */}
         <p className="font-body text-sm sm:text-base text-[#1A2744] leading-relaxed mb-6">
           {content.description ||
-            'Given a sorted array of integers nums and an integer target, return indices of the two numbers such that they add up to target. Maintain O(N) time and O(1) space.'}
+            'Read the problem specifications carefully, analyze the constraints, and write your algorithm solution in the editor below.'}
         </p>
 
         {/* Code Editor */}
         <CodeEditor
+          starterCode={content.starterCode}
           onRun={runCode}
           onSubmit={submitQuest}
           isRunning={isRunning || isCompleting}

@@ -38,12 +38,12 @@ export const GuidedCodeStage: React.FC<GuidedCodeStageProps> = ({
         </div>
 
         <p className="font-body text-sm sm:text-base text-[#1A2744] mb-4">
-          {content.prompt || 'Complete the skeleton implementation below. Ensure pointer increments maintain the search invariant.'}
+          {content.prompt || 'Complete the skeleton implementation below following the comments.'}
         </p>
 
         {hintRevealed ? (
           <div className="p-3 bg-amber-50 border border-amber-300 rounded-xl text-xs font-mono text-amber-900 mb-4">
-            💡 HINT: If target is greater than the sum, moving the left pointer increases the total value!
+            💡 HINT: Follow the step-by-step TODO comments in the starter template to implement the algorithm correctly!
           </div>
         ) : (
           <button
@@ -56,6 +56,7 @@ export const GuidedCodeStage: React.FC<GuidedCodeStageProps> = ({
 
         {/* Code Editor */}
         <CodeEditor
+          starterCode={content.starterCode}
           onSubmit={onComplete}
           isRunning={isCompleting}
         />
