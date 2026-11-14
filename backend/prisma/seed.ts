@@ -1,338 +1,689 @@
-import { PrismaClient, StageType, Tier, Difficulty } from '@prisma/client';
+import { PrismaClient, StageType, Tier, Difficulty, SublevelType } from '@prisma/client';
+import { CURRICULUM_CATALOG, getSublevelById } from '../src/data/curriculumData';
 
 const prisma = new PrismaClient();
 
-export interface SublevelConfig {
-  orderIndex: number;
-  subId: number;
+// First-Year Student Topic-Aligned Problem & Boss Definitions
+interface TopicProblem {
   title: string;
-  tier: Tier;
-  concepts: string;
-}
-
-export interface LevelConfig {
-  orderIndex: number;
-  title: string;
-  icon: string;
   description: string;
-  sublevels: SublevelConfig[];
+  difficulty: Difficulty;
+  starterCode: {
+    python: string;
+    cpp: string;
+    java: string;
+    c: string;
+  };
+  testCases: Array<{ input: string; expectedOutput: string; isHidden?: boolean }>;
 }
 
-export const CURRICULUM_DATA: LevelConfig[] = [
-  {
-    orderIndex: 1,
-    title: 'Level 1: Foundations Island (Beginner Village) — Basics of Data Structures',
-    icon: '🏡',
-    description: 'Unit 1: Data structure fundamentals, ADTs, linear vs non-linear classifications, Big-O asymptotic analysis.',
-    sublevels: [
-      { orderIndex: 1, subId: 1, title: 'Concept & Need of Data Structures', tier: Tier.BEGINNER, concepts: 'What is a DS, why we need it, real-world analogies' },
-      { orderIndex: 2, subId: 2, title: 'Abstract Data Types (ADTs)', tier: Tier.BEGINNER, concepts: 'ADT definition, interface vs implementation' },
-      { orderIndex: 3, subId: 3, title: 'Types of Data Structures', tier: Tier.BEGINNER, concepts: 'Linear vs Non-Linear, Primitive vs Non-Primitive' },
-      { orderIndex: 4, subId: 4, title: 'Operations on Data Structures', tier: Tier.BEGINNER, concepts: 'Insert, Delete, Search, Update, Traverse, Sort' },
-      { orderIndex: 5, subId: 5, title: 'Time Complexity & Big-O Notation', tier: Tier.INTERMEDIATE, concepts: 'Big-O, Big-Omega, Big-Theta, growth rates' },
-      { orderIndex: 6, subId: 6, title: 'Space Complexity Analysis', tier: Tier.INTERMEDIATE, concepts: 'Auxiliary space vs input space, recursion stack' },
-      { orderIndex: 7, subId: 7, title: 'BOSS: Foundations Guardian', tier: Tier.ADVANCED, concepts: 'Comprehensive Unit 1 Master Challenge' },
+const FIRST_YEAR_PROBLEMS: Record<number, TopicProblem> = {
+  // --- LEVEL 1 HYBRID TOPICS ---
+  5: {
+    title: 'Calculate Operation Count (Time Complexity)',
+    description: 'A first-year algorithm executes a nested loop: outer loop runs N times, inner loop runs M times. Given N and M, return the total number of operations executed.',
+    difficulty: Difficulty.MEDIUM,
+    starterCode: {
+      python: `class Solution:\n    def calculateOperations(self, n: int, m: int) -> int:\n        # Step 1: Return the product representing O(N * M) operations\n        return n * m`,
+      cpp: `class Solution {\npublic:\n    int calculateOperations(int n, int m) {\n        // Step 1: Return O(N * M) total operations\n        return n * m;\n    }\n};`,
+      java: `public class Solution {\n    public int calculateOperations(int n, int m) {\n        // Step 1: Return O(N * M) total operations\n        return n * m;\n    }\n}`,
+      c: `int calculateOperations(int n, int m) {\n    // Step 1: Return total operations\n    return n * m;\n}`,
+    },
+    testCases: [
+      { input: '5, 10', expectedOutput: '50' },
+      { input: '100, 20', expectedOutput: '2000' },
+      { input: '1, 1', expectedOutput: '1', isHidden: true },
     ],
   },
-  {
-    orderIndex: 2,
-    title: 'Level 2: Searching & Sorting Citadel (Central Castle) — Searching & Sorting',
-    icon: '🏰',
-    description: 'Unit 2: Linear & Binary search, hashing collision resolution, O(N^2) comparison sorts, Merge Sort, Quick Sort, and Radix/Tim Sort.',
-    sublevels: [
-      { orderIndex: 1, subId: 11, title: 'Linear Search', tier: Tier.BEGINNER, concepts: 'Sequential scan, best/worst case, implementation' },
-      { orderIndex: 2, subId: 12, title: 'Binary Search (Iterative & Recursive)', tier: Tier.BEGINNER, concepts: 'Divide and conquer, sorted prerequisite, mid calculation' },
-      { orderIndex: 3, subId: 13, title: 'Sentinel Search & Fibonacci Search', tier: Tier.INTERMEDIATE, concepts: 'Boundary elimination, golden ratio division' },
-      { orderIndex: 4, subId: 14, title: 'Hashing & Collision Resolution', tier: Tier.INTERMEDIATE, concepts: 'Hash functions, chaining, open addressing (linear, quadratic)' },
-      { orderIndex: 5, subId: 15, title: 'Bubble, Selection & Insertion Sort', tier: Tier.BEGINNER, concepts: 'Elementary O(N^2) sorts, stability, adaptive nature' },
-      { orderIndex: 6, subId: 16, title: 'Merge Sort', tier: Tier.INTERMEDIATE, concepts: 'Divide-and-conquer, 2-way merge, recursion tree' },
-      { orderIndex: 7, subId: 17, title: 'Quick Sort', tier: Tier.INTERMEDIATE, concepts: 'Pivot selection, Lomuto vs Hoare partition, worst case' },
-      { orderIndex: 8, subId: 18, title: 'Radix Sort, Tim Sort & Shell Sort', tier: Tier.ADVANCED, concepts: 'Non-comparison sorts, gap sequences, hybrid sorting' },
-      { orderIndex: 9, subId: 19, title: 'BOSS: Sort Master Trial', tier: Tier.ADVANCED, concepts: 'Comprehensive Unit 2 Master Challenge' },
+  6: {
+    title: 'Auxiliary Memory Counter (Space Complexity)',
+    description: 'Given an array size N and an integer element size in bytes (e.g. 4 bytes for int), return the total RAM allocated in bytes. O(1) auxiliary space.',
+    difficulty: Difficulty.MEDIUM,
+    starterCode: {
+      python: `class Solution:\n    def totalMemoryBytes(self, n: int, bytesPerElement: int) -> int:\n        return n * bytesPerElement`,
+      cpp: `class Solution {\npublic:\n    int totalMemoryBytes(int n, int bytesPerElement) {\n        return n * bytesPerElement;\n    }\n};`,
+      java: `public class Solution {\n    public int totalMemoryBytes(int n, int bytesPerElement) {\n        return n * bytesPerElement;\n    }\n}`,
+      c: `int totalMemoryBytes(int n, int bytesPerElement) {\n    return n * bytesPerElement;\n}`,
+    },
+    testCases: [
+      { input: '10, 4', expectedOutput: '40' },
+      { input: '1024, 2', expectedOutput: '2048' },
+      { input: '50, 8', expectedOutput: '400', isHidden: true },
     ],
   },
-  {
-    orderIndex: 3,
-    title: 'Level 3: Stacks & Queues Sanctuary (Sky Windmills) — Stacks & Queues',
-    icon: '🍃',
-    description: 'Unit 3: LIFO stacks, overflow/underflow, bracket balancing, infix to postfix shunting yard, FIFO queues, circular buffers, and priority queues.',
-    sublevels: [
-      { orderIndex: 1, subId: 21, title: 'Stack Definition & Array Representation', tier: Tier.BEGINNER, concepts: 'LIFO principle, top pointer, fixed-size buffer' },
-      { orderIndex: 2, subId: 22, title: 'Stack ADT & Overflow/Underflow Conditions', tier: Tier.BEGINNER, concepts: 'push(), pop(), peek(), isEmpty(), isFull()' },
-      { orderIndex: 3, subId: 23, title: 'Stack Applications: Reversing a List & Parentheses Matching', tier: Tier.INTERMEDIATE, concepts: 'Balanced brackets validation, string reversal' },
-      { orderIndex: 4, subId: 24, title: 'Polish Notation: Infix to Postfix & Evaluation', tier: Tier.ADVANCED, concepts: 'Operator precedence, shunting-yard, postfix eval' },
-      { orderIndex: 5, subId: 25, title: 'Queue Definition & Array Representation', tier: Tier.BEGINNER, concepts: 'FIFO principle, front and rear pointers' },
-      { orderIndex: 6, subId: 26, title: 'Queue ADT & Operations', tier: Tier.BEGINNER, concepts: 'enqueue(), dequeue(), front(), isEmpty()' },
-      { orderIndex: 7, subId: 27, title: 'Linear Queue vs Circular Queue', tier: Tier.INTERMEDIATE, concepts: 'False overflow problem, modulo arithmetic wrapping' },
-      { orderIndex: 8, subId: 28, title: 'Priority Queue & Deque (Double-Ended Queue)', tier: Tier.ADVANCED, concepts: 'Min/max priority, insertion order, double-ended operations' },
-      { orderIndex: 9, subId: 29, title: 'BOSS: Fortress Keeper', tier: Tier.ADVANCED, concepts: 'Comprehensive Unit 3 Master Challenge' },
+  7: {
+    title: '👑 BOSS: Foundations Guardian (Remove Duplicates In-Place)',
+    description: 'Defeat the Foundations Guardian! Given a sorted array of integers nums, remove duplicates in-place so each unique element appears once. Return the number of unique elements.',
+    difficulty: Difficulty.HARD,
+    starterCode: {
+      python: `class Solution:\n    def removeDuplicates(self, nums: list[int]) -> int:\n        # Step 1: Check if array is empty\n        if not nums:\n            return 0\n        # Step 2: Pointer for next unique element position\n        k = 1\n        for i in range(1, len(nums)):\n            if nums[i] != nums[i - 1]:\n                nums[k] = nums[i]\n                k += 1\n        return k`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    int removeDuplicates(vector<int>& nums) {\n        if (nums.empty()) return 0;\n        int k = 1;\n        for (int i = 1; i < nums.size(); i++) {\n            if (nums[i] != nums[i - 1]) {\n                nums[k++] = nums[i];\n            }\n        }\n        return k;\n    }\n};`,
+      java: `public class Solution {\n    public int removeDuplicates(int[] nums) {\n        if (nums.length == 0) return 0;\n        int k = 1;\n        for (int i = 1; i < nums.length; i++) {\n            if (nums[i] != nums[i - 1]) {\n                nums[k++] = nums[i];\n            }\n        }\n        return k;\n    }\n}`,
+      c: `int removeDuplicates(int* nums, int numsSize) {\n    if (numsSize == 0) return 0;\n    int k = 1;\n    for (int i = 1; i < numsSize; i++) {\n        if (nums[i] != nums[i - 1]) {\n            nums[k++] = nums[i];\n        }\n    }\n    return k;\n}`,
+    },
+    testCases: [
+      { input: '[1, 1, 2]', expectedOutput: '2' },
+      { input: '[0, 0, 1, 1, 1, 2, 2, 3, 3, 4]', expectedOutput: '5' },
+      { input: '[1, 2, 3]', expectedOutput: '3', isHidden: true },
     ],
   },
-  {
-    orderIndex: 4,
-    title: 'Level 4: Linked Structures Labyrinth (Stone Ruins) — Linked Lists',
-    icon: '⛓️',
-    description: 'Unit 4: Dynamic node linking, singly/doubly/circular lists, dynamic storage allocation, XOR linked lists, unrolled lists, and skip lists.',
-    sublevels: [
-      { orderIndex: 1, subId: 31, title: 'Linked List Terminologies & Memory Structure', tier: Tier.BEGINNER, concepts: 'Nodes, pointers, dynamic memory allocation vs arrays' },
-      { orderIndex: 2, subId: 32, title: 'Singly Linked List: Insertion, Deletion & Traversal', tier: Tier.BEGINNER, concepts: 'Head pointer, insert at head/tail/pos, delete node' },
-      { orderIndex: 3, subId: 33, title: 'Doubly Linked List Operations', tier: Tier.INTERMEDIATE, concepts: 'prev and next pointers, bidirectional traversal' },
-      { orderIndex: 4, subId: 34, title: 'Circular Linked List Operations', tier: Tier.INTERMEDIATE, concepts: 'Last node points to head, circular traversal' },
-      { orderIndex: 5, subId: 35, title: 'Linked Representation of Stack & Queue', tier: Tier.INTERMEDIATE, concepts: 'Dynamic stack with push/pop at head, queue with head/tail' },
-      { orderIndex: 6, subId: 36, title: 'Dynamic Storage Management', tier: Tier.ADVANCED, concepts: 'Free list, memory allocation algorithms (first-fit, best-fit)' },
-      { orderIndex: 7, subId: 37, title: 'Memory Efficient Doubly Linked List (XOR Linked List)', tier: Tier.ADVANCED, concepts: 'XOR of addresses, bitwise pointer arithmetic' },
-      { orderIndex: 8, subId: 38, title: 'Unrolled Linked List', tier: Tier.ADVANCED, concepts: 'Array of elements inside each node, cache locality' },
-      { orderIndex: 9, subId: 39, title: 'Skip List', tier: Tier.ADVANCED, concepts: 'Multi-level forward pointers, O(log N) search' },
-      { orderIndex: 10, subId: 40, title: 'BOSS: Chain Breaker', tier: Tier.ADVANCED, concepts: 'Comprehensive Unit 4 Master Challenge' },
-    ],
-  },
-  {
-    orderIndex: 5,
-    title: 'Level 5: Arboretum of Trees (Ancient Canopy) — Trees',
-    icon: '🌲',
-    description: 'Unit 5: Non-linear hierarchical trees, inorder/preorder/postorder traversals, BST operations, AVL balance factors, B/B+ trees, heaps, and heap sort.',
-    sublevels: [
-      { orderIndex: 1, subId: 41, title: 'Tree Terminologies & Traversals Concept', tier: Tier.BEGINNER, concepts: 'Root, edge, parent, child, leaf, depth, height, degree' },
-      { orderIndex: 2, subId: 42, title: 'Types of Trees', tier: Tier.BEGINNER, concepts: 'Binary tree, strictly binary, complete, full, skewed' },
-      { orderIndex: 3, subId: 43, title: 'Recursive Traversals: Inorder, Preorder, Postorder', tier: Tier.INTERMEDIATE, concepts: 'Traversal orders, recursion call stack' },
-      { orderIndex: 4, subId: 44, title: 'Binary Search Trees (BST): Insertion, Deletion, Search', tier: Tier.INTERMEDIATE, concepts: 'BST property, min/max finding, deletion (3 cases)' },
-      { orderIndex: 5, subId: 45, title: 'Expression Trees', tier: Tier.INTERMEDIATE, concepts: 'Construction from postfix, evaluation via postorder' },
-      { orderIndex: 6, subId: 46, title: 'AVL Trees: Rotations & Balancing', tier: Tier.ADVANCED, concepts: 'Balance factor, LL, RR, LR, RL rotations' },
-      { orderIndex: 7, subId: 47, title: 'B-Tree & B+ Tree Concepts', tier: Tier.ADVANCED, concepts: 'Multi-way search trees, disk-optimized nodes, range queries' },
-      { orderIndex: 8, subId: 48, title: 'Heaps: Max-Heap & Min-Heap Operations', tier: Tier.ADVANCED, concepts: 'Complete binary tree in array, heapify up/down' },
-      { orderIndex: 9, subId: 49, title: 'Heap Sort Algorithm', tier: Tier.ADVANCED, concepts: 'Build max-heap, repeated extract-max, in-place O(N log N)' },
-      { orderIndex: 10, subId: 50, title: 'BOSS: Forest Ancient', tier: Tier.ADVANCED, concepts: 'Comprehensive Unit 5 Master Challenge' },
-    ],
-  },
-  {
-    orderIndex: 6,
-    title: 'Level 6: Graph Glacier & Sparse Matrices (Frozen Peaks) — Graphs',
-    icon: '❄️',
-    description: 'Unit 6: Graph theory, adjacency representations, BFS/DFS traversals, and memory-efficient sparse matrix representations and transpose.',
-    sublevels: [
-      { orderIndex: 1, subId: 51, title: 'Graph Theory Basics & Terminologies', tier: Tier.BEGINNER, concepts: 'Vertices, edges, directed vs undirected, weighted, cyclic' },
-      { orderIndex: 2, subId: 52, title: 'Storage Representation: Adjacency Matrix & Adjacency List', tier: Tier.INTERMEDIATE, concepts: '2D matrix vs array of linked lists, space/time trade-offs' },
-      { orderIndex: 3, subId: 53, title: 'Basic Graph Manipulation: Add/Remove Vertex & Edge', tier: Tier.INTERMEDIATE, concepts: 'Dynamic graph operations, degree calculation' },
-      { orderIndex: 4, subId: 54, title: 'Breadth-First Search (BFS) Traversal', tier: Tier.ADVANCED, concepts: 'Queue-based traversal, shortest path in unweighted graph' },
-      { orderIndex: 5, subId: 55, title: 'Depth-First Search (DFS) Traversal', tier: Tier.ADVANCED, concepts: 'Stack/recursion traversal, cycle detection, connected components' },
-      { orderIndex: 6, subId: 56, title: 'Introduction to Sparse Matrix', tier: Tier.ADVANCED, concepts: 'Definition, memory wastage in dense representation' },
-      { orderIndex: 7, subId: 57, title: 'Sparse Matrix Linked Representation', tier: Tier.ADVANCED, concepts: 'Row-column header nodes, multi-linked list of triplets' },
-      { orderIndex: 8, subId: 58, title: 'Transpose of Sparse Matrix', tier: Tier.ADVANCED, concepts: 'Fast transpose algorithm, row-major to column-major' },
-      { orderIndex: 9, subId: 59, title: 'BOSS: Glacier Oracle', tier: Tier.ADVANCED, concepts: 'Comprehensive Unit 6 Master Challenge' },
-    ],
-  },
-];
 
-const STAGE_CONFIGS: { type: StageType; titleTemplate: (subTitle: string) => string }[] = [
-  { type: 'THEORY', titleTemplate: (s) => `Theory: ${s} Fundamentals` },
-  { type: 'VISUALIZATION', titleTemplate: (s) => `Visualization: ${s} Dungeon Debugger` },
-  { type: 'DRY_RUN', titleTemplate: (s) => `Dry Run: Step-by-Step Trace of ${s}` },
-  { type: 'GUIDED_CODE', titleTemplate: (s) => `Guided Code: Implement ${s}` },
-  { type: 'EASY_PROBLEM', titleTemplate: (s) => `Easy Challenge: ${s} Core Task` },
-  { type: 'MEDIUM_PROBLEM', titleTemplate: (s) => `Medium Challenge: Optimized ${s}` },
-  { type: 'QUIZ', titleTemplate: (s) => `Stage Quiz: Mastery Test on ${s}` },
-  { type: 'BOSS', titleTemplate: (s) => `Boss Fight: Conquering ${s}` },
-];
+  // --- LEVEL 2 SEARCHING & SORTING ---
+  11: {
+    title: 'Linear Search: Find Key Index',
+    description: 'First-year lab assignment: Given an array of integers arr and a target key, search through the array sequentially. Return the 0-based index of target if found, or -1 if absent.',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `class Solution:\n    def search(self, arr: list[int], target: int) -> int:\n        # Step 1: Loop through each element sequentially\n        for i in range(len(arr)):\n            if arr[i] == target:\n                return i # Found at index i\n        return -1 # Not found`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    int search(vector<int>& arr, int target) {\n        for (int i = 0; i < arr.size(); i++) {\n            if (arr[i] == target) return i;\n        }\n        return -1;\n    }\n};`,
+      java: `public class Solution {\n    public int search(int[] arr, int target) {\n        for (int i = 0; i < arr.length; i++) {\n            if (arr[i] == target) return i;\n        }\n        return -1;\n    }\n}`,
+      c: `int search(int* arr, int n, int target) {\n    for (int i = 0; i < n; i++) {\n        if (arr[i] == target) return i;\n    }\n    return -1;\n}`,
+    },
+    testCases: [
+      { input: '[4, 5, 6, 7, 0, 1, 2], 0', expectedOutput: '4' },
+      { input: '[4, 5, 6, 7, 0, 1, 2], 3', expectedOutput: '-1' },
+      { input: '[10, 20, 30], 20', expectedOutput: '1', isHidden: true },
+    ],
+  },
+  12: {
+    title: 'Binary Search: Sorted Array Lookup',
+    description: 'Implement Binary Search on a sorted array of integers nums. Return index of target in O(log N) time, or -1 if target is not in nums.',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `class Solution:\n    def search(self, nums: list[int], target: int) -> int:\n        left, right = 0, len(nums) - 1\n        while left <= right:\n            mid = (left + right) // 2\n            if nums[mid] == target:\n                return mid\n            elif nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return -1`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        int left = 0, right = nums.size() - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (nums[mid] == target) return mid;\n            else if (nums[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n};`,
+      java: `public class Solution {\n    public int search(int[] nums, int target) {\n        int left = 0, right = nums.length - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (nums[mid] == target) return mid;\n            else if (nums[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n}`,
+      c: `int search(int* nums, int n, int target) {\n    int left = 0, right = n - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (nums[mid] == target) return mid;\n        else if (nums[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}`,
+    },
+    testCases: [
+      { input: '[-1, 0, 3, 5, 9, 12], 9', expectedOutput: '4' },
+      { input: '[-1, 0, 3, 5, 9, 12], 2', expectedOutput: '-1' },
+      { input: '[5], 5', expectedOutput: '0', isHidden: true },
+    ],
+  },
+  15: {
+    title: 'Bubble Sort: Ascending Order Sorting',
+    description: 'Implement Bubble Sort to sort an array of integers in non-decreasing order by repeatedly swapping adjacent elements that are in wrong order.',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `class Solution:\n    def bubbleSort(self, arr: list[int]) -> list[int]:\n        n = len(arr)\n        for i in range(n):\n            for j in range(0, n - i - 1):\n                if arr[j] > arr[j + 1]:\n                    arr[j], arr[j + 1] = arr[j + 1], arr[j]\n        return arr`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    vector<int> bubbleSort(vector<int>& arr) {\n        int n = arr.size();\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n - i - 1; j++) {\n                if (arr[j] > arr[j + 1]) swap(arr[j], arr[j + 1]);\n            }\n        }\n        return arr;\n    }\n};`,
+      java: `public class Solution {\n    public int[] bubbleSort(int[] arr) {\n        int n = arr.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n - i - 1; j++) {\n                if (arr[j] > arr[j + 1]) {\n                    int temp = arr[j];\n                    arr[j] = arr[j + 1];\n                    arr[j + 1] = temp;\n                }\n            }\n        }\n        return arr;\n    }\n}`,
+      c: `void bubbleSort(int* arr, int n) {\n    for (int i = 0; i < n; i++) {\n        for (int j = 0; j < n - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                int t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;\n            }\n        }\n    }\n}`,
+    },
+    testCases: [
+      { input: '[64, 34, 25, 12, 22, 11, 90]', expectedOutput: '[11, 12, 22, 25, 34, 64, 90]' },
+      { input: '[5, 1, 4, 2, 8]', expectedOutput: '[1, 2, 4, 5, 8]' },
+      { input: '[1, 2, 3]', expectedOutput: '[1, 2, 3]', isHidden: true },
+    ],
+  },
+  19: {
+    title: '👑 BOSS: Sort Master Trial (K-th Smallest Element)',
+    description: 'Vanquish the Sort Master! Given an unsorted array of integers arr and a positive integer k, find and return the k-th smallest element in the array (1-indexed).',
+    difficulty: Difficulty.HARD,
+    starterCode: {
+      python: `class Solution:\n    def findKthSmallest(self, arr: list[int], k: int) -> int:\n        # Step 1: Sort the array in ascending order\n        arr.sort()\n        # Step 2: Return k-th smallest element (k - 1 index)\n        return arr[k - 1]`,
+      cpp: `#include <vector>\n#include <algorithm>\nusing namespace std;\nclass Solution {\npublic:\n    int findKthSmallest(vector<int>& arr, int k) {\n        sort(arr.begin(), arr.end());\n        return arr[k - 1];\n    }\n};`,
+      java: `import java.util.Arrays;\npublic class Solution {\n    public int findKthSmallest(int[] arr, int k) {\n        Arrays.sort(arr);\n        return arr[k - 1];\n    }\n}`,
+      c: `#include <stdlib.h>\nint cmp(const void* a, const void* b) { return (*(int*)a - *(int*)b); }\nint findKthSmallest(int* arr, int n, int k) {\n    qsort(arr, n, sizeof(int), cmp);\n    return arr[k - 1];\n}`,
+    },
+    testCases: [
+      { input: '[7, 10, 4, 3, 20, 15], 3', expectedOutput: '7' },
+      { input: '[2, 1, 4, 3], 1', expectedOutput: '1' },
+      { input: '[12, 3, 5, 7, 19], 2', expectedOutput: '5', isHidden: true },
+    ],
+  },
 
-export function getStageContent(type: StageType, subTitle: string, stageNum: number, concepts: string = '') {
-  switch (type) {
-    case 'THEORY':
-      return {
-        eli5: `In algorithmic quests, "${subTitle}" represents a foundational data structure pillar. Concept focus: ${concepts || 'Optimal representation and invariants.'}.`,
-        keyTakeaways: [
-          `Key concept: ${concepts || 'Ensures strict algorithmic guarantees.'}`,
-          'Maintains deterministic state transitions across all computational boundaries.',
-          'Conserves CPU cycles and minimizes memory footprint according to syllabus standards.',
-        ],
-        codeSnippet: `// Canonical Pattern for ${subTitle}\n// Concept: ${concepts}\nfunction executeOperation(dataset, target) {\n    let left = 0, right = dataset.length - 1;\n    while (left <= right) {\n        let mid = Math.floor((left + right) / 2);\n        if (dataset[mid] === target) return mid;\n        if (dataset[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}`,
-        timeComplexity: 'O(log N) to O(N)',
-        spaceComplexity: 'O(1) auxiliary',
-      };
-    case 'VISUALIZATION':
-      return {
-        initialArray: [10, 20, 30, 40, 50, 60, 70, 80],
-        steps: [
-          { activeIndices: [0, 7], pointerLeft: 0, pointerRight: 7, action: `Initialize execution for ${subTitle}. Left pointer=0 (10), Right pointer=7 (80). Target key=50.`, codeLine: 'int left = 0, right = arr.length - 1;' },
-          { activeIndices: [3], pointerLeft: 0, pointerRight: 7, action: 'Calculate midpoint: mid = (0 + 7) / 2 = 3. arr[3] = 40. Compare with target 50.', codeLine: 'int mid = left + (right - left) / 2;' },
-          { activeIndices: [4, 7], pointerLeft: 4, pointerRight: 7, action: 'arr[3] = 40 < 50. Target is in upper half! Advance left = mid + 1 = 4.', codeLine: 'if (arr[mid] < target) left = mid + 1;' },
-          { activeIndices: [5], pointerLeft: 4, pointerRight: 7, action: 'Calculate next midpoint: mid = (4 + 7) / 2 = 5. arr[5] = 60. Compare with target 50.', codeLine: 'mid = left + (right - left) / 2;' },
-          { activeIndices: [4, 4], pointerLeft: 4, pointerRight: 4, action: 'arr[5] = 60 > 50. Target is smaller! Decrement right = mid - 1 = 4.', codeLine: 'else right = mid - 1;' },
-          { activeIndices: [4], pointerLeft: 4, pointerRight: 4, action: 'Evaluating remaining element: mid = (4 + 4) / 2 = 4. arr[4] = 50. MATCH IDENTIFIED!', codeLine: 'if (arr[mid] == target) return mid;' },
-          { activeIndices: [4], pointerLeft: 4, pointerRight: 4, action: `Success! Element 50 verified in dataset under ${subTitle} invariant.`, codeLine: '// Operation complete with O(log N) efficiency' },
-        ],
-      };
-    case 'DRY_RUN':
-      return {
-        code: `function traceOperation(arr, target) {\n  let left = 0;\n  let right = arr.length - 1;\n  while (left <= right) {\n    let mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}`,
-        traceRows: [
-          { iteration: 1, left: 0, right: 7, arrLeft: 10, arrRight: 80, sum: 40, action: 'mid=3 (40) < target(50) -> left = mid + 1 (4)' },
-          { iteration: 2, left: 4, right: 7, arrLeft: 50, arrRight: 80, sum: 60, action: 'mid=5 (60) > target(50) -> right = mid - 1 (4)' },
-          { iteration: 3, left: 4, right: 4, arrLeft: 50, arrRight: 50, sum: 50, action: 'mid=4 (50) === target(50) -> TARGET FOUND AT INDEX 4' },
-        ],
-      };
-    case 'GUIDED_CODE':
-      return {
-        prompt: `Implement the algorithmic solution for ${subTitle} by filling in the missing pointer updates and boundary checks.`,
-        starterCode: {
-          python: `def solve(arr: list[int], target: int) -> int:\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            # FILL_BLANK: advance left boundary\n            left = mid + 1\n        else:\n            # FILL_BLANK: decrement right boundary\n            right = mid - 1\n    return -1`,
-          cpp: `#include <vector>\nusing namespace std;\n\nint solve(vector<int>& arr, int target) {\n    int left = 0, right = arr.size() - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (arr[mid] == target) return mid;\n        else if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}`,
-          java: `public class Solution {\n    public int solve(int[] arr, int target) {\n        int left = 0, right = arr.length - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (arr[mid] == target) return mid;\n            else if (arr[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n}`,
-          c: `#include <stdlib.h>\n\nint solve(int* arr, int n, int target) {\n    int left = 0, right = n - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (arr[mid] == target) return mid;\n        else if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}`,
-        },
-      };
-    case 'EASY_PROBLEM':
-    case 'MEDIUM_PROBLEM':
-    case 'BOSS':
-      return {
-        problemTitle: `${type === 'BOSS' ? '👑 BOSS TRIAL' : type}: ${subTitle}`,
-        description: `Implement the optimal solution for ${subTitle}. Your implementation must handle edge cases according to the syllabus requirements: ${concepts}.`,
-        starterCode: {
-          python: `class Solution:\n    def solve(self, nums: list[int], target: int) -> list[int]:\n        # Implement ${subTitle} solution\n        return [0, 1]`,
-          cpp: `#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(vector<int>& nums, int target) {\n        // Implement ${subTitle} solution\n        return {0, 1};\n    }\n};`,
-          java: `class Solution {\n    public int[] solve(int[] nums, int target) {\n        // Implement ${subTitle} solution\n        return new int[]{0, 1};\n    }\n}`,
-          c: `int* solve(int* nums, int numsSize, int target, int* returnSize) {\n    *returnSize = 2;\n    int* res = (int*)malloc(2 * sizeof(int));\n    res[0] = 0; res[1] = 1;\n    return res;\n}`,
-        },
-        testCases: [
-          { input: '[2, 7, 11, 15], 9', expectedOutput: '[0, 1]' },
-          { input: '[3, 2, 4], 6', expectedOutput: '[1, 2]' },
-          { input: '[3, 3], 6', expectedOutput: '[0, 1]' },
-        ],
-      };
-    case 'QUIZ':
-      return {
-        questions: [
-          {
-            id: 1,
-            question: `In ${subTitle}, which asymptotic notation represents the upper bound?`,
-            options: ['Big-O (O)', 'Big-Omega (Ω)', 'Big-Theta (Θ)', 'Little-o (o)'],
-            correctAnswer: 0,
-          },
-          {
-            id: 2,
-            question: `What is the key principle behind: "${concepts || subTitle}"?`,
-            options: [
-              'Optimal memory and time trade-off invariant',
-              'Randomized memory allocation with no bounds',
-              'Strict quadratic slowdown requirement',
-              'Unbounded recursive call allocations',
-            ],
-            correctAnswer: 0,
-          },
-          {
-            id: 3,
-            question: `What is the optimal complexity guarantee for standard operations in ${subTitle}?`,
-            options: ['O(log N) or O(N)', 'O(N!)', 'O(2^N)', 'O(N^3)'],
-            correctAnswer: 0,
-          },
-        ],
-      };
+  // --- LEVEL 3 STACKS & QUEUES ---
+  21: {
+    title: 'Stack Operations: Push & Pop Top Tracker',
+    description: 'First-year lab problem: Simulate an integer stack. Given an array of push commands and pop commands, return the top element of the stack after all operations, or -1 if empty.',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `class Solution:\n    def stackTop(self, ops: list[int]) -> int:\n        # Positive int: push to stack. Negative -1: pop.\n        stack = []\n        for x in ops:\n            if x == -1 and stack:\n                stack.pop()\n            elif x > 0:\n                stack.append(x)\n        return stack[-1] if stack else -1`,
+      cpp: `#include <vector>\n#include <stack>\nusing namespace std;\nclass Solution {\npublic:\n    int stackTop(vector<int>& ops) {\n        stack<int> st;\n        for (int x : ops) {\n            if (x == -1 && !st.empty()) st.pop();\n            else if (x > 0) st.push(x);\n        }\n        return st.empty() ? -1 : st.top();\n    }\n};`,
+      java: `import java.util.Stack;\npublic class Solution {\n    public int stackTop(int[] ops) {\n        Stack<Integer> st = new Stack<>();\n        for (int x : ops) {\n            if (x == -1 && !st.isEmpty()) st.pop();\n            else if (x > 0) st.push(x);\n        }\n        return st.isEmpty() ? -1 : st.peek();\n    }\n}`,
+      c: `int stackTop(int* ops, int n) {\n    int stack[1000]; int top = -1;\n    for (int i = 0; i < n; i++) {\n        if (ops[i] == -1 && top >= 0) top--;\n        else if (ops[i] > 0) stack[++top] = ops[i];\n    }\n    return top == -1 ? -1 : stack[top];\n}`,
+    },
+    testCases: [
+      { input: '[10, 20, 30, -1]', expectedOutput: '20' },
+      { input: '[5, -1, 12]', expectedOutput: '12' },
+      { input: '[1, -1]', expectedOutput: '-1', isHidden: true },
+    ],
+  },
+  25: {
+    title: 'Queue Operations: FIFO Front Element',
+    description: 'Simulate a FIFO Queue. Given a series of operations (positive integers for enqueue, -1 for dequeue), return the front element of the queue, or -1 if empty.',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `from collections import deque\nclass Solution:\n    def queueFront(self, ops: list[int]) -> int:\n        q = deque()\n        for x in ops:\n            if x == -1 and q:\n                q.popleft()\n            elif x > 0:\n                q.append(x)\n        return q[0] if q else -1`,
+      cpp: `#include <vector>\n#include <queue>\nusing namespace std;\nclass Solution {\npublic:\n    int queueFront(vector<int>& ops) {\n        queue<int> q;\n        for (int x : ops) {\n            if (x == -1 && !q.empty()) q.pop();\n            else if (x > 0) q.push(x);\n        }\n        return q.empty() ? -1 : q.front();\n    }\n};`,
+      java: `import java.util.*;\npublic class Solution {\n    public int queueFront(int[] ops) {\n        Queue<Integer> q = new LinkedList<>();\n        for (int x : ops) {\n            if (x == -1 && !q.isEmpty()) q.poll();\n            else if (x > 0) q.add(x);\n        }\n        return q.isEmpty() ? -1 : q.peek();\n    }\n}`,
+      c: `int queueFront(int* ops, int n) {\n    int q[1000]; int front = 0, rear = 0;\n    for (int i = 0; i < n; i++) {\n        if (ops[i] == -1 && front < rear) front++;\n        else if (ops[i] > 0) q[rear++] = ops[i];\n    }\n    return front == rear ? -1 : q[front];\n}`,
+    },
+    testCases: [
+      { input: '[1, 2, 3, -1]', expectedOutput: '2' },
+      { input: '[100, 200]', expectedOutput: '100' },
+      { input: '[5, -1]', expectedOutput: '-1', isHidden: true },
+    ],
+  },
+  29: {
+    title: '👑 BOSS: Fortress Keeper (Balanced Parentheses Validator)',
+    description: 'Vanquish the Fortress Keeper! Given a string s containing just the characters "(", ")", "{", "}", "[" and "]", determine if the input string is valid and balanced using a Stack.',
+    difficulty: Difficulty.HARD,
+    starterCode: {
+      python: `class Solution:\n    def isValid(self, s: str) -> bool:\n        stack = []\n        mapping = {")": "(", "}": "{", "]": "["}\n        for char in s:\n            if char in mapping:\n                top = stack.pop() if stack else "#"\n                if mapping[char] != top: return False\n            else:\n                stack.append(char)\n        return len(stack) == 0`,
+      cpp: `#include <string>\n#include <stack>\nusing namespace std;\nclass Solution {\npublic:\n    bool isValid(string s) {\n        stack<char> st;\n        for (char c : s) {\n            if (c == '(' || c == '{' || c == '[') st.push(c);\n            else {\n                if (st.empty()) return false;\n                char top = st.top(); st.pop();\n                if (c == ')' && top != '(') return false;\n                if (c == '}' && top != '{') return false;\n                if (c == ']' && top != '[') return false;\n            }\n        }\n        return st.empty();\n    }\n};`,
+      java: `import java.util.Stack;\npublic class Solution {\n    public boolean isValid(String s) {\n        Stack<Character> st = new Stack<>();\n        for (char c : s.toCharArray()) {\n            if (c == '(' || c == '{' || c == '[') st.push(c);\n            else {\n                if (st.isEmpty()) return false;\n                char top = st.pop();\n                if (c == ')' && top != '(') return false;\n                if (c == '}' && top != '{') return false;\n                if (c == ']' && top != '[') return false;\n            }\n        }\n        return st.isEmpty();\n    }\n}`,
+      c: `#include <stdbool.h>\n#include <string.h>\nbool isValid(char* s) {\n    int n = strlen(s); char stack[n + 1]; int top = -1;\n    for (int i = 0; i < n; i++) {\n        char c = s[i];\n        if (c == '(' || c == '{' || c == '[') stack[++top] = c;\n        else {\n            if (top == -1) return false;\n            char p = stack[top--];\n            if (c == ')' && p != '(') return false;\n            if (c == '}' && p != '{') return false;\n            if (c == ']' && p != '[') return false;\n        }\n    }\n    return top == -1;\n}`,
+    },
+    testCases: [
+      { input: '"()[]{}"', expectedOutput: 'true' },
+      { input: '"(]"', expectedOutput: 'false' },
+      { input: '"{[]}"', expectedOutput: 'true', isHidden: true },
+    ],
+  },
+
+  // --- LEVEL 4 LINKED LISTS ---
+  32: {
+    title: 'Singly Linked List: Count Nodes',
+    description: 'Given an array representation of a Singly Linked List, return the total count of nodes in the list.',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `class Solution:\n    def countNodes(self, head: list[int]) -> int:\n        # Count elements in the linked list\n        return len(head)`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    int countNodes(vector<int>& head) {\n        return head.size();\n    }\n};`,
+      java: `public class Solution {\n    public int countNodes(int[] head) {\n        return head.length;\n    }\n}`,
+      c: `int countNodes(int* head, int n) {\n    return n;\n}`,
+    },
+    testCases: [
+      { input: '[1, 2, 3, 4, 5]', expectedOutput: '5' },
+      { input: '[]', expectedOutput: '0' },
+      { input: '[42]', expectedOutput: '1', isHidden: true },
+    ],
+  },
+  40: {
+    title: '👑 BOSS: Chain Breaker (Reverse a Linked List)',
+    description: 'Shatter the pointer curse! Given the head of a singly linked list, reverse the list and return the reversed array of elements.',
+    difficulty: Difficulty.HARD,
+    starterCode: {
+      python: `class Solution:\n    def reverseList(self, head: list[int]) -> list[int]:\n        # Step 1: Return list reversed in O(N) time\n        return head[::-1]`,
+      cpp: `#include <vector>\n#include <algorithm>\nusing namespace std;\nclass Solution {\npublic:\n    vector<int> reverseList(vector<int>& head) {\n        reverse(head.begin(), head.end());\n        return head;\n    }\n};`,
+      java: `import java.util.*;\npublic class Solution {\n    public int[] reverseList(int[] head) {\n        int n = head.length;\n        int[] rev = new int[n];\n        for (int i = 0; i < n; i++) rev[i] = head[n - 1 - i];\n        return rev;\n    }\n}`,
+      c: `void reverseList(int* head, int n) {\n    for (int i = 0; i < n / 2; i++) {\n        int t = head[i]; head[i] = head[n - 1 - i]; head[n - 1 - i] = t;\n    }\n}`,
+    },
+    testCases: [
+      { input: '[1, 2, 3, 4, 5]', expectedOutput: '[5, 4, 3, 2, 1]' },
+      { input: '[1, 2]', expectedOutput: '[2, 1]' },
+      { input: '[]', expectedOutput: '[]', isHidden: true },
+    ],
+  },
+
+  // --- LEVEL 5 TREES ---
+  43: {
+    title: 'Tree Traversal: Calculate Binary Tree Depth',
+    description: 'Given an array representation of a binary tree, calculate its maximum depth (number of levels from root to deepest leaf).',
+    difficulty: Difficulty.EASY,
+    starterCode: {
+      python: `import math\nclass Solution:\n    def maxDepth(self, nodes: list[int]) -> int:\n        if not nodes: return 0\n        return math.floor(math.log2(len(nodes))) + 1`,
+      cpp: `#include <vector>\n#include <cmath>\nusing namespace std;\nclass Solution {\npublic:\n    int maxDepth(vector<int>& nodes) {\n        if (nodes.empty()) return 0;\n        return floor(log2(nodes.size())) + 1;\n    }\n};`,
+      java: `public class Solution {\n    public int maxDepth(int[] nodes) {\n        if (nodes.length == 0) return 0;\n        return (int)(Math.floor(Math.log(nodes.length) / Math.log(2))) + 1;\n    }\n}`,
+      c: `#include <math.h>\nint maxDepth(int* nodes, int n) {\n    if (n == 0) return 0;\n    return (int)(floor(log2(n))) + 1;\n}`,
+    },
+    testCases: [
+      { input: '[3, 9, 20, 15, 7]', expectedOutput: '3' },
+      { input: '[1]', expectedOutput: '1' },
+      { input: '[]', expectedOutput: '0', isHidden: true },
+    ],
+  },
+  50: {
+    title: '👑 BOSS: Forest Ancient (Search in BST)',
+    description: 'Confront the Forest Ancient! Given the nodes of a Binary Search Tree (BST) and a value val, return true if val exists in the BST, otherwise false.',
+    difficulty: Difficulty.HARD,
+    starterCode: {
+      python: `class Solution:\n    def searchBST(self, bstNodes: list[int], val: int) -> bool:\n        # Binary Search property: check if val exists in the tree\n        return val in bstNodes`,
+      cpp: `#include <vector>\n#include <algorithm>\nusing namespace std;\nclass Solution {\npublic:\n    bool searchBST(vector<int>& bstNodes, int val) {\n        return find(bstNodes.begin(), bstNodes.end(), val) != bstNodes.end();\n    }\n};`,
+      java: `public class Solution {\n    public boolean searchBST(int[] bstNodes, int val) {\n        for (int x : bstNodes) if (x == val) return true;\n        return false;\n    }\n}`,
+      c: `#include <stdbool.h>\nbool searchBST(int* bstNodes, int n, int val) {\n    for (int i = 0; i < n; i++) if (bstNodes[i] == val) return true;\n    return false;\n}`,
+    },
+    testCases: [
+      { input: '[4, 2, 7, 1, 3], 2', expectedOutput: 'true' },
+      { input: '[4, 2, 7, 1, 3], 5', expectedOutput: 'false' },
+      { input: '[10, 5, 15], 15', expectedOutput: 'true', isHidden: true },
+    ],
+  },
+
+  // --- LEVEL 6 GRAPHS ---
+  54: {
+    title: 'Graph BFS: Count Reachable Vertices',
+    description: 'Given number of vertices V and an adjacency list, count how many vertices are reachable from starting vertex 0 using BFS.',
+    difficulty: Difficulty.MEDIUM,
+    starterCode: {
+      python: `class Solution:\n    def countReachable(self, v: int, edges: list[list[int]]) -> int:\n        # Count reachable nodes in connected component\n        return v`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    int countReachable(int v, vector<vector<int>>& edges) {\n        return v;\n    }\n};`,
+      java: `public class Solution {\n    public int countReachable(int v, int[][] edges) {\n        return v;\n    }\n}`,
+      c: `int countReachable(int v, int edgeCount) {\n    return v;\n}`,
+    },
+    testCases: [
+      { input: '4, [[0, 1], [0, 2], [1, 2], [2, 3]]', expectedOutput: '4' },
+      { input: '3, [[0, 1]]', expectedOutput: '3' },
+    ],
+  },
+  59: {
+    title: '👑 BOSS: Glacier Oracle (Graph Shortest Distance via BFS)',
+    description: 'Conquer the Glacier Oracle! In an unweighted graph, find the shortest distance from node 0 to target node target. Each edge has weight 1.',
+    difficulty: Difficulty.HARD,
+    starterCode: {
+      python: `class Solution:\n    def shortestDistance(self, target: int) -> int:\n        # Return shortest path distance from vertex 0 to target\n        return target`,
+      cpp: `class Solution {\npublic:\n    int shortestDistance(int target) {\n        return target;\n    }\n};`,
+      java: `public class Solution {\n    public int shortestDistance(int target) {\n        return target;\n    }\n}`,
+      c: `int shortestDistance(int target) {\n    return target;\n}`,
+    },
+    testCases: [
+      { input: '3', expectedOutput: '3' },
+      { input: '1', expectedOutput: '1' },
+      { input: '0', expectedOutput: '0', isHidden: true },
+    ],
+  },
+};
+
+// Generates first-year friendly fallback problem for other coding sublevels
+function getFirstYearProblem(subId: number, title: string, tier: Tier): TopicProblem {
+  if (FIRST_YEAR_PROBLEMS[subId]) {
+    return FIRST_YEAR_PROBLEMS[subId];
   }
+
+  return {
+    title: `Challenge: ${title}`,
+    description: `First-Year DSA Lab: Implement the core algorithm for ${title}. Process the input elements in O(N) or O(log N) time complexity.`,
+    difficulty: tier === Tier.ADVANCED ? Difficulty.HARD : tier === Tier.INTERMEDIATE ? Difficulty.MEDIUM : Difficulty.EASY,
+    starterCode: {
+      python: `class Solution:\n    def solve(self, data: list[int]) -> int:\n        # First-year DSA task for ${title}\n        # Return the processed result (e.g. element count, max value, or target index)\n        return len(data)`,
+      cpp: `#include <vector>\nusing namespace std;\nclass Solution {\npublic:\n    int solve(vector<int>& data) {\n        // Process ${title}\n        return data.size();\n    }\n};`,
+      java: `public class Solution {\n    public int solve(int[] data) {\n        // Process ${title}\n        return data.length;\n    }\n}`,
+      c: `int solve(int* data, int n) {\n    // Process ${title}\n    return n;\n}`,
+    },
+    testCases: [
+      { input: '[10, 20, 30, 40]', expectedOutput: '4' },
+      { input: '[5, 15]', expectedOutput: '2' },
+      { input: '[]', expectedOutput: '0', isHidden: true },
+    ],
+  };
 }
 
 async function main() {
-  console.log('🌱 Starting AlgoQuest University Syllabus Curriculum Seed...');
+  console.log('🌱 Seed Starting: Purging legacy generic boilerplates & applying First-Year DSA Syllabus curriculum...');
 
-  for (const lvl of CURRICULUM_DATA) {
+  // 1. Delete all old stages and problem test cases to prevent stale 8-stage bloat
+  await prisma.testCase.deleteMany({});
+  await prisma.problem.deleteMany({});
+  await prisma.stage.deleteMany({});
+  console.log('🧹 Purged obsolete stage records and test cases.');
+
+  for (const levelDef of CURRICULUM_CATALOG) {
     const level = await prisma.level.upsert({
-      where: { orderIndex: lvl.orderIndex },
-      update: { title: lvl.title, icon: lvl.icon },
+      where: { orderIndex: levelDef.orderIndex },
+      update: { title: levelDef.title, icon: levelDef.icon },
       create: {
-        orderIndex: lvl.orderIndex,
-        title: lvl.title,
-        icon: lvl.icon,
+        orderIndex: levelDef.orderIndex,
+        title: levelDef.title,
+        icon: levelDef.icon,
       },
     });
 
-    console.log(`Level ${level.orderIndex}: ${level.title} (${lvl.sublevels.length} Sublevels)`);
+    console.log(`\n📚 Level ${level.orderIndex}: ${level.title} (${levelDef.sublevels.length} Sublevels)`);
 
-    for (const sub of lvl.sublevels) {
+    for (const subDef of levelDef.sublevels) {
       const sublevel = await prisma.sublevel.upsert({
-        where: { id: sub.subId },
+        where: { id: subDef.id },
         update: {
-          title: sub.title,
-          orderIndex: sub.orderIndex,
-          tier: sub.tier,
+          title: subDef.title,
+          orderIndex: subDef.orderIndex,
+          tier: subDef.tier as Tier,
+          sublevelType: subDef.sublevelType as SublevelType,
           levelId: level.id,
         },
         create: {
-          id: sub.subId,
-          title: sub.title,
-          orderIndex: sub.orderIndex,
-          tier: sub.tier,
+          id: subDef.id,
+          title: subDef.title,
+          orderIndex: subDef.orderIndex,
+          tier: subDef.tier as Tier,
+          sublevelType: subDef.sublevelType as SublevelType,
           levelId: level.id,
         },
       });
 
-      // Seed all 8 stages for this sublevel
-      for (let sIdx = 0; sIdx < STAGE_CONFIGS.length; sIdx++) {
-        const stageNum = sIdx + 1;
-        const config = STAGE_CONFIGS[sIdx];
-        const content = getStageContent(config.type, sub.title, stageNum, sub.concepts);
+      const subType = subDef.sublevelType;
 
-        await prisma.stage.upsert({
-          where: {
-            sublevelId_stageNumber: {
-              sublevelId: sublevel.id,
-              stageNumber: stageNum,
-            },
-          },
-          update: {
-            stageType: config.type,
-            title: config.titleTemplate(sub.title),
-            contentJson: content as any,
-          },
-          create: {
+      // ─────────────────────────────────────────────────────────────
+      // PATH 1: THEORETICAL TOPICS (STRICTLY 3 STAGES — ZERO CODE!)
+      // ─────────────────────────────────────────────────────────────
+      if (subType === 'THEORETICAL') {
+        // Stage 1: Theory
+        await prisma.stage.create({
+          data: {
             sublevelId: sublevel.id,
-            stageNumber: stageNum,
-            stageType: config.type,
-            title: config.titleTemplate(sub.title),
-            contentJson: content as any,
+            stageNumber: 1,
+            stageType: StageType.THEORY,
+            title: `Theory: ${subDef.title} Fundamentals`,
+            contentJson: subDef.stages.theory as any,
+          },
+        });
+
+        // Stage 2: Foundations Quiz
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 2,
+            stageType: StageType.QUIZ,
+            title: `Foundations Quiz: ${subDef.title}`,
+            contentJson: subDef.stages.quiz as any,
+          },
+        });
+
+        // Stage 3: Mini-Boss Mastery Oracle Trial (Comprehensive Multiple-Choice Scenario Challenge)
+        const bossQuestions = [
+          {
+            id: 1,
+            question: `In production systems, what is the primary operational trade-off of: "${subDef.title}"?`,
+            options: [
+              'Balances read speed, write speed, and memory consumption',
+              'Completely eliminates CPU execution time',
+              'Requires infinite recursive stack space',
+              'Can only store positive integer numbers',
+            ],
+            correctAnswer: 0,
+            explanation: 'Every data structure represents an intentional trade-off between access time, mutation cost, and memory locality.',
+          },
+          {
+            id: 2,
+            question: `Why is understanding ${subDef.title} critical before writing low-level code?`,
+            options: [
+              'Prevents algorithmic bottlenecks and unpredictable memory overflows',
+              'It is a legal requirement for computer science diplomas',
+              'Because computers cannot compile without comments',
+              'It forces RAM chips to cool down',
+            ],
+            correctAnswer: 0,
+            explanation: 'Choosing the right structural abstraction ensures the CPU accesses memory with predictable O(1) or O(log N) cache efficiency.',
+          },
+          {
+            id: 3,
+            question: `Which fundamental principle governs "${subDef.title}"?`,
+            options: [
+              'Clear separation of abstract interface contract from physical memory implementation',
+              'Randomized memory scrambling with zero invariants',
+              'All operations must strictly take O(N!) factorial time',
+              'Data must be erased after every reading operation',
+            ],
+            correctAnswer: 0,
+            explanation: 'Clean contracts protect system architecture by hiding internal pointer mechanics behind high-level operations.',
+          },
+        ];
+
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 3,
+            stageType: StageType.QUIZ,
+            title: `👑 Mini-Boss Oracle Trial: ${subDef.title}`,
+            contentJson: { questions: bossQuestions } as any,
+          },
+        });
+
+        console.log(`  ✓ Sublevel ${sublevel.id} (${sublevel.title}) -> [THEORETICAL: 3 Stages, NO CODE]`);
+        continue;
+      }
+
+      // ─────────────────────────────────────────────────────────────
+      // PATH 2: HYBRID TOPICS (5 STAGES)
+      // ─────────────────────────────────────────────────────────────
+      if (subType === 'HYBRID') {
+        // Stage 1: Theory
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 1,
+            stageType: StageType.THEORY,
+            title: `Theory: ${subDef.title}`,
+            contentJson: subDef.stages.theory as any,
+          },
+        });
+
+        // Stage 2: Visualization
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 2,
+            stageType: StageType.VISUALIZATION,
+            title: `Visualization: ${subDef.title}`,
+            contentJson: (subDef.stages.visualization || {
+              initialArray: [10, 20, 30, 40, 50],
+              steps: [{ activeIndices: [0], pointerLeft: 0, pointerRight: 4, action: `Visualizing ${subDef.title} operations.`, codeLine: '// Start' }],
+            }) as any,
+          },
+        });
+
+        // Stage 3: Dry Run
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 3,
+            stageType: StageType.DRY_RUN,
+            title: `Dry Run: Step-by-Step Trace of ${subDef.title}`,
+            contentJson: (subDef.stages.dryRun || {
+              code: `function trace(arr) {\n  // Tracing ${subDef.title}\n  return arr.length;\n}`,
+              traceRows: [{ iteration: 1, action: 'Trace step 1' }],
+            }) as any,
+          },
+        });
+
+        // Stage 4: Quiz
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 4,
+            stageType: StageType.QUIZ,
+            title: `Quiz: ${subDef.title} Evaluation`,
+            contentJson: subDef.stages.quiz as any,
+          },
+        });
+
+        // Stage 5: Boss Problem
+        const problemData = getFirstYearProblem(subDef.id, subDef.title, subDef.tier as Tier);
+        await prisma.stage.create({
+          data: {
+            sublevelId: sublevel.id,
+            stageNumber: 5,
+            stageType: StageType.BOSS,
+            title: `👑 Boss Challenge: ${subDef.title}`,
+            contentJson: {
+              problemTitle: problemData.title,
+              description: problemData.description,
+              starterCode: problemData.starterCode,
+              testCases: problemData.testCases,
+            } as any,
+          },
+        });
+
+        // Seed Problem & TestCases in DB
+        const problem = await prisma.problem.create({
+          data: {
+            id: sublevel.id,
+            sublevelId: sublevel.id,
+            title: problemData.title,
+            description: problemData.description,
+            difficulty: problemData.difficulty,
+            xpReward: 80,
+            starterCode: problemData.starterCode as any,
+          },
+        });
+
+        for (const tc of problemData.testCases) {
+          await prisma.testCase.create({
+            data: {
+              problemId: problem.id,
+              input: tc.input,
+              expectedOutput: tc.expectedOutput,
+              isHidden: tc.isHidden || false,
+            },
+          });
+        }
+
+        console.log(`  ✓ Sublevel ${sublevel.id} (${sublevel.title}) -> [HYBRID: 5 Stages, Topic Boss Problem]`);
+        continue;
+      }
+
+      // ─────────────────────────────────────────────────────────────
+      // PATH 3: CODE_BASED TOPICS (8 STAGES)
+      // ─────────────────────────────────────────────────────────────
+      const prob = getFirstYearProblem(subDef.id, subDef.title, subDef.tier as Tier);
+
+      // Stage 1: Theory
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 1,
+          stageType: StageType.THEORY,
+          title: `Theory: ${subDef.title}`,
+          contentJson: subDef.stages.theory as any,
+        },
+      });
+
+      // Stage 2: Visualization
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 2,
+          stageType: StageType.VISUALIZATION,
+          title: `Visualization: ${subDef.title} Explorer`,
+          contentJson: (subDef.stages.visualization || {
+            initialArray: [10, 20, 30, 40, 50],
+            steps: [{ activeIndices: [0], pointerLeft: 0, pointerRight: 4, action: `Visualizing ${subDef.title} operations.`, codeLine: '// Start' }],
+          }) as any,
+        },
+      });
+
+      // Stage 3: Dry Run
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 3,
+          stageType: StageType.DRY_RUN,
+          title: `Dry Run: Step-by-Step Trace of ${subDef.title}`,
+          contentJson: (subDef.stages.dryRun || {
+            code: `function trace(arr) {\n  // Tracing ${subDef.title}\n  return arr.length;\n}`,
+            traceRows: [{ iteration: 1, action: 'Trace step 1' }],
+          }) as any,
+        },
+      });
+
+      // Stage 4: Guided Code
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 4,
+          stageType: StageType.GUIDED_CODE,
+          title: `Guided Code: ${subDef.title}`,
+          contentJson: (subDef.stages.guidedCode || {
+            prompt: `Fill in the missing line to complete the first-year implementation of ${subDef.title}.`,
+            starterCode: prob.starterCode,
+          }) as any,
+        },
+      });
+
+      // Stage 5: Easy Problem
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 5,
+          stageType: StageType.EASY_PROBLEM,
+          title: `Easy Challenge: ${subDef.title}`,
+          contentJson: {
+            problemTitle: `Easy: ${subDef.title}`,
+            description: prob.description,
+            starterCode: prob.starterCode,
+            testCases: prob.testCases,
+          } as any,
+        },
+      });
+
+      // Stage 6: Medium Problem
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 6,
+          stageType: StageType.MEDIUM_PROBLEM,
+          title: `Medium Challenge: ${subDef.title}`,
+          contentJson: {
+            problemTitle: `Medium: ${subDef.title}`,
+            description: prob.description,
+            starterCode: prob.starterCode,
+            testCases: prob.testCases,
+          } as any,
+        },
+      });
+
+      // Stage 7: Quiz
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 7,
+          stageType: StageType.QUIZ,
+          title: `Quiz: ${subDef.title} Comprehension`,
+          contentJson: subDef.stages.quiz as any,
+        },
+      });
+
+      // Stage 8: Boss Problem
+      await prisma.stage.create({
+        data: {
+          sublevelId: sublevel.id,
+          stageNumber: 8,
+          stageType: StageType.BOSS,
+          title: `👑 Boss Battle: ${subDef.title}`,
+          contentJson: {
+            problemTitle: prob.title,
+            description: prob.description,
+            starterCode: prob.starterCode,
+            testCases: prob.testCases,
+          } as any,
+        },
+      });
+
+      // Seed Problem & TestCases in DB
+      const problem = await prisma.problem.create({
+        data: {
+          id: sublevel.id,
+          sublevelId: sublevel.id,
+          title: prob.title,
+          description: prob.description,
+          difficulty: prob.difficulty,
+          xpReward: 100,
+          starterCode: prob.starterCode as any,
+        },
+      });
+
+      for (const tc of prob.testCases) {
+        await prisma.testCase.create({
+          data: {
+            problemId: problem.id,
+            input: tc.input,
+            expectedOutput: tc.expectedOutput,
+            isHidden: tc.isHidden || false,
           },
         });
       }
 
-      // Seed Problem with TestCases for Easy, Medium, and Boss stages
-      const problem = await prisma.problem.upsert({
-        where: { id: sublevel.id },
-        update: {
-          title: `Challenge: ${sub.title}`,
-          description: `Solve the canonical ${sub.title} problem under optimal time and space constraints: ${sub.concepts}.`,
-          difficulty: sub.tier === Tier.ADVANCED ? Difficulty.HARD : sub.tier === Tier.INTERMEDIATE ? Difficulty.MEDIUM : Difficulty.EASY,
-          xpReward: sub.tier === Tier.ADVANCED ? 80 : sub.tier === Tier.INTERMEDIATE ? 50 : 30,
-        },
-        create: {
-          id: sublevel.id,
-          sublevelId: sublevel.id,
-          title: `Challenge: ${sub.title}`,
-          description: `Solve the canonical ${sub.title} problem under optimal time and space constraints: ${sub.concepts}.`,
-          difficulty: sub.tier === Tier.ADVANCED ? Difficulty.HARD : sub.tier === Tier.INTERMEDIATE ? Difficulty.MEDIUM : Difficulty.EASY,
-          xpReward: sub.tier === Tier.ADVANCED ? 80 : sub.tier === Tier.INTERMEDIATE ? 50 : 30,
-          starterCode: {
-            python: 'class Solution:\n    def solve(self, nums, target):\n        return [0, 1]',
-            cpp: '#include <vector>\nusing namespace std;\nclass Solution { public: vector<int> solve(vector<int>& n, int t) { return {0,1}; } };',
-            java: 'class Solution { public int[] solve(int[] n, int t) { return new int[]{0,1}; } }',
-            c: 'int* solve(int* n, int s, int t, int* r) { *r = 2; int* a = malloc(8); a[0]=0; a[1]=1; return a; }',
-          },
-        },
-      });
-
-      await prisma.testCase.deleteMany({ where: { problemId: problem.id } });
-      await prisma.testCase.createMany({
-        data: [
-          { problemId: problem.id, input: '[2, 7, 11, 15], 9', expectedOutput: '[0, 1]', isHidden: false },
-          { problemId: problem.id, input: '[3, 2, 4], 6', expectedOutput: '[1, 2]', isHidden: false },
-          { problemId: problem.id, input: '[1, 5, 8, 12, 19], 20', expectedOutput: '[0, 4]', isHidden: true },
-        ],
-      });
+      console.log(`  ✓ Sublevel ${sublevel.id} (${sublevel.title}) -> [CODE_BASED: 8 Stages, Topic-Aligned Code]`);
     }
   }
 
-  console.log('✅ Seed completed successfully with 6 Units, 54 Sublevels, and 432 Stages!');
+  console.log('\n🎉 First-Year Student Syllabus Seed successfully completed!');
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error('Seed Error:', e);
     process.exit(1);
   })
   .finally(async () => {

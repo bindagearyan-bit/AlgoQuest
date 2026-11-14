@@ -55,7 +55,7 @@ function buildAdaptiveStagesList(subDef: SublevelDefinition, currentStage: numbe
     stageSequence = [
       { type: 'THEORY', title: `Theory: ${subDef.title}` },
       { type: 'QUIZ', title: `Quiz: ${subDef.title} Knowledge Check` },
-      { type: 'BOSS', title: subDef.stages.boss.title || `Mini-Boss: ${subDef.title}` },
+      { type: 'QUIZ', title: `👑 Mini-Boss Oracle Trial: ${subDef.title}` },
     ];
   } else if (type === 'HYBRID') {
     stageSequence = [
@@ -441,9 +441,9 @@ export class RoadmapService {
         stageTitle = `Quiz: ${subDef.title}`;
         contentJson = subDef.stages.quiz;
       } else {
-        stageType = 'BOSS';
-        stageTitle = subDef.stages.boss.title;
-        contentJson = subDef.stages.boss;
+        stageType = 'QUIZ';
+        stageTitle = `👑 Mini-Boss Oracle Trial: ${subDef.title}`;
+        contentJson = (subDef.stages.boss as any)?.quizQuestions ? subDef.stages.boss : subDef.stages.quiz;
       }
     } else if (type === 'HYBRID') {
       if (stageNumber === 1) {
