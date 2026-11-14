@@ -442,21 +442,9 @@ export const PIXEL_BADGE_CATALOG: PixelBadgeData[] = [
     "tier": "ADVANCED",
     "xpReward": 500,
     "iconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" shape-rendering=\"crispEdges\">\n      <rect x=\"10\" y=\"3\" width=\"4\" height=\"4\" fill=\"#FFFFFF\"/>\n      <rect x=\"3\" y=\"15\" width=\"4\" height=\"4\" fill=\"#00F0FF\"/>\n      <rect x=\"17\" y=\"15\" width=\"4\" height=\"4\" fill=\"#FF2FD4\"/>\n      <rect x=\"6\" y=\"8\" width=\"12\" height=\"2\" fill=\"#FFFFFF\"/>\n      <rect x=\"10\" y=\"10\" width=\"4\" height=\"4\" fill=\"#FFFFFF\"/>\n      <rect x=\"8\" y=\"17\" width=\"8\" height=\"2\" fill=\"#00F0FF\"/>\n    </svg>"
-  },
-  {
-    "sublevelId": 901,
-    "title": "Memory Maestro",
-    "description": "Achieved flawless pattern recognition in Memory Match with 12 or fewer moves.",
-    "tier": "BEGINNER",
-    "xpReward": 25,
-    "iconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" shape-rendering=\"crispEdges\">\n      <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" fill=\"#1B2A4A\"/>\n      <rect x=\"5\" y=\"5\" width=\"14\" height=\"2\" fill=\"#7FFFD4\"/>\n      <rect x=\"5\" y=\"17\" width=\"14\" height=\"2\" fill=\"#7FFFD4\"/>\n      <rect x=\"5\" y=\"7\" width=\"2\" height=\"10\" fill=\"#7FFFD4\"/>\n      <rect x=\"17\" y=\"7\" width=\"2\" height=\"10\" fill=\"#7FFFD4\"/>\n      <rect x=\"9\" y=\"8\" width=\"6\" height=\"2\" fill=\"#FFD93D\"/>\n      <rect x=\"13\" y=\"10\" width=\"2\" height=\"2\" fill=\"#FFD93D\"/>\n      <rect x=\"11\" y=\"12\" width=\"2\" height=\"2\" fill=\"#FFD93D\"/>\n      <rect x=\"11\" y=\"14\" width=\"2\" height=\"2\" fill=\"#FFD93D\"/>\n    </svg>"
   }
 ];
 
 export function getPixelBadgeBySublevelId(sublevelId: number): PixelBadgeData | undefined {
   return PIXEL_BADGE_CATALOG.find(b => b.sublevelId === sublevelId);
-}
-
-export function getPixelBadgeByTitle(title: string): PixelBadgeData | undefined {
-  return PIXEL_BADGE_CATALOG.find(b => b.title.toLowerCase() === title.toLowerCase());
 }
