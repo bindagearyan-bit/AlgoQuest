@@ -10,7 +10,7 @@ export const memoryUsers = new Map<string, any>();
 export const memoryProgress = new Map<string, any[]>();
 export const memoryBadges = new Map<number, any>();
 export const memoryUserBadges = new Map<string, any[]>();
-export const memoryGameSessions = new Map<string, any[]>();
+export const memoryDailyRuns = new Map<string, any[]>();
 export const memorySubmissions = new Map<string, any[]>();
 
 const DATA_DIR = process.env.VERCEL
@@ -27,7 +27,7 @@ export function saveStateToDisk() {
       users: Array.from(memoryUsers.entries()),
       progress: Array.from(memoryProgress.entries()),
       userBadges: Array.from(memoryUserBadges.entries()),
-      gameSessions: Array.from(memoryGameSessions.entries()),
+      dailyRuns: Array.from(memoryDailyRuns.entries()),
       submissions: Array.from(memorySubmissions.entries()),
       updatedAt: new Date().toISOString(),
     };
@@ -57,9 +57,9 @@ export function loadStateFromDisk(): boolean {
           memoryUserBadges.set(k, v);
         }
       }
-      if (Array.isArray(payload.gameSessions)) {
-        for (const [k, v] of payload.gameSessions) {
-          memoryGameSessions.set(k, v);
+      if (Array.isArray(payload.dailyRuns)) {
+        for (const [k, v] of payload.dailyRuns) {
+          memoryDailyRuns.set(k, v);
         }
       }
       if (Array.isArray(payload.submissions)) {

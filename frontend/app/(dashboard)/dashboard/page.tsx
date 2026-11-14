@@ -22,13 +22,13 @@ export default function MainDashboardPage() {
   const sublevelTitle = activeProgress?.sublevel?.title || 'Concept & Need of Data Structures';
   const levelTitle = activeProgress?.sublevel?.level?.title || 'Level 1: Foundations Island (Beginner Village)';
   const totalStages = (activeProgress as any)?.maxStage || (activeProgress?.sublevel?.sublevelType === 'THEORETICAL' ? 3 : activeProgress?.sublevel?.sublevelType === 'HYBRID' ? 5 : 8);
-  const [arcadeBestScore, setArcadeBestScore] = useState<number>(0);
+  const [escapeStreak, setEscapeStreak] = useState<number>(0);
 
   useEffect(() => {
     arcadeApi
-      .getMemoryMatchStats()
+      .getUserStreakInfo()
       .then((s) => {
-        if (s?.bestScore) setArcadeBestScore(s.bestScore);
+        if (s?.currentStreak !== undefined) setEscapeStreak(s.currentStreak);
       })
       .catch(() => {});
   }, []);
@@ -203,28 +203,28 @@ export default function MainDashboardPage() {
               <div className="flex items-center gap-1.5">
                 <Gamepad2 className="w-4 h-4 text-[#8D5832]" />
                 <h3 className="font-pixel text-[10px] sm:text-xs text-[#1A2744] uppercase">
-                  QUICK BREAK ARCADE
+                  DAILY ESCAPE ROOM
                 </h3>
               </div>
               <span className="font-pixel text-[8px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-300">
-                +25 XP
+                +50 TO +200 XP
               </span>
             </div>
 
             <p className="font-body text-xs text-[#1A2744]/80 mb-3">
-              Refresh your brain with a 60-second Data Structure matching puzzle!
+              Escape today's 10-room procedural algorithmic dungeon! Zero code typing.
             </p>
 
             <div className="flex items-center justify-between bg-white/70 border border-[#1B2A4A]/20 p-2 rounded mb-3">
-              <span className="font-pixel text-[8px] text-slate-600">PERSONAL BEST:</span>
+              <span className="font-pixel text-[8px] text-slate-600">DAILY STREAK:</span>
               <span className="font-pixel text-[10px] text-[#E65100] font-bold">
-                {arcadeBestScore > 0 ? `${arcadeBestScore} PTS` : 'NEW'}
+                {escapeStreak > 0 ? `${escapeStreak} DAYS 🔥` : 'START TODAY'}
               </span>
             </div>
 
-            <Link href="/arcade/memory-match" className="block w-full">
+            <Link href="/arcade/escape-room" className="block w-full">
               <PixelButton variant="mint" size="sm" className="w-full text-[9px] py-2">
-                <Play size={12} className="mr-1 fill-current" /> PLAY MEMORY MATCH
+                <Play size={12} className="mr-1 fill-current" /> PLAY DAILY ESCAPE
               </PixelButton>
             </Link>
           </PixelCard>

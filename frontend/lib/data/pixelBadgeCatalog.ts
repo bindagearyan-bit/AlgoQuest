@@ -442,9 +442,71 @@ export const PIXEL_BADGE_CATALOG: PixelBadgeData[] = [
     "tier": "ADVANCED",
     "xpReward": 500,
     "iconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" shape-rendering=\"crispEdges\">\n      <rect x=\"10\" y=\"3\" width=\"4\" height=\"4\" fill=\"#FFFFFF\"/>\n      <rect x=\"3\" y=\"15\" width=\"4\" height=\"4\" fill=\"#00F0FF\"/>\n      <rect x=\"17\" y=\"15\" width=\"4\" height=\"4\" fill=\"#FF2FD4\"/>\n      <rect x=\"6\" y=\"8\" width=\"12\" height=\"2\" fill=\"#FFFFFF\"/>\n      <rect x=\"10\" y=\"10\" width=\"4\" height=\"4\" fill=\"#FFFFFF\"/>\n      <rect x=\"8\" y=\"17\" width=\"8\" height=\"2\" fill=\"#00F0FF\"/>\n    </svg>"
+  },
+  {
+    "sublevelId": 901,
+    "title": "Week Survivor",
+    "description": "Maintained a 7-day daily escape room streak across consecutive algorithmic dungeons.",
+    "tier": "BEGINNER",
+    "xpReward": 100,
+    "iconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" shape-rendering=\"crispEdges\">\n      <rect x=\"8\" y=\"3\" width=\"8\" height=\"3\" fill=\"#00F0FF\"/>\n      <rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" fill=\"#1A1744\"/>\n      <rect x=\"8\" y=\"8\" width=\"8\" height=\"8\" fill=\"#7FFFD4\"/>\n      <rect x=\"10\" y=\"10\" width=\"4\" height=\"4\" fill=\"#FFFFFF\"/>\n      <rect x=\"10\" y=\"19\" width=\"4\" height=\"3\" fill=\"#00F0FF\"/>\n    </svg>"
+  },
+  {
+    "sublevelId": 902,
+    "title": "Dungeon Legend",
+    "description": "Conquered 30 consecutive daily escape dungeons with unbroken determination.",
+    "tier": "INTERMEDIATE",
+    "xpReward": 250,
+    "iconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" shape-rendering=\"crispEdges\">\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"4\" fill=\"#FF2FD4\"/>\n      <rect x=\"4\" y=\"6\" width=\"16\" height=\"12\" fill=\"#2E1F3D\"/>\n      <rect x=\"7\" y=\"9\" width=\"10\" height=\"6\" fill=\"#FFD93D\"/>\n      <rect x=\"9\" y=\"11\" width=\"6\" height=\"2\" fill=\"#FFFFFF\"/>\n      <rect x=\"8\" y=\"19\" width=\"8\" height=\"3\" fill=\"#FF2FD4\"/>\n    </svg>"
+  },
+  {
+    "sublevelId": 903,
+    "title": "Immortal Escapist",
+    "description": "Ascended to the highest pantheon of dungeon solvers with a legendary 100-day daily streak.",
+    "tier": "ADVANCED",
+    "xpReward": 1000,
+    "iconSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" shape-rendering=\"crispEdges\">\n      <rect x=\"4\" y=\"2\" width=\"16\" height=\"4\" fill=\"#FFD700\"/>\n      <rect x=\"2\" y=\"6\" width=\"20\" height=\"12\" fill=\"#0D0B2E\"/>\n      <rect x=\"6\" y=\"8\" width=\"12\" height=\"8\" fill=\"#00F0FF\"/>\n      <rect x=\"8\" y=\"10\" width=\"8\" height=\"4\" fill=\"#FFFFFF\"/>\n      <rect x=\"6\" y=\"19\" width=\"12\" height=\"3\" fill=\"#FFD700\"/>\n    </svg>"
   }
 ];
 
 export function getPixelBadgeBySublevelId(sublevelId: number): PixelBadgeData | undefined {
   return PIXEL_BADGE_CATALOG.find(b => b.sublevelId === sublevelId);
+}
+
+export function getPixelBadgeByTitle(title: string): PixelBadgeData | undefined {
+  return PIXEL_BADGE_CATALOG.find(b => b.title.toLowerCase() === title.toLowerCase());
+}
+
+export function createDailyEscapeBadge(dateStr: string, isFlawless: boolean): PixelBadgeData {
+  const parts = dateStr.split('-');
+  const year = parts[0] || '2026';
+  const monthNum = parseInt(parts[1] || '1', 10);
+  const day = parts[2] || '1';
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const monthName = months[monthNum - 1] || 'Day';
+  const formattedDate = `${monthName} ${day}, ${year}`;
+
+  const title = isFlawless ? `Flawless Escapist of ${formattedDate}` : `Escapist of ${formattedDate}`;
+  const description = isFlawless
+    ? `Flawlessly survived all 10 rooms of the ${formattedDate} Daily Algorithm Escape Room with 5/5 lives intact!`
+    : `Successfully conquered the 10-room Daily Algorithm Escape Room on ${formattedDate}.`;
+
+  const border = isFlawless ? '#FFD700' : '#00F0FF';
+  const inner = isFlawless ? '#FF2FD4' : '#7FFFD4';
+
+  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" shape-rendering="crispEdges">
+    <polygon points="12,2 22,7 22,17 12,22 2,17 2,7" fill="#0D0B2E" stroke="${border}" stroke-width="1"/>
+    <rect x="7" y="7" width="10" height="10" fill="${inner}"/>
+    <rect x="9" y="9" width="6" height="6" fill="#FFFFFF"/>
+    <rect x="11" y="11" width="2" height="2" fill="#0D0B2E"/>
+  </svg>`;
+
+  return {
+    sublevelId: 999,
+    title,
+    description,
+    tier: isFlawless ? 'ADVANCED' : 'BEGINNER',
+    xpReward: isFlawless ? 200 : 50,
+    iconSvg,
+  };
 }

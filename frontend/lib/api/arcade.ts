@@ -1,39 +1,108 @@
 import api from './axios';
 
-export interface MemoryMatchSubmission {
-  score: number;
+export interface EscapeRunSubmission {
   timeElapsed: number;
-  moves: number;
+  livesRemaining: number;
+  roomsCleared: number;
+  isPractice?: boolean;
+  dateString?: string;
 }
 
-export interface ArcadeSessionResponse {
-  session: any;
-  xpEarned: number;
-  isPerfectGame: boolean;
-  newBadgeUnlocked?: any;
-  badge?: any;
-  stats: {
-    bestScore: number;
-    bestTime: number;
-    bestMoves: number;
-    timesPlayed: number;
+export interface EscapeRunResult {
+  success: boolean;
+  isVictory: boolean;
+  isFlawless: boolean;
+  roomsCleared: number;
+  timeElapsed: number;
+  livesRemaining: number;
+  xpBreakdown: {
+    baseXP: number;
+    timeBonus: number;
+    flawlessBonus: number;
+    speedrunnerBonus: number;
+    totalXpEarned: number;
   };
+  streak: {
+    current: number;
+    longest: number;
+  };
+  dailyBadge?: {
+    title: string;
+    description: string;
+    tier: string;
+    xpReward: number;
+    iconSvg: string;
+  };
+  milestoneUnlocked?: {
+    days: number;
+    title: string;
+    description: string;
+    badgeTitle?: string;
+    bonusXp?: number;
+    bonusGems?: number;
+  };
+  luckyChestReward?: {
+    title: string;
+    description: string;
+    bonusXp: number;
+    bonusGems: number;
+  };
+  shareCard?: {
+    username: string;
+    date: string;
+    timeElapsed: number;
+    livesRemaining: number;
+    isFlawless: boolean;
+    roomsCleared: number;
+    streak: number;
+  };
+  alreadyPlayed?: boolean;
+  message?: string;
 }
 
 export const arcadeApi = {
-  async saveMemoryMatchSession(data: MemoryMatchSubmission): Promise<ArcadeSessionResponse> {
-    const res = await api.post('/arcade/memory-match/complete', data);
+  // Get Today's Dungeon & Status
+  async getTodayDungeon() {
+    const res = await api.get('/arcade/escape-room/today');
     return res.data?.data;
   },
 
-  async getMemoryMatchLeaderboard(limit = 10) {
-    const res = await api.get(`/arcade/memory-match/leaderboard?limit=${limit}`);
-    return res.data?.data || [];
+  // Get Past Dungeon for Practice Mode
+  async getPracticeDungeon(dateString: string) {
+    const res = await api.get(`/arcade/escape-room/practice/${dateString}`);
+    return res.data?.data;
   },
 
-  async getMemoryMatchStats() {
-    const res = await api.get('/arcade/memory-match/stats');
-    return res.data?.data || { bestScore: 0, bestTime: 0, bestMoves: 0, timesPlayed: 0 };
+  // Submit Scored or Practice Run
+  async submitEscapeRun(data: EscapeRunSubmission): Promise<EscapeRunResult> {
+    const res = await api.post('/arcade/escape-room/submit', data);
+    return res.data?.data;
+  },
+
+  // Get Daily Leaderboard
+  async getDailyLeaderboard(date?: string, flawlessOnly = false, limit = 100) {
+    const params = new URLSearchParams();
+    if (date) params.append('date', date);
+    if (flawlessOnly) params.append('flawless', 'true');
+    params.append('limit', limit.toString());
+
+    const res = await api.get(`/arcade/escape-room/leaderboard?${params.toString()}`);
+    return res.data?.data;
+  },
+
+  // Get User Streak & Milestones
+  async getUserStreakInfo() {
+    const res = await api.get('/arcade/escape-room/streak');
+    return res.data?.data;
+  },
+
+  // Get Escape Calendar
+  async getUserCalendar(year?: number, month?: number) {
+    const params = new URLSearchParams();
+    if (year) params.append('year', year.toString());
+    if (month) params.append('month', month.toString());
+
+    const res = await api.get(`/arcade/escape-room/calendar?${params.toString()}`);
+    return res.data?.data;
   },
 };
-

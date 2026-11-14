@@ -73,8 +73,11 @@ model User {
   submissions     Submission[]
   achievements    UserAchievement[]
   quizAttempts    QuizAttempt[]
-  userBadges      UserBadge[]
-  gameSessions    GameSession[]
+  userBadges          UserBadge[]
+  dailyEscapeStreak   Int               @default(0)
+  longestEscapeStreak Int               @default(0)
+  lastEscapeDate      String?
+  dailyEscapeRuns     DailyEscapeRun[]
 
   @@index([email])
   @@index([xp])
@@ -214,16 +217,19 @@ model QuizAttempt {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model GameSession {
-  id          String   @id @default(uuid())
-  userId      String
-  gameType    String   // e.g. "MEMORY_MATCH_DS_ICONS"
-  score       Int
-  timeElapsed Int      // in seconds
-  moves       Int
-  xpEarned    Int
-  completedAt DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model DailyEscapeRun {
+  id             String   @id @default(uuid())
+  userId         String
+  dateString     String   // UTC YYYY-MM-DD
+  timeElapsed    Int      // in seconds
+  livesRemaining Int      // 1 to 5
+  isFlawless     Boolean  @default(false)
+  isPractice     Boolean  @default(false)
+  xpEarned       Int      @default(0)
+  roomsCleared   Int      @default(10)
+  completedAt    DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId, gameType])
+  @@index([dateString, timeElapsed])
+  @@index([userId, dateString])
 }

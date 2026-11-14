@@ -21,14 +21,12 @@ const flexibleAuth = (req: Request, res: Response, next: NextFunction) => {
 
 router.use(flexibleAuth);
 
-// POST /api/v1/arcade/memory-match/complete
-router.post('/memory-match/complete', (req, res) => arcadeController.completeMemoryMatch(req, res));
-
-// GET /api/v1/arcade/memory-match/leaderboard
-router.get('/memory-match/leaderboard', (req, res) => arcadeController.getLeaderboard(req, res));
-
-// GET /api/v1/arcade/memory-match/stats
-router.get('/memory-match/stats', (req, res) => arcadeController.getUserStats(req, res));
+// Daily Algorithm Escape Room Endpoints
+router.get('/escape-room/today', (req, res) => arcadeController.getTodayDungeon(req, res));
+router.get('/escape-room/practice/:date', (req, res) => arcadeController.getPracticeDungeon(req, res));
+router.post('/escape-room/submit', (req, res) => arcadeController.submitEscapeRun(req, res));
+router.get('/escape-room/leaderboard', (req, res) => arcadeController.getDailyLeaderboard(req, res));
+router.get('/escape-room/streak', (req, res) => arcadeController.getUserStreakInfo(req, res));
+router.get('/escape-room/calendar', (req, res) => arcadeController.getUserCalendar(req, res));
 
 export default router;
-

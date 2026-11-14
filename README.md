@@ -153,19 +153,27 @@ Every completed sublevel awards a unique, hand-crafted **16-Bit Pixel-Art Medal 
 
 ---
 
-### 6. 🕹️ AlgoQuest Arcade & "Memory Match: DS Icons" Mini-Game
+### 6. 🕹️ AlgoQuest Arcade — Flagship "Daily Algorithm Escape Room"
 
-- **No-Code Cognitive Break Activity:** A retro Game Boy Advance / SNES style memory card matching mini-game located at `/arcade/memory-match` designed to reinforce core Data Structure vocabulary without writing code.
-- **6 Hand-Crafted 16-Bit Pixel Card Pairs (12 Cards):**
-  - `ARRAY`: Contiguous horizontal bar with indexed memory blocks `[1][2][3][4][5]`.
-  - `STACK`: LIFO plate tower with glowing top plate and push/pop direction arrow.
-  - `QUEUE`: FIFO queue with 4 pixel character sprites and directional dequeuing arrow.
-  - `LINKED LIST`: Dynamic pointer chains `[A] → [B] → [C]`.
-  - `TREE`: Hierarchical binary tree with root, branches, and leaf nodes.
-  - `GRAPH`: Non-linear network of vertices connected by undirected pixel edges.
-- **Dual-Engine 8-Bit Audio:** Synthesized instant Web Audio API chip square waves + PCM audio fallbacks for card flips, match chimes, error buzzers, and victory fanfares with persistent mute toggle.
-- **Scoring & Rewards:** Time and moves bonus scoring, +10 Participation XP, +25 Victory XP for finishing under 60 seconds, and the exclusive **Memory Maestro** pixel badge for completing the game in ≤12 moves.
-- **Arcade Tavern Hub & Dashboard Widget:** Complete `/arcade` showcase with personal best tracking, top 10 player leaderboard, and 1-click "Quick Break" launcher directly from the main dashboard.
+- **Deterministic Date-Seeded Dungeon Engine:** A brand new 10-room algorithmic dungeon generated procedurally every day at 00:00 UTC (`/arcade/escape-room`). All players globally attempt the exact same daily dungeon seeded from the UTC date string, with zero AI and zero external API dependencies.
+- **10 First-Year Friendly Procedural Rooms (Zero Typing, 1-2 Tap Logic):**
+  1. `Room 1 — Array Indexing Hall`: 4 themed items on 0-indexed tiles (`[0]` to `[3]`).
+  2. `Room 2 — Boundary Spike Pit`: Identify the index triggering `IndexOutOfBounds` for array length $N$.
+  3. `Room 3 — Stack Rune Pillar (LIFO)`: Pop runes from vertical pillar until target rune reaches the top.
+  4. `Room 4 — Stack Overflow / Underflow Trap`: Prevent memory overflow/underflow under capacity constraints.
+  5. `Room 5 — Queue Dungeon Gate (FIFO)`: Checkpoint room! Identify the first adventurer to dequeue.
+  6. `Room 6 — Loop Counter Bridge`: Determine exact plank traversal count from Fira Code loop snippets.
+  7. `Room 7 — If-Else Gate`: Evaluate branching depth conditions to unlock the RED or GREEN door.
+  8. `Room 8 — Linked List Chain`: Identify where the tail node's next pointer terminates (`NULL`).
+  9. `Room 9 — Recursion Portal`: Pick the valid base case portal to prevent infinite call stack recursion.
+  10. `Room 10 — Final Boss Logic Vault`: Insert 3 collected dungeon keys in the vault's exact required sequence.
+- **Retention & Gamification Engine:**
+  - **Daily Streaks & Flame Growth:** Consecutive daily escapes increment streak; milestones at 3, 7, 14, 30, and 100 days award bonus XP, gems, and exclusive titles (`Week Survivor`, `Dungeon Legend`, `Immortal Escapist`).
+  - **Lucky Chest:** Every 5th consecutive daily completion unlocks a randomized loot drop (XP + Gems).
+  - **Date-Stamped Badges:** Unique permanent daily badges minted daily (`Escapist of [Date]`) with gold-tier variants for flawless runs (all 5 lives intact).
+  - **Monthly Escape Calendar & Practice Mode:** Interactive monthly grid to review past runs and launch unlimited unscored Practice runs on past dungeons.
+  - **Global Daily Leaderboard:** Date-scoped top 100 fastest times worldwide with a dedicated Flawless filter.
+  - **Downloadable Share Card:** 1-click HTML5 Canvas pixel share card export with `#AlgoQuestDaily`.
 
 ---
 
