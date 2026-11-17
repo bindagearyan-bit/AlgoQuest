@@ -146,3 +146,4 @@ export const EscapeRoomCalendar: React.FC<EscapeRoomCalendarProps> = ({
     </div>
   );
 };
+
