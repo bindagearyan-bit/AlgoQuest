@@ -180,3 +180,4 @@ export const ShareCardModal: React.FC<ShareCardModalProps> = ({
     </PixelModal>
   );
 };
+

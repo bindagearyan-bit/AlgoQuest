@@ -140,3 +140,4 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
     </PixelModal>
   );
 };
+
