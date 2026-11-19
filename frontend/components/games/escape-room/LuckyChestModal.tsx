@@ -62,3 +62,4 @@ export const LuckyChestModal: React.FC<LuckyChestModalProps> = ({
     </PixelModal>
   );
 };
+

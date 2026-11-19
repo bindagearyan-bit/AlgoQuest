@@ -486,3 +486,4 @@ export const EscapeRoomGame: React.FC = () => {
     </div>
   );
 };
+
