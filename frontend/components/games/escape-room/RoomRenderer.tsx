@@ -573,3 +573,4 @@ export const RoomRenderer: React.FC<RoomRendererProps> = ({
     </div>
   );
 };
+

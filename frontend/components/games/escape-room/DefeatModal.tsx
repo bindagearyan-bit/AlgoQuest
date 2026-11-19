@@ -100,3 +100,4 @@ export const DefeatModal: React.FC<DefeatModalProps> = ({
     </PixelModal>
   );
 };
+
