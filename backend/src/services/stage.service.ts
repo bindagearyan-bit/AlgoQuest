@@ -3,6 +3,10 @@ import { memoryUsers, memoryProgress, memoryBadges, memoryUserBadges, saveStateT
 import { getSublevelById, getAllSublevels, SublevelType } from '../data/curriculumCatalog';
 import { getPixelBadgeBySublevelId } from '../data/pixelBadgeCatalog';
 
+/**
+ * Standard experience point reward matrix for each syllabus stage activity.
+ * Theory and visualization grant foundational XP, while boss challenges reward mastery.
+ */
 const XP_MAP: Record<string, number> = {
   THEORY: 10,
   VISUALIZATION: 10,
