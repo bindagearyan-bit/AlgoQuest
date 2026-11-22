@@ -1,5 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 
+/**
+ * Prisma Client Singleton Instance
+ * Configured with resilient proxy fallback for serverless restarts and seamless
+ * connection pool handling across Supabase transaction poolers (port 6543) and direct connections.
+ */
 declare global {
   // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
