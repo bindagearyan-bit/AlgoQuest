@@ -13,6 +13,7 @@ import { authGuard } from '../middlewares/authGuard';
 
 const router = Router();
 
+// Core API feature modules
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);
 router.use('/roadmap', roadmapRoutes);
