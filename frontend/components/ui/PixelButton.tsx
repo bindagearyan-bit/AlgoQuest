@@ -38,7 +38,7 @@ export const PixelButton: React.FC<PixelButtonProps> = ({
     <button
       disabled={disabled}
       className={cn(
-        'font-pixel tracking-wider inline-flex items-center justify-center transition-all cursor-pointer select-none',
+        'font-pixel tracking-wider inline-flex items-center justify-center transition-all cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B2A4A] focus-visible:ring-offset-2',
         variantStyles[variant],
         sizeStyles[size],
         fullWidth && 'w-full',
