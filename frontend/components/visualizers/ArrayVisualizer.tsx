@@ -6,6 +6,9 @@ import { PixelButton } from '../ui/PixelButton';
 import { Play, Pause, SkipForward, RotateCcw } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+/**
+ * Step configuration model for interactive two-pointer and index visualizers.
+ */
 interface VisualizerStep {
   activeIndices: number[];
   pointerLeft: number;
