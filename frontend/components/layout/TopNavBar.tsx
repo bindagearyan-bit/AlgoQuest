@@ -39,7 +39,7 @@ export const TopNavBar: React.FC = () => {
         </Link>
 
         {/* Center Nav Links (Desktop) */}
-        <nav className="hidden lg:flex items-center space-x-2">
+        <nav aria-label="Main Navigation" className="hidden lg:flex items-center space-x-2">
           {navLinks.map((link) => {
             const isActive = pathname.startsWith(link.href);
             return (
