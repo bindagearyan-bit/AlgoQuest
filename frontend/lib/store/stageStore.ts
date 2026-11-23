@@ -1,5 +1,9 @@
 import { create } from 'zustand';
 
+/**
+ * Global Zustand stage store managing current syllabus position, active IDE language,
+ * cached editor contents per language, and in-flight quiz responses.
+ */
 interface StageState {
   currentSublevelId: number | null;
   currentStageNumber: number | null;
