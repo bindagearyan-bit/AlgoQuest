@@ -5,6 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        // Retro arcade display typography
         pixel: ['"Press Start 2P"', 'monospace'],
         pixelSans: ['"Pixelify Sans"', 'sans-serif'],
         body: ['Nunito', 'sans-serif'],
