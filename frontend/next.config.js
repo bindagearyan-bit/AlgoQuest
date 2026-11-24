@@ -8,7 +8,10 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   async rewrites() {
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
+    const isProd = process.env.NODE_ENV === 'production';
+    const backendUrl =
+      process.env.BACKEND_URL ||
+      (isProd ? 'https://algoquest-api.vercel.app' : 'http://localhost:5000');
     return [
       {
         source: '/api/v1/:path*',
