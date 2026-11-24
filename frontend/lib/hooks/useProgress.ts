@@ -5,6 +5,7 @@ export function useProgress() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['userProgress'],
     queryFn: () => userApi.getProgress(),
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   return {

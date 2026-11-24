@@ -4,7 +4,12 @@ import Cookies from 'js-cookie';
 
 export function useAuth(requireAuth = true) {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(() => {
+    if (typeof window !== 'undefined') {
+      return Boolean(Cookies.get('access_token'));
+    }
+    return null;
+  });
 
   useEffect(() => {
     const token = Cookies.get('access_token');

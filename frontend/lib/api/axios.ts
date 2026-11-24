@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 const api = axios.create({
   baseURL: typeof window !== 'undefined' ? '/api/v1' : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1'),
+  timeout: 8000,
   withCredentials: true,
 });
 

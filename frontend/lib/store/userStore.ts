@@ -35,12 +35,25 @@ export const useUserStore = create<UserState>((set) => ({
   gems: 100,
   streakCount: 0,
   setUser: (user) =>
-    set({
-      user,
-      xp: user.xp ?? 0,
-      hearts: user.hearts ?? 5,
-      gems: user.gems ?? 100,
-      streakCount: user.streakCount ?? 0,
+    set((state) => {
+      // Prevent unnecessary rerenders if user state has not meaningfully changed
+      if (
+        state.user &&
+        state.user.id === user.id &&
+        state.user.xp === user.xp &&
+        state.user.hearts === user.hearts &&
+        state.user.gems === user.gems &&
+        state.user.streakCount === user.streakCount
+      ) {
+        return state;
+      }
+      return {
+        user,
+        xp: user.xp ?? 0,
+        hearts: user.hearts ?? 5,
+        gems: user.gems ?? 100,
+        streakCount: user.streakCount ?? 0,
+      };
     }),
   updateXP: (xp) => set({ xp }),
   updateHearts: (hearts) => set({ hearts }),
